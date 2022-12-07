@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoyohann <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/10 11:26:00 by yoyohann          #+#    #+#              #
-#    Updated: 2021/10/11 20:38:34 by yonas            ###   ########.fr        #
+#    Updated: 2022/11/30 23:24:23 by yoyohann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FILES = ft_memset ft_bzero ft_memcpy ft_memmove ft_memchr ft_memcmp \
 		ft_tolower ft_calloc ft_strdup ft_substr \
 		ft_strjoin ft_strtrim ft_split ft_itoa \
 		ft_strmapi ft_putchar_fd ft_putstr_fd ft_putendl_fd \
-		ft_putnbr_fd ft_striteri
+		ft_putnbr_fd ft_striteri ft_strcmp
 
 FILES_B = 	ft_lstnew_bonus ft_lstadd_front_bonus ft_lstsize_bonus ft_lstlast_bonus \
 	  		ft_lstadd_back_bonus ft_lstdelone_bonus ft_lstclear_bonus \
