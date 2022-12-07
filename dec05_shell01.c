@@ -351,7 +351,7 @@ void	back_slash(int sig)
 130: script terminated by Ctrl-C */
 
                       https : // www.thegeekstuff.com/2010/10/linux-error-codes/
-
+/*
                               void
 run_command(mini)
     {

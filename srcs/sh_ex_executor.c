@@ -317,7 +317,7 @@ void sh_ex_execcmd(t_shell_s *shell)
         sh_ex_exitstatus = WEXITSTATUS(sh_ex_exitstatus);
     return;
 }
-
+/* 
  void sh_ex_executeall(t_shell_s *shell)
 {
     int i;
@@ -396,4 +396,4 @@ void sh_ex_checkredirect(t_shell_s *shell)
         sh_ex_exitstatus = 1;
         printf("minishell: %s", shell->error_file);
     }
-}
+} */

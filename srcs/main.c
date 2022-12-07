@@ -14,13 +14,19 @@
 
 void    sh_ex_wcmessage()
 {
-    printf("%s%s\n",CYAN,"----------------------------------------");
+    char *term;
+
+    term = getenv("SHELL");
+    printf(RED "The default interactive shell is now %s.\n", term);
+    printf("To update your account to use %s, please run 'chsh -s /bin/zsh'.\n", term);
+    printf("For more details, please contact Yao and Yonas.\n");
+/*     printf("%s%s\n",CYAN,"----------------------------------------");
     printf("%s\n","||                                    ||");
     printf("%s\n","||                                    ||");
     printf("%s\n","||      Welcome to Minishell          ||");
     printf("%s\n","||                                    ||");
     printf("%s\n","||                                    ||");
-    printf("%s%s\n\n","----------------------------------------", WHITE);
+    printf("%s%s\n\n","----------------------------------------", WHITE); */
 }
 
 // count the number of string in the double arrray return the length
@@ -266,7 +272,7 @@ int main(int argc, char **argv, char **envp)
     t_shell_s shell;
 
     sh_ex_exitstatus = 0;
-//    sh_ex_wcmessage();
+    sh_ex_wcmessage();
     sh_ex_initshell(&shell, envp);
 
      while (1)

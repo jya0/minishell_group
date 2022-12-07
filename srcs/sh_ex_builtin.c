@@ -1,6 +1,6 @@
 #include "../includes/sh_executor.h"
 
-int sh_ex_isbuiltin(char *str)
+/* int sh_ex_isbuiltin(char *str)
 {
     if (ft_strcmp(str, "echo") == 0)
         return 1;
@@ -20,7 +20,7 @@ int sh_ex_isbuiltin(char *str)
         return 1;    
     return (0);
 }
-
+ */
 int sh_ex_isbuiltin(t_shell_s *shell)
 {
     if (ft_strcmp(shell->cmd_line, "echo") == 0)

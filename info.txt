@@ -1,0 +1,3 @@
+https://code.google.com/archive/p/mini-shell/
+https://www.gnu.org/software/libc/manual/html_node/index.html#SEC_Contents
+https://www.emertxe.com/embedded-systems/linux-internals/li-projects/mini-shell/#similarId
