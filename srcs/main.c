@@ -273,6 +273,8 @@ int main(int argc, char **argv, char **envp)
 
     sh_ex_exitstatus = 0;
     sh_ex_wcmessage();
+
+    init_shell();
     sh_ex_initshell(&shell, envp);
 
      while (1)

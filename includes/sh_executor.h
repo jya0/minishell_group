@@ -23,6 +23,8 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+
 // struct for the environment variables
 
 //struct termios new_term, old_term;
@@ -152,5 +154,5 @@ void reset_mode(void);
 
 void sh_ex_redirectfile(t_shell_s *shell);
 
-
+void init_shell();
 #endif

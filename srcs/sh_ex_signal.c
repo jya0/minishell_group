@@ -8,7 +8,7 @@ void	sh_ex_sighandle(int sig)
     if (sig == 1)
     {
          signal(SIGINT, sh_ex_newprompt);
-         signal(SIGQUIT, SIG_IGN);
+    //     signal(SIGQUIT, SIG_IGN);
     }
 /*     if (sig == 2)
     {

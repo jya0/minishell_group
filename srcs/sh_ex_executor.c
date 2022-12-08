@@ -397,3 +397,25 @@ void sh_ex_checkredirect(t_shell_s *shell)
         printf("minishell: %s", shell->error_file);
     }
 } */
+
+// once it have the control of the terminal it can launch commands typed 
+// by the user
+
+// to create a process in a process group use fork and exec functions
+
+
+/* // there are two options to structure parent child relationship among the 
+ the process 
+   - you can make all process in the process group be the children of the 
+    shell process
+    - or make one process the ancestor of all the other process in the group.
+ 
+    as each proces is forked it put itself in the new process group by calling
+    setgpid the first process in group become the process group leader and 
+    its process ID become the group process ID for the group.
+
+    - the shell also call setgpid to put all child process in the 
+    group process before begin executing new program, to ensure the
+    child process are in the group.
+    
+ */
