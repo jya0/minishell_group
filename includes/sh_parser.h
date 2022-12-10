@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/10 14:53:46 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/10 15:14:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+/*defining constants*/
+# define TOK_DELIM	" \n\t\v\f\r"
 
 /*the members of this enum matches with 
 **the members of the struct in the same order!*/
