@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/10 14:29:49 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/10 14:53:46 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 **the members of the struct in the same order!*/
 typedef enum e_ast_data_type {
 	DT_NULL = -1,
-	DT_LONGS,
-	DT_LONGU,
+	// DT_LONGS,
+	// DT_LONGU,
 	DT_CHAR_PTR,
-	DT_WILD_PTR
+	DT_ARGS_PTR
 }	t_ast_data_type;
 
 typedef union u_ast_data {
-	ssize_t			long_s;
-	size_t			long_u;
+	// ssize_t			long_s;
+	// size_t			long_u;
 	char			*str_ptr;
-	void			*wild_ptr;
+	char			**args_ptr;
 }	t_ast_data;
 
 typedef enum e_ast_node_type {
@@ -48,6 +48,5 @@ typedef struct s_ast_node {
 	struct s_ast_node	*child_l;
 	struct s_ast_node	*child_r;
 }	t_ast_node;
-
 
 #endif
