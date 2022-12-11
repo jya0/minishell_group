@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/11 12:24:43 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/11 12:48:37 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static char	*get_next_tok(const char **buf_stored, const char *delim)
 	return (ft_substr(buf_tmp, start, end - start));
 }
 
-/*Gets the input from readline, then returns a token each time it is called!*/
-
+/*Gets the input from readline, then returns a token string each time it is called!*/
 char	*sh_ps_token(const char *buf_src, const char *delim)
 {
 	static const char	*buf_stored;
@@ -56,8 +55,8 @@ char	*sh_ps_token(const char *buf_src, const char *delim)
 }
 
 
-/*Already tested for memory leaks!*/
-/*
+/*================Already tested for memory leaks!==================*/
+// /*
 int	main(int argc, char	*argv[])
 {
 	char	*tok;
@@ -74,5 +73,5 @@ int	main(int argc, char	*argv[])
 	}
 	return (0);
 }
-*/
+// */
 
