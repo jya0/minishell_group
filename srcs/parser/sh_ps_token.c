@@ -6,19 +6,19 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/10 17:24:03 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/11 12:24:43 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*why do we need this when we already have ft_split????
-**because our split only take one delim char and moreover this strtok
+**because ft_split only takes one delim char and moreover this strtok
 implementation is in my opinion cleaner*/
 
-static char	*get_next_tok(char **buf_stored, const char *delim)
+static char	*get_next_tok(const char **buf_stored, const char *delim)
 {
-	char				*buf_tmp;
+	const char			*buf_tmp;
 	unsigned int		start;
 	unsigned int		end;
 
@@ -38,10 +38,12 @@ static char	*get_next_tok(char **buf_stored, const char *delim)
 	return (ft_substr(buf_tmp, start, end - start));
 }
 
-char	*sh_ps_tokenize(char *buf_src, const char *delim)
+/*Gets the input from readline, then returns a token each time it is called!*/
+
+char	*sh_ps_token(const char *buf_src, const char *delim)
 {
-	static char	*buf_stored;
-	char		*tok;
+	static const char	*buf_stored;
+	char				*tok;
 
 	if (delim == NULL || (buf_src == NULL && buf_stored == NULL))
 		return (NULL);
@@ -53,27 +55,24 @@ char	*sh_ps_tokenize(char *buf_src, const char *delim)
 	return (tok);
 }
 
+
+/*Already tested for memory leaks!*/
+/*
 int	main(int argc, char	*argv[])
 {
 	char	*tok;
 
 	if (argc == 1)
 		return (0);
-	tok = sh_ps_tokenize(argv[1], TOK_DELIM);
+	tok = sh_ps_token(argv[1], TOK_DELIM);
 	while (tok != NULL)
 	{
 		printf("%s %d\n", tok, ft_strlen(tok));
 		free(tok);
 		// sleep(5);
-		tok = sh_ps_tokenize(NULL, TOK_DELIM);
-	}
-	tok = sh_ps_tokenize(argv[2], TOK_DELIM);
-	while (tok != NULL)
-	{
-		printf("%s\n", tok);
-		free(tok);
-		// sleep(5);
-		tok = sh_ps_tokenize(NULL, TOK_DELIM);
+		tok = sh_ps_token(NULL, TOK_DELIM);
 	}
 	return (0);
 }
+*/
+
