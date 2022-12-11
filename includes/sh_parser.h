@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/11 12:34:06 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/11 12:43:28 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef enum e_node_type {
 
 typedef enum e_term_type {
 	TT_NULL = -1,
+	TT_CMD,
+	TT_CMD_ARGS,
 	TT_PIPE,
 	TT_REDIR_L,
 	TT_REDIR_R,
@@ -64,6 +66,7 @@ typedef struct s_ast_node {
 	t_term_type			term_type;
 	t_data_type			data_type;
 	t_data				data;
+	struct s_ast_node	*parent;
 	struct s_ast_node	*child_l;
 	struct s_ast_node	*child_r;
 }	t_ast_node;
