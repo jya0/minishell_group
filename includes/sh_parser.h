@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/20 17:53:14 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/21 19:56:27 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,14 @@ enum e_term_type {
 
 /*==================SECTION FOR TOKENIZING===============*/
 
+/*
+** str_end is the address of the first charater of the str, in the 
+** original readline string (buf_src)
+*/
 typedef struct s_words {
 	// size_t				index;
 	char				*str;
+	const char			*str_start;
 	int					str_len;
 	enum e_term_type	term_type;
 	struct s_words		*next;
@@ -121,6 +126,16 @@ void			sh_ps_lexer_word_print_list(t_words *head_word);
 /*===================sh_ps_lexer.c=====================*/
 
 t_words			*sh_ps_lexer(const char *buf_src);
+
+//
+
+/*=============sh_ps_lexer_expansion.c===============*/
+
+enum	e_quote_state {
+	IN_NULL = -1,
+	IN_QUOTE_S,
+	IN_QUOTE_D
+};
 
 /*===================sh_ps_parser_commands.c=====================*/
 

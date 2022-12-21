@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/19 13:00:39 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:08:19 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ const char *buf_stored, const char *char_set, int flag)
 	return (i);
 }
 
-static t_words	*make_word(const char *buf_stored, size_t *start, size_t *end)
+static t_words	*make_word(const char *buf_stored, size_t start, size_t *end)
 {
 	t_words	*word;
 	char	*c;
@@ -78,7 +78,7 @@ static t_words	*make_word(const char *buf_stored, size_t *start, size_t *end)
 	word = (t_words *)ft_calloc(1, sizeof(t_words));
 	if (word == NULL)
 		return (NULL);
-	c = ft_strrchr(DELIM_TERMS_ALL, buf_stored[*start]);
+	c = ft_strrchr(DELIM_TERMS_ALL, buf_stored[start]);
 	if (c != NULL)
 	{
 		(*end)++;
@@ -94,8 +94,8 @@ static t_words	*make_word(const char *buf_stored, size_t *start, size_t *end)
 		&& ft_strrchr(DELIM_TERMS_COMBINEABLE, buf_stored[*end]) != NULL)
 			(*end)++;
 	}
-	word->str_len = *end - *start;
-	word->str = ft_substr(buf_stored, *start, word->str_len);
+	word->str_len = *end - start;
+	word->str = ft_substr(buf_stored, start, word->str_len);
 	return (word);
 }
 
@@ -119,9 +119,10 @@ static t_words	*get_next_word(const char *buf_src)
 	}
 	end = start + forward_while_char_set(\
 	&buf_stored[start], DELIM_SPACES DELIM_TERMS_ALL, -1);
-	word = make_word(buf_stored, &start, &end);
+	word = make_word(buf_stored, start, &end);
 	word->term_type = get_term_type(word);
-	// printf("start%zu |%c| end%zu |%c|\n", start, buf_stored[start], end, buf_stored[end]);
+	word->str_start = &(buf_stored[start]);
+	printf("start%zu |%c| end%zu |%c| src_start = |%c|\n", start, buf_stored[start], end, buf_stored[end], *(word->str_start));
 	if (buf_stored[end] == '\0')
 		buf_stored = NULL;
 	else
@@ -141,7 +142,7 @@ t_words	*sh_ps_lexer(const char *buf_src)
 	{
 		if (word->term_type == TT_ERROR)
 		{
-			printf("error! token!\n");
+			printf("ERROR TOKEN!\n");
 			sh_ps_lexer_word_free_list(head_word);
 			return (NULL);
 		}

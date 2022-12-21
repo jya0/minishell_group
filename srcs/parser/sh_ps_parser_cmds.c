@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/20 19:01:18 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/21 21:28:33 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_commands	*get_next_command(t_words **head_word)
 	t_commands	*command;
 	t_words		*word;
 
-	if (head_word == NULL)
+	if (head_word == NULL || *head_word == NULL)
 		return (NULL);
 	command = (t_commands *)ft_calloc(1, sizeof(t_commands));
 	if (command == NULL)
@@ -51,13 +51,18 @@ static t_commands	*get_next_command(t_words **head_word)
 	{
 		if (run_cmds_getter(command, head_word, &word) != 0)
 		{
+			sh_ps_lexer_word_free_list(*head_word);
 			sh_ps_parser_commands_free(command, FREE_ALL);
 			return (NULL);
 		}
 		word = *head_word;
 	}
-	if (word != NULL && word->next == NULL)
+	if (word != NULL && word->term_type == TT_PIPE \
+	&& word->prev == NULL)
+	{
 		printf("ERROR PIPE!\n");
+	}
+	sh_ps_lexer_word_print_list(*head_word);
 	sh_ps_lexer_word_del_word(head_word, word, FREE_ALL);
 	return (command);
 }
@@ -71,9 +76,10 @@ t_commands	*sh_ps_parser_commands(t_words	*head_word)
 		return (NULL);
 	command = get_next_command(&head_word);
 	head_command = command;
-	while (head_word != NULL)
+	while (command != NULL)
 	{
 		command->next = get_next_command(&head_word);
+		command = command->next;
 	}
 	return (head_command);
 }
@@ -113,7 +119,7 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 	}
 }
 
-/*================NOT tested for memory leaks!==================*/
+/*================ALREADY tested for memory leaks!==================*/
 /*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
 // /*
 int	main(int argc, char	*argv[])
@@ -128,7 +134,6 @@ int	main(int argc, char	*argv[])
 	head_command = sh_ps_parser_commands(head_word);
 	sh_ps_parser_commands_print_list(head_command);
 	sh_ps_parser_commands_free_list(head_command);
-	sh_ps_lexer_word_free_list(head_word);
 	return (0);
 }
 // */
