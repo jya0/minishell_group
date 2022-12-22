@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/21 19:56:27 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/22 19:13:21 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_words {
 	// size_t				index;
 	char				*str;
 	const char			*str_start;
-	int					str_len;
+	size_t				str_len;
 	enum e_term_type	term_type;
 	struct s_words		*next;
 	struct s_words		*prev;
@@ -129,13 +129,21 @@ t_words			*sh_ps_lexer(const char *buf_src);
 
 //
 
-/*=============sh_ps_lexer_expansion.c===============*/
+/*=============sh_ps_lexer_add_missing.c===============*/
 
 enum	e_quote_state {
 	IN_NULL = -1,
 	IN_QUOTE_S,
 	IN_QUOTE_D
 };
+
+t_words			*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word);
+
+int				sh_ps_lexer_add_missing(t_words	*head_word);
+
+/*=============sh_ps_lexer_expand_quotes.c===============*/
+
+int				sh_ps_lexer_expand_quotes(t_words **head_word);
 
 /*===================sh_ps_parser_commands.c=====================*/
 
