@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/22 19:13:37 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 15:05:05 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 	int				i;
 	t_redirections	*redir;
 
+	if (head_command == NULL)
+	{
+		printf("\n------empty command list!-------\n");		
+		return ;
+	}
 	printf("\n------printing commands!-------\n");
 	while (head_command != NULL)
 	{
@@ -121,7 +126,7 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 
 /*================ALREADY tested for memory leaks!==================*/
 /*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
-// /*
+/*
 int	main(int argc, char	*argv[])
 {
 	t_words		*head_word;
@@ -130,16 +135,20 @@ int	main(int argc, char	*argv[])
 	if (argc == 1)
 		return (0);
 	head_word = sh_ps_lexer(argv[1]);
+	printf("\n>>original words<<\n");
 	sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_add_missing(head_word);
+	printf("\n>>add missing spaces & missing env values<<\n");
+	sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_expand_quotes(&head_word);
+	printf("\n>>connect all words in quotes<<\n");
 	sh_ps_lexer_word_print_list(head_word);
 	head_command = sh_ps_parser_commands(head_word);
 	sh_ps_parser_commands_print_list(head_command);
 	sh_ps_parser_commands_free_list(head_command);
 	return (0);
 }
-// */
+*/
 
 /*
 ** check where the executable file is in the bin path

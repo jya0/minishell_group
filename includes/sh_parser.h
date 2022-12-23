@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/22 19:13:21 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 14:50:14 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_words	*head_word, t_words	*word);
 t_words			*sh_ps_lexer_word_del_at(\
 t_words	*head_word, size_t index, enum e_free_option flag);
 
-void			sh_ps_lexer_word_del_word(\
+t_words			*sh_ps_lexer_word_del_word(\
 t_words **head_word, t_words *word, enum e_free_option flag);
 
 void			sh_ps_lexer_word_print_list(t_words *head_word);
@@ -143,7 +143,7 @@ int				sh_ps_lexer_add_missing(t_words	*head_word);
 
 /*=============sh_ps_lexer_expand_quotes.c===============*/
 
-int				sh_ps_lexer_expand_quotes(t_words **head_word);
+void			sh_ps_lexer_expand_quotes(t_words **head_word);
 
 /*===================sh_ps_parser_commands.c=====================*/
 

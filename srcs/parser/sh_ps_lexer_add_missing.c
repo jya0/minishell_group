@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/22 17:21:29 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 15:03:36 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,9 @@ const char *spc_start, const char *spc_end)
 	if (spc_start == NULL || spc_end == NULL || spc_start == spc_end)
 		return (NULL);
 	str_len = (spc_end - spc_start) / sizeof(char);
-	// printf("start |%c| end |%c| len |%d|\n", *spc_start, *spc_end, str_len);
 	str = ft_substr((const char *)spc_start, 0, str_len);
 	if (str == NULL)
 		return (NULL);
-	// printf("str = |%s|\n", str);
-	// exit(1);
 	word = (t_words *)ft_calloc(1, sizeof(t_words));
 	if (word == NULL)
 	{
@@ -73,7 +70,7 @@ t_words	*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word)
 {
 	t_words	*next;
 
-	if (new_word == NULL)
+	if (word == NULL || new_word == NULL)
 		return (NULL);
 	next = word->next;
 	if (next != NULL)

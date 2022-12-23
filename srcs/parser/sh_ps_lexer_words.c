@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:57:36 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/22 17:32:37 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/22 22:36:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,16 @@ t_words	*head_word, size_t index, enum e_free_option flag)
 /*
 ** head_word is passed in so that if the head is deleted, it will be 
 ** automatically updated accordingly!
+** returns the pointer to the next word of the deleted word;
 */
-void	sh_ps_lexer_word_del_word(\
+t_words	*sh_ps_lexer_word_del_word(\
 t_words **head_word, t_words *word, enum e_free_option flag)
 {
 	t_words	*prev;
 	t_words	*next;
 
-	if (word == NULL)
-		return ;
+	if (head_word == NULL || word == NULL)
+		return (NULL);
 	prev = word->prev;
 	next = word->next;
 	if (prev != NULL)
@@ -116,6 +117,7 @@ t_words **head_word, t_words *word, enum e_free_option flag)
 	if (next != NULL)
 		next->prev = prev;
 	sh_ps_lexer_word_free(word, flag);
+	return (next);
 }
 
 void	sh_ps_lexer_word_print_list(t_words *head_word)
@@ -123,7 +125,10 @@ void	sh_ps_lexer_word_print_list(t_words *head_word)
 	t_words	*last;
 
 	if (head_word == NULL)
+	{
+		printf("\n-------NO MORE WORDS IN LIST!------\n");
 		return ;
+	}
 	printf("\n------going forwards-------\n");
 	while (head_word != NULL)
 	{
