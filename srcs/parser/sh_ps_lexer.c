@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 15:04:33 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 15:17:37 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,18 @@ t_words	*sh_ps_lexer(const char *buf_src)
 		word = get_next_word(NULL);
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
+	// printf("\n>>original words<<\n");
+	// sh_ps_lexer_word_print_list(head_word);
+	if (sh_ps_lexer_add_missing(head_word) != 0)
+	{
+		sh_ps_lexer_word_free_list(head_word);
+		return (NULL);
+	}
+	// printf("\n>>add missing spaces & missing env values<<\n");
+	// sh_ps_lexer_word_print_list(head_word);
+	sh_ps_lexer_expand_quotes(&head_word);
+	// printf("\n>>connect all words in quotes<<\n");
+	// sh_ps_lexer_word_print_list(head_word);
 	return (head_word);
 }
 

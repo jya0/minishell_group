@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 14:50:14 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 16:35:16 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_words			*sh_ps_lexer(const char *buf_src);
 
 /*=============sh_ps_lexer_add_missing.c===============*/
 
-enum	e_quote_state {
+enum e_quote_state {
 	IN_NULL = -1,
 	IN_QUOTE_S,
 	IN_QUOTE_D
@@ -146,6 +146,11 @@ int				sh_ps_lexer_add_missing(t_words	*head_word);
 void			sh_ps_lexer_expand_quotes(t_words **head_word);
 
 /*===================sh_ps_parser_commands.c=====================*/
+
+enum e_pipe_error_check {
+	CHECK_BEFORE,
+	CHECK_AFTER
+};
 
 t_commands		*sh_ps_parser_commands(t_words	*head_word);
 

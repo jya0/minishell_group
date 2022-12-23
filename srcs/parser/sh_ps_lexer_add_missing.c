@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 15:03:36 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 15:16:23 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	sh_ps_lexer_add_missing(t_words	*head_word)
 	{
 		return (printf("ERROR UNCLOSED QUOTES!\n"));
 		//heredoc_function to read from standard input
-		sh_ps_lexer_add_missing(word);
+		// sh_ps_lexer_add_missing(word);
 	}
 	return (0);
 }

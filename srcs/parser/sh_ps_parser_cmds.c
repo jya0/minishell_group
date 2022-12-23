@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 15:05:05 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/23 16:54:32 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ t_commands *command, t_words **head_word, t_words **word)
 	return (0);
 }
 
+static int	pipe_error_check(t_words *word, enum e_pipe_error_check flag)
+{
+	if (word == NULL)
+		return (0);
+	if (flag == CHECK_BEFORE)
+		return (word->term_type == TT_PIPE \
+		&& word->prev == NULL);
+	else if (flag == CHECK_AFTER)
+		return (word->term_type == TT_PIPE \
+		&& word->next == NULL);
+	return (0);
+}
+
 static t_commands	*get_next_command(t_words **head_word)
 {
 	t_commands	*command;
@@ -43,6 +56,11 @@ static t_commands	*get_next_command(t_words **head_word)
 
 	if (head_word == NULL || *head_word == NULL)
 		return (NULL);
+	if (pipe_error_check(*head_word, CHECK_BEFORE) != 0)
+	{
+		printf("PIPE ERROR!\n");
+		return (NULL);
+	}
 	command = (t_commands *)ft_calloc(1, sizeof(t_commands));
 	if (command == NULL)
 		return (NULL);
@@ -56,13 +74,13 @@ static t_commands	*get_next_command(t_words **head_word)
 			return (NULL);
 		}
 		word = *head_word;
+		if (pipe_error_check(word, CHECK_AFTER) != 0)
+		{
+			// get_more_words()
+			printf("PIPE ERROR!\n");
+		}
 	}
-	if (word != NULL && word->term_type == TT_PIPE \
-	&& word->prev == NULL)
-	{
-		printf("ERROR PIPE!\n");
-	}
-	sh_ps_lexer_word_print_list(*head_word);
+	// sh_ps_lexer_word_print_list(*head_word);
 	sh_ps_lexer_word_del_word(head_word, word, FREE_ALL);
 	return (command);
 }
@@ -84,6 +102,7 @@ t_commands	*sh_ps_parser_commands(t_words	*head_word)
 	return (head_command);
 }
 
+/*
 static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 {
 	int				i;
@@ -123,6 +142,7 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 		head_command = head_command->next;
 	}
 }
+*/
 
 /*================ALREADY tested for memory leaks!==================*/
 /*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
