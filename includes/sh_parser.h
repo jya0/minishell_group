@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/25 17:48:39 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 18:38:22 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,7 @@ void			sh_ps_lexer_word_print_list(t_words *head_word);
 
 /*===================sh_ps_lexer.c=====================*/
 
-t_words			*sh_ps_lexer(const char *buf_src);
-
-//
+t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src);
 
 /*=============sh_ps_lexer_add_missing.c===============*/
 
@@ -140,7 +138,7 @@ enum e_quote_state {
 
 t_words			*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word);
 
-int				sh_ps_lexer_add_missing(t_words	*head_word);
+int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word);
 
 /*=============sh_ps_lexer_expand_quotes.c===============*/
 
@@ -176,6 +174,10 @@ t_commands *command, enum e_free_option flag);
 
 void			sh_ps_parser_commands_free_list(\
 t_commands *head_command);
+
+/*=============sh_ps_parser.c===============*/
+
+t_commands		*sh_ps_parser(t_shell_s *shell, char *buf_src);
 
 // /*=======SECTION FOR ABSTRACT SYNTAX TREE==============*/
 

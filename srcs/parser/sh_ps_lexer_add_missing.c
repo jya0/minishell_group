@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 15:16:23 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 18:35:54 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@
 ** else the target is 
 */
 
-/*
-static void	expand_variable(t_words *word)
+// /*
+static void	expand_variable(t_shell_s *shell, t_words *word)
 {
 	char	*ptr_str;
 
 	if (word == NULL)
 		return ;
 	ptr_str = word->str;
-	word->str = function_search_env();
+	word->str = ft_strdup(sh_ex_searchenvvar(shell, &(ptr_str[1])));
 	free(ptr_str);
 	word->str_len = ft_strlen(word->str);
 	word->str_start = NULL;
 	word->term_type = TT_JUST_WORD;
 }
-*/
+// */
 
 // /*
 static t_words	*get_word_missing_space(\
@@ -107,7 +107,7 @@ t_words *word, enum e_quote_state quote_state)
 */
 
 // /*
-int	sh_ps_lexer_add_missing(t_words	*head_word)
+int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word)
 {
 	t_words				*word;
 	enum e_quote_state	quote_state;
@@ -126,8 +126,8 @@ int	sh_ps_lexer_add_missing(t_words	*head_word)
 			word->next->str_start));
 			if (word->term_type == TT_VAR)
 			{
-				// if (quote_state == IN_QUOTE_D)
-				// 	expand_variable(word);
+				if (quote_state == IN_QUOTE_D)
+					expand_variable(shell, word);
 				word->term_type = TT_JUST_WORD;
 			}
 		}

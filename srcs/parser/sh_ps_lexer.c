@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 15:17:37 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 18:36:34 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static t_words	*get_next_word(const char *buf_src)
 }
 
 /*Gets the input from readline, then returns a words each time it is called!*/
-t_words	*sh_ps_lexer(const char *buf_src)
+t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 {
 	t_words				*head_word;
 	t_words				*word;
@@ -151,7 +151,7 @@ t_words	*sh_ps_lexer(const char *buf_src)
 	}
 	// printf("\n>>original words<<\n");
 	// sh_ps_lexer_word_print_list(head_word);
-	if (sh_ps_lexer_add_missing(head_word) != 0)
+	if (sh_ps_lexer_add_missing(shell, head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);
 		return (NULL);
