@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 15:10:46 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 16:40:52 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 18:21:24 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_commands	*sh_ps_parser(const char *buf_src)
 
 /*================ALREADY tested for memory leaks!==================*/
 /*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
-// /*
+/*
 int	main(int argc, char	*argv[])
 {
 	t_commands	*head_command;
@@ -40,4 +40,4 @@ int	main(int argc, char	*argv[])
 	sh_ps_parser_commands_free_list(head_command);
 	return (0);
 }
-// */
+*/

@@ -6,12 +6,13 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:01:08 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/19 22:09:29 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 18:22:04 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
 int	sh_ps_parser_get_cmd_args(\
 t_commands *command, t_words **head_word, t_words **word)
 {
@@ -40,7 +41,62 @@ t_commands *command, t_words **head_word, t_words **word)
 	*word = *head_word;
 	return (0);
 }
+*/
 
+static void	assign_command_name_args(t_commands	*command)
+{
+	if (command->cmd_argv == NULL)
+		return ;
+	command->cmd_name = command->cmd_argv[0];
+	command->cmd_args = &(command->cmd_argv[1]);
+}
+
+static char	**allocate_argv(t_words *head_word, t_words **ptr_word)
+{
+	int		i;
+	char	**argv;
+
+	if (head_word == NULL)
+		return (NULL);
+	i = 0;
+	*ptr_word = head_word;
+	while (*ptr_word != NULL && (*ptr_word)->term_type == TT_JUST_WORD)
+	{
+		*ptr_word = (*ptr_word)->next;
+		i++;
+	}
+	if (i == 0)
+		return (NULL);
+	argv = (char **)ft_calloc(i + 1, sizeof(char *));
+	return (argv);
+}
+
+int	sh_ps_parser_get_cmd_argv(\
+t_commands *command, t_words **head_word)
+{
+	int		i;
+	t_words	*ptr_word;
+
+	command->cmd_argv = allocate_argv(*head_word, &ptr_word);
+	if (command->cmd_argv == NULL)
+	{
+		sh_ps_lexer_word_free_list(*head_word);
+		sh_ps_parser_commands_free(command, FREE_ALL);
+		printf("ERROR ARGV!\n");
+		return (-1);
+	}
+	i = 0;
+	while (*head_word != ptr_word)
+	{
+		command->cmd_argv[i] = (*head_word)->str;
+		i++;
+		sh_ps_lexer_word_del_word(head_word, *head_word, FREE_DEFAULT);
+	}
+	assign_command_name_args(command);
+	return (0);
+}
+
+/*
 int	sh_ps_parser_get_cmd_name(\
 t_commands *command, t_words **head_word, t_words	**word)
 {
@@ -49,6 +105,7 @@ t_commands *command, t_words **head_word, t_words	**word)
 	*word = *head_word;
 	return (0);
 }
+*/
 
 static void	add_redirection(\
 t_redirections **head_redir, t_redirections *redir)
@@ -68,7 +125,7 @@ t_redirections **head_redir, t_redirections *redir)
 	redirection->next = redir;
 }
 
-int	sh_ps_parser_get_redirs(\
+static int	get_redir(\
 t_commands *command, t_words **head_word, t_words	**word)
 {
 	t_redirections	*redirection;
@@ -88,5 +145,31 @@ t_commands *command, t_words **head_word, t_words	**word)
 		add_redirection(&(command->redirs_out), redirection);
 	sh_ps_lexer_word_del_word(head_word, *word, FREE_ALL);
 	*word = *head_word;
+	return (0);
+}
+
+int	sh_ps_parser_get_redirs(\
+t_commands *command, t_words **head_word)
+{
+	t_words	*word;
+
+	if (head_word == NULL || *head_word == NULL)
+		return (-1);
+	word = *head_word;
+	while (word != NULL && word->term_type != TT_PIPE)
+	{
+		if (*(word->str) == '<' || *(word->str) == '>')
+		{
+			if (get_redir(command, head_word, &word) != 0)
+			{
+				sh_ps_lexer_word_free_list(*head_word);
+				sh_ps_parser_commands_free(command, FREE_ALL);
+				printf("ERROR REDIRECTION!\n");
+				return (-1);
+			}
+		}
+		else
+			word = word->next;
+	}
 	return (0);
 }

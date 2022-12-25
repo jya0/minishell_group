@@ -6,29 +6,26 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 23:06:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/20 17:49:02 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 18:21:12 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	free_cmd_args(char **cmd_args)
+static void	free_cmd_argv(char **cmd_argv)
 {
 	int	i;
 
-	if (cmd_args == NULL)
+	if (cmd_argv == NULL)
 		return ;
 	i = 0;
-	while (cmd_args[i] != NULL)
+	while (cmd_argv[i] != NULL)
 	{
-		if (cmd_args[i] != NULL)
-		{
-			free(cmd_args[i]);
-			cmd_args[i] = NULL;
-		}
+		free(cmd_argv[i]);
+		cmd_argv[i] = NULL;
 		i++;
 	}
-	free(cmd_args);
+	free(cmd_argv);
 }
 
 static void	free_redirs(t_redirections	*head_redir)
@@ -55,12 +52,7 @@ t_commands *command, enum e_free_option flag)
 		return ;
 	if (flag == FREE_ALL)
 	{
-		if (command->cmd_name != NULL)
-		{
-			free(command->cmd_name);
-			command->cmd_name = NULL;
-		}
-		free_cmd_args(command->cmd_args);
+		free_cmd_argv(command->cmd_argv);
 		free_redirs(command->redirs_in);
 		free_redirs(command->redirs_out);
 	}

@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 16:35:16 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/25 17:48:39 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_redirections {
 /*commands will only pipe to the next one if redirecs_out is null!*/
 typedef struct s_commands {
 	// size_t				index;
+	char				**cmd_argv;
 	char				*cmd_name;
 	char				**cmd_args;
 	t_redirections		*redirs_in;
@@ -157,13 +158,16 @@ t_commands		*sh_ps_parser_commands(t_words	*head_word);
 /*=============sh_ps_parser_cmds_getters.c===============*/
 
 int				sh_ps_parser_get_redirs(\
-t_commands *command, t_words **head_word, t_words	**word);
+t_commands *command, t_words **head_word);
 
 int				sh_ps_parser_get_cmd_name(\
 t_commands *command, t_words **head_word, t_words	**word);
 
 int				sh_ps_parser_get_cmd_args(\
 t_commands *command, t_words **head_word, t_words **word);
+
+int				sh_ps_parser_get_cmd_argv(\
+t_commands *command, t_words **head_word);
 
 /*=============sh_ps_parser_cmds_free.c===============*/
 
