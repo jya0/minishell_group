@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:57:36 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/22 22:36:55 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 14:41:47 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,34 +66,27 @@ t_words	*head_word, t_words	*word)
 	return (word);
 }
 
-/*deletes the word node at index and always returns the location of the new
-head_word if neccessary 
-** and also frees all of its members*/
-t_words	*sh_ps_lexer_word_del_at(\
-t_words	*head_word, size_t index, enum e_free_option flag)
+/*
+** returns the pointer to the new_word
+*/
+// /*
+t_words	*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word)
 {
-	t_words	*prev;
-	t_words	*current;
 	t_words	*next;
-	size_t	i;
 
-	if (head_word == NULL)
+	if (word == NULL || new_word == NULL)
 		return (NULL);
-	current = head_word;
-	i = 0;
-	while (i++ < index && current->next != NULL)
-		current = current->next;
-	prev = current->prev;
-	next = current->next;
-	if (prev != NULL)
-		prev->next = next;
-	else
-		head_word = next;
+	next = word->next;
 	if (next != NULL)
-		next->prev = prev;
-	sh_ps_lexer_word_free(current, flag);
-	return (head_word);
+	{
+		new_word->next = next;
+		next->prev = new_word;
+	}
+	word->next = new_word;
+	new_word->prev = word;
+	return (new_word);
 }
+// */
 
 /*
 ** head_word is passed in so that if the head is deleted, it will be 

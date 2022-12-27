@@ -6,18 +6,18 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 15:10:46 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/25 18:37:51 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/26 22:01:46 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_commands	*sh_ps_parser(t_shell_s *shell, char *buf_src)
+t_commands	*sh_ps_parser(char *buf_src)
 {
 	t_words		*head_word;
 	t_commands	*head_command;
 
-	head_word = sh_ps_lexer(shell, buf_src);
+	head_word = sh_ps_lexer(buf_src);
 	if (head_word == NULL)
 		return (NULL);
 	head_command = sh_ps_parser_commands(head_word);

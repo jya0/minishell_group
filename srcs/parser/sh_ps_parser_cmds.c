@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/25 18:21:38 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 14:09:20 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,14 +148,6 @@ int	main(int argc, char	*argv[])
 	if (argc == 1)
 		return (0);
 	head_word = sh_ps_lexer(argv[1]);
-	printf("\n>>original words<<\n");
-	sh_ps_lexer_word_print_list(head_word);
-	sh_ps_lexer_add_missing(head_word);
-	printf("\n>>add missing spaces & missing env values<<\n");
-	sh_ps_lexer_word_print_list(head_word);
-	sh_ps_lexer_expand_quotes(&head_word);
-	printf("\n>>connect all words in quotes<<\n");
-	sh_ps_lexer_word_print_list(head_word);
 	head_command = sh_ps_parser_commands(head_word);
 	sh_ps_parser_commands_print_list(head_command);
 	sh_ps_parser_commands_free_list(head_command);

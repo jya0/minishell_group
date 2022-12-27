@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/25 18:38:22 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 14:42:07 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define DELIM_SPACES				" \n\t\v\f\r"
 # define DELIM_TERMS_COMBINEABLE	"<>|&$"
 # define DELIM_TERMS_ALL			"<>|&$()'\""
+
+# define BKT_STK_MAX				2048
 
 enum e_term_type {
 	TT_ERROR = -1,
@@ -116,8 +118,7 @@ void			sh_ps_lexer_word_free_list(t_words	*head_word);
 t_words			*sh_ps_lexer_word_add_end(\
 t_words	*head_word, t_words	*word);
 
-t_words			*sh_ps_lexer_word_del_at(\
-t_words	*head_word, size_t index, enum e_free_option flag);
+t_words			*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word);
 
 t_words			*sh_ps_lexer_word_del_word(\
 t_words **head_word, t_words *word, enum e_free_option flag);
@@ -126,19 +127,21 @@ void			sh_ps_lexer_word_print_list(t_words *head_word);
 
 /*===================sh_ps_lexer.c=====================*/
 
-t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src);
+t_words			*sh_ps_lexer(const char *buf_src);
+
+/*===========sh_ps_lexer_check_error.c=============*/
+
+int				sh_ps_lexer_check_error(t_words *head_word);
 
 /*=============sh_ps_lexer_add_missing.c===============*/
 
 enum e_quote_state {
 	IN_NULL = -1,
-	IN_QUOTE_S,
-	IN_QUOTE_D
+	IN_QUOTE_S = TT_QUOTE_S,
+	IN_QUOTE_D = TT_QUOTE_D
 };
 
-t_words			*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word);
-
-int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word);
+int				sh_ps_lexer_add_missing(t_words *head_word);
 
 /*=============sh_ps_lexer_expand_quotes.c===============*/
 
@@ -177,7 +180,7 @@ t_commands *head_command);
 
 /*=============sh_ps_parser.c===============*/
 
-t_commands		*sh_ps_parser(t_shell_s *shell, char *buf_src);
+t_commands		*sh_ps_parser(char *buf_src);
 
 // /*=======SECTION FOR ABSTRACT SYNTAX TREE==============*/
 
