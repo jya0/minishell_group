@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 14:42:07 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 15:16:03 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void			sh_ps_lexer_word_print_list(t_words *head_word);
 
 /*===================sh_ps_lexer.c=====================*/
 
-t_words			*sh_ps_lexer(const char *buf_src);
+t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src);
 
 /*===========sh_ps_lexer_check_error.c=============*/
 
@@ -141,7 +141,7 @@ enum e_quote_state {
 	IN_QUOTE_D = TT_QUOTE_D
 };
 
-int				sh_ps_lexer_add_missing(t_words *head_word);
+int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word);
 
 /*=============sh_ps_lexer_expand_quotes.c===============*/
 
@@ -180,7 +180,7 @@ t_commands *head_command);
 
 /*=============sh_ps_parser.c===============*/
 
-t_commands		*sh_ps_parser(char *buf_src);
+t_commands		*sh_ps_parser(t_shell_s *shell, char *buf_src);
 
 // /*=======SECTION FOR ABSTRACT SYNTAX TREE==============*/
 

@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_ex_signal.c                                     :+:      :+:    :+:   */
+/*   sh_ex_pwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/26 10:27:41 by yoyohann         ###   ########.fr       */
+/*   Created: 2022/12/22 21:20:24 by yoyohann          #+#    #+#             */
+/*   Updated: 2022/12/23 08:41:49 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
 #include "../../includes/minishell.h"
 
-void	sh_ex_sighandle(int sig)
+char	*sh_ex_cwd(void)
 {
-	set_mode ();
-	if (sig == 1)
-	{
-		signal (SIGINT, sh_ex_newprompt);
-		signal (SIGQUIT, SIG_IGN);
-	}
-	if (sig == 3)
-	{
-		sh_ex_exitshell (3);
-	}
+	char	*cwd;
+	char	cwd_str[1024];
+
+	getcwd (cwd_str, sizeof (cwd_str));
+	cwd = ft_strdup (cwd_str);
+	return (cwd);
 }
 
-void	sh_ex_newprompt(int sig)
+void	sh_ex_showpwd(t_shell_s *shell)
 {
-	set_mode ();
-	sh_ex_exitstatus = 130;
-	write (1, "\n", 1);
-    // rl_replace_line("", 0);
-	rl_on_new_line ();
-	rl_redisplay ();
-	(void)sig;
-}
+	char	*dir;
 
-void	sh_ex_exitshell(int sig)
-{
-	set_mode ();
-	printf ("exit\n");
-	exit (0);
+	dir = sh_ex_cwd ();
+	if (dir == NULL)
+		sh_ex_exitstatus = 1;
+	else
+	{
+		sh_ex_exitstatus = 0;
+		dir = ft_strjoin (WHITE, dir);
+		ft_putstr_fd (dir, shell->fdout);
+		ft_putchar_fd ('\n', shell->fdout);
+	}
+	free (dir);
 }

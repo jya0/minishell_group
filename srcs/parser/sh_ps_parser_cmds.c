@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_parser_cmds.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 14:09:20 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 15:36:08 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_commands	*sh_ps_parser_commands(t_words	*head_word)
 	return (head_command);
 }
 
-// /*
+/*
 static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 {
 	int				i;
@@ -135,11 +135,11 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 		head_command = head_command->next;
 	}
 }
-// */
+*/
 
 /*================ALREADY tested for memory leaks!==================*/
 /*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
-// /*
+/*
 int	main(int argc, char	*argv[])
 {
 	t_words		*head_word;
@@ -153,7 +153,7 @@ int	main(int argc, char	*argv[])
 	sh_ps_parser_commands_free_list(head_command);
 	return (0);
 }
-// */
+*/
 
 /*
 ** check where the executable file is in the bin path

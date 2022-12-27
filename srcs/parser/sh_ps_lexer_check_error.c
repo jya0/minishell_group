@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_check_error.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:39:57 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 13:57:06 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 15:16:11 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../includes/minishell.h"
 
 #include "../../includes/minishell.h"
 

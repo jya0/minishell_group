@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_add_missing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 15:06:11 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/27 18:21:52 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,33 @@
 ** else the target is 
 */
 
-/*
-static void	expand_variable(t_words *word)
+// /*
+static int	expand_variable(t_shell_s *shell, t_words *word)
 {
-	char	*ptr_str;
+	char	*value;
 
+	// printf("expanding variable\n");
 	if (word == NULL)
-		return ;
-	ptr_str = word->str;
-	// word->str = ft_strdup(sh_ex_searchenvvar(shell, &(ptr_str[1])));
-	// free(ptr_str);
+		return (0);
+	if (word->str_len <= 1)
+		return (0);
+	if (ft_strcmp(word->str, "$?") == 0)
+		return (0);
+	value = sh_ex_searchenvvar(shell, &((word->str)[1]));
+	free(word->str);
+	word->str = NULL;
+	// printf("value = %s\n", value);
+	if (value == NULL)
+		return (-1);
+	word->str = ft_strdup(value);
+	if (word->str == NULL)
+		return (-1);
 	word->str_len = ft_strlen(word->str);
 	word->str_start = NULL;
 	word->term_type = TT_JUST_WORD;
+	return (0);
 }
-*/
+// */
 
 // /*
 static t_words	*get_word_missing_space(\
@@ -81,24 +93,29 @@ t_words *word, enum e_quote_state quote_state)
 }
 
 static t_words	*word_term_type_change(\
-t_words *word, enum e_quote_state quote_state)
+t_shell_s *shell, t_words *word, enum e_quote_state quote_state)
 {
+	// printf("enterd type change\n");
+	// printf("word = %s\n", word->str);
 	if (word == NULL \
-	|| (word->term_type != TT_QUOTE_D && word->term_type != TT_QUOTE_S))
+	|| (word->term_type == TT_QUOTE_D || word->term_type == TT_QUOTE_S))
 		return (word->next);
+	// printf("it's not quote\n");
 	if (word->term_type == TT_VAR)
 	{
-		word->term_type == TT_JUST_WORD;
+		word->term_type = TT_JUST_WORD;
 		if (quote_state != IN_QUOTE_S)
 		{
-			if (//expandvariable == NULL)
+			// printf("entered var expansion\n");
+			if (expand_variable(shell, word) != 0)
 			{
 				sh_ps_lexer_word_del_word(&word, word, FREE_ALL);
+				// printf("word = %s\n", word->str);
 				return (word);
 			}
 		}
 	}
-	else if (quote_state != NULL)
+	else if (quote_state != IN_NULL)
 		word->term_type = TT_JUST_WORD;
 	return (word->next);
 }
@@ -108,7 +125,7 @@ t_words *word, enum e_quote_state quote_state)
 ** also expands variables then add the value from env directly
 */
 // /*
-int	sh_ps_lexer_add_missing(t_words *head_word)
+int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word)
 {
 	t_words				*word;
 	enum e_quote_state	quote_state;
@@ -119,7 +136,6 @@ int	sh_ps_lexer_add_missing(t_words *head_word)
 	quote_state = IN_NULL;
 	while (word != NULL)
 	{
-		printf("hey\n");
 		quote_state = get_quote_state(word, quote_state);
 		if (quote_state != IN_NULL)
 		{
@@ -127,7 +143,7 @@ int	sh_ps_lexer_add_missing(t_words *head_word)
 			word->str_start + word->str_len * sizeof(char), \
 			word->next));
 		}
-		word = word_term_type_change(word, quote_state);
+		word = word_term_type_change(shell, word, quote_state);
 	}
 	if (quote_state != IN_NULL)
 	{

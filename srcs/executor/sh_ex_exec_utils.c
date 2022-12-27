@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_ex_bindir.c                                     :+:      :+:    :+:   */
+/*   sh_ex_exec_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/26 08:30:29 by yoyohann         ###   ########.fr       */
+/*   Created: 2022/12/26 10:43:48 by yoyohann          #+#    #+#             */
+/*   Updated: 2022/12/26 10:52:29 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
+int sh_ex_exec(t_commands *command)
 {
-	int		i;
-	char	*realpath;
-
-	i = 0;
-	while (shell->path[i])
-	{
-		realpath = malloc (sizeof(char) * \
-				(ft_strlen (shell->path[i] + ft_strlen (cmd) + 1)));
-		if (!realpath)
-			return (NULL);
-		realpath = ft_strjoin (shell->path[i], cmd);
-		if (access (realpath, F_OK) == 0)
-		{
-			printf("%s\n", realpath);
-			return (realpath);
-		}
-		i++;
-	}
-	return (NULL);
+    int end[2];
+    
 }

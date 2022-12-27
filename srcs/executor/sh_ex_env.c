@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_ex_signal.c                                     :+:      :+:    :+:   */
+/*   sh_ex_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/26 10:27:41 by yoyohann         ###   ########.fr       */
+/*   Created: 2022/12/22 22:47:27 by yoyohann          #+#    #+#             */
+/*   Updated: 2022/12/23 06:55:12 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
 #include "../../includes/minishell.h"
 
-void	sh_ex_sighandle(int sig)
+void	sh_ex_viewenvp(t_shell_s *shell)
 {
-	set_mode ();
-	if (sig == 1)
-	{
-		signal (SIGINT, sh_ex_newprompt);
-		signal (SIGQUIT, SIG_IGN);
-	}
-	if (sig == 3)
-	{
-		sh_ex_exitshell (3);
-	}
-}
+	int	i;
 
-void	sh_ex_newprompt(int sig)
-{
-	set_mode ();
-	sh_ex_exitstatus = 130;
-	write (1, "\n", 1);
-    // rl_replace_line("", 0);
-	rl_on_new_line ();
-	rl_redisplay ();
-	(void)sig;
-}
-
-void	sh_ex_exitshell(int sig)
-{
-	set_mode ();
-	printf ("exit\n");
-	exit (0);
+	i = 0;
+	while (i < shell->envp.env_size)
+	{
+		printf (WHITE"%s", shell->envp.key[i]);
+		printf (WHITE"%c", '=');
+		printf (WHITE"%s\n", shell->envp.value[i]);
+		i++;
+	}
 }
