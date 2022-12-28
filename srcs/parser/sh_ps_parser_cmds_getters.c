@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:01:08 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 13:45:29 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/28 20:12:56 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,7 @@ t_commands *command, t_words **head_word, t_words	**word)
 	redirection->redir_term_type = (*word)->term_type;
 	if (redirection->redir_term_type == TT_APPND_IN)
 		sh_ps_parser_heredoc(redirection);
-	if (redirection->redir_term_type == TT_REDIR_IN \
-	|| redirection->redir_term_type == TT_APPND_IN)
-		add_redirection(&(command->redirs_in), redirection);
-	else
-		add_redirection(&(command->redirs_out), redirection);
+	add_redirection(&(command->redirs), redirection);
 	sh_ps_lexer_word_del_word(head_word, *word, FREE_ALL);
 	*word = *head_word;
 	return (0);

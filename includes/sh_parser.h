@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 13:30:22 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/28 20:12:13 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ typedef struct s_commands {
 	char				**cmd_argv;
 	char				*cmd_name;
 	char				**cmd_args;
-	t_redirections		*redirs_in;
-	t_redirections		*redirs_out;
+	t_redirections		*redirs;
 	// int					exit_code_cmd;
 	struct s_commands	*next;
 }	t_commands;

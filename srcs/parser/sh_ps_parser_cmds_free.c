@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 23:06:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/25 18:21:12 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/28 20:15:31 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ t_commands *command, enum e_free_option flag)
 	if (flag == FREE_ALL)
 	{
 		free_cmd_argv(command->cmd_argv);
-		free_redirs(command->redirs_in);
-		free_redirs(command->redirs_out);
+		free_redirs(command->redirs);
 	}
 	free(command);
 }

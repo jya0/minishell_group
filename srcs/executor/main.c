@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/27 19:19:28 by yoyohann         ###   ########.fr       */
+/*   Updated: 2022/12/28 20:14:47 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,11 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 			while (head_command->cmd_args[i] != NULL)
 				printf("<%s>", head_command->cmd_args[i++]);
 		}
-		printf("\nredirs_in = ");
-		redir = head_command->redirs_in;
+		printf("\nredirs = ");
+		redir = head_command->redirs;
 		while (redir != NULL)
 		{
-			printf("%s ", redir->redir_file);
-			redir = redir->next;
-		}
-		printf("\nredirs_out = ");
-		redir = head_command->redirs_out;
-		while (redir != NULL)
-		{
-			printf("%s ", redir->redir_file);
+			printf("%d %s ", redir->redir_term_type, redir->redir_file);
 			redir = redir->next;
 		}
 		head_command = head_command->next;
