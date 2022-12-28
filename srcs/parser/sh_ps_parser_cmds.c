@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_parser_cmds.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 15:36:08 by yoyohann         ###   ########.fr       */
+/*   Updated: 2022/12/28 13:53:53 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ int	main(int argc, char	*argv[])
 	return (0);
 }
 */
-
 /*
 ** check where the executable file is in the bin path
 ** and return it if found 

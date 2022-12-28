@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:01:08 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/25 18:22:04 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/28 13:45:29 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,15 @@ t_commands *command, t_words **head_word, t_words	**word)
 	t_redirections	*redirection;
 
 	if ((*word)->next == NULL || (*word)->next->term_type != TT_JUST_WORD)
-		return (-1);
+		return (perror("ERROR REDIRECTION!\n"), -1);
 	redirection = (t_redirections *)ft_calloc(1, sizeof(t_redirections));
 	if (redirection == NULL)
 		return (-1);
 	redirection->redir_file = (*word)->next->str;
 	sh_ps_lexer_word_del_word(head_word, (*word)->next, FREE_DEFAULT);
 	redirection->redir_term_type = (*word)->term_type;
+	if (redirection->redir_term_type == TT_APPND_IN)
+		sh_ps_parser_heredoc(redirection);
 	if (redirection->redir_term_type == TT_REDIR_IN \
 	|| redirection->redir_term_type == TT_APPND_IN)
 		add_redirection(&(command->redirs_in), redirection);
@@ -164,7 +166,6 @@ t_commands *command, t_words **head_word)
 			{
 				sh_ps_lexer_word_free_list(*head_word);
 				sh_ps_parser_commands_free(command, FREE_ALL);
-				printf("ERROR REDIRECTION!\n");
 				return (-1);
 			}
 		}

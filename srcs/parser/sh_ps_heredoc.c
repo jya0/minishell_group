@@ -1,78 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_ex_heredoc.c                                    :+:      :+:    :+:   */
+/*   sh_ps_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:14:02 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 20:46:43 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/28 13:32:29 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-#include <string.h>
-#include <strings.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-/*
-int	main(int argc, char *argv[])
+/* right after lexer word chain call this
+** function to mark variables to justword
+*/
+int	sh_ps_lexer_heredoc_mark_variable(t_words *head_word)
 {
-	int		c[50];
-	char	*delim;
+	t_words	*word;
+	int		marker;
 
-	if (argc <= 1)
-		return (-1);
-	bzero((void *)c, 50 * sizeof(int));
-	delim = calloc(strlen(argv[1]) + 1 + 1, sizeof(int));
-	strcpy(delim, argv[1]);
-	strcat(delim, "\n");
-	write(1, "> ", 2);
-	while (read(0, &c, 50 * sizeof(int)) > 0)
+	if (head_word == NULL)
+		return (0);
+	marker = 0;
+	word = head_word;
+	while (word != NULL)
 	{
-		if (strcmp((const char *)c, delim) == 0)
-			break ;
-		write(1, "> ", 2);
-		write(1, "line = ", 7);
-		write(1, &c, 50 * sizeof(int));
-		bzero((void *)c, 50 * sizeof(int));
-		// sleep(1);
+		if (word->term_type == TT_APPND_IN)
+			marker = 1;
+		else if (marker == 1 \
+		&& (word->term_type == TT_JUST_WORD || word->term_type == TT_VAR))
+		{
+			marker = 0;
+			if (word->term_type == TT_VAR)
+				word->term_type = TT_JUST_WORD;
+		}
+		word = word->next;
 	}
-	free(delim);
 	return (0);
 }
-*/
 
-int	main(int argc, char *argv[])
+/*when it's to add redirections, call this function for heredoc*/
+/* when it's time to free the resources 
+** remember to tell the execution to first open 
+** (because there might have never been heredoc called)
+** then unlink the file at the end!
+*/
+int	sh_ps_parser_heredoc(t_redirections *redirection)
 {
-	char		*str;
+	char		*str_stdin;
+	const char	*delim;
 	int			fd;
 
-	if (argc <= 1)
+	if (redirection == NULL || redirection->redir_term_type != TT_APPND_IN)
 		return (-1);
-	fd = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < -1)
-		return (perror("Can't create file for heredoc!\n"), -1);
+		return (\
+		perror("CAN'T CREATE FILE: " HEREDOC_FILE " FOR HEREDOC!\n"), -1);
+	delim = redirection->redir_file;
 	while (1)
 	{
-		str = readline("> ");
-		if (strcmp(str, argv[1]) == 0)
+		str_stdin = readline("> ");
+		if (ft_strcmp(str_stdin, delim) == 0)
 		{
-			free(str);
+			free(str_stdin);
 			break ;
 		}
-		write(fd, str, strlen(str));
+		write(fd, str_stdin, ft_strlen(str_stdin));
 		write(fd, "\n", 1);
-		free(str);
+		free(str_stdin);
 	}
 	close(fd);
-	fd = open("temp.txt", O_CREAT | O_RDONLY, 0777);
-	if (unlink("temp.txt") != 0)
-		return (perror("can't delete file!\n"), -1);
 	return (0);
 }

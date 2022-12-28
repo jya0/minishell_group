@@ -18,7 +18,7 @@ SRC = ./srcs/executor/main.c ./libft/ft_split.c ./libft/ft_strdup.c ./libft/ft_s
 		./srcs/executor/sh_ex_exit.c  ./srcs/executor/sh_ex_quote_utils.c \
 		./srcs/parser/sh_ps_lexer_add_missing.c ./srcs/parser/sh_ps_lexer_expand_quotes.c ./libft/ft_strlcpy.c \
 		./srcs/parser/sh_ps_parser.c ./srcs/executor/sh_ex_executor.c ./srcs/executor/extra.c	\
-		./srcs/parser/sh_ps_lexer_check_error.c
+		./srcs/parser/sh_ps_lexer_check_error.c	./srcs/parser/sh_ps_heredoc.c
 
 #	./srcs/executor/sh_ex_executor.c ./srcs/executor/ft_splitset.c ./srcs/executor/extra.c
 all: 

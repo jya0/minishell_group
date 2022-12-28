@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 15:40:26 by yoyohann         ###   ########.fr       */
+/*   Updated: 2022/12/28 13:14:15 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 		word = get_next_word(NULL);
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
+	sh_ps_lexer_heredoc_mark_variable(head_word);
 	// printf("\n>>original words<<\n");
 	// sh_ps_lexer_word_print_list(head_word);
 	// printf("\n>>add missing spaces & missing env values<<\n");

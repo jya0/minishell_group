@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 15:16:03 by yoyohann         ###   ########.fr       */
+/*   Updated: 2022/12/28 13:30:22 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 # define SH_PARSER_H
 
 # include <stdio.h>
+# include <string.h>
+# include <strings.h>
+
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 /*==================DEFINING CONSTANTS======================*/
 
@@ -24,6 +29,8 @@
 # define DELIM_TERMS_ALL			"<>|&$()'\""
 
 # define BKT_STK_MAX				2048
+
+# define HEREDOC_FILE				"/tmp/.heredoc_tmp"
 
 enum e_term_type {
 	TT_ERROR = -1,
@@ -147,6 +154,16 @@ int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word);
 
 void			sh_ps_lexer_expand_quotes(t_words **head_word);
 
+/*====================sh_ps_heredoc.c=====================*/
+
+int				sh_ps_lexer_heredoc_mark_variable(t_words *head_word);
+
+int				sh_ps_parser_heredoc(t_redirections *redirection);
+
+/*=============sh_ps_parser.c===============*/
+
+t_commands		*sh_ps_parser(t_shell_s *shell, char *buf_src);
+
 /*===================sh_ps_parser_commands.c=====================*/
 
 enum e_pipe_error_check {
@@ -177,10 +194,6 @@ t_commands *command, enum e_free_option flag);
 
 void			sh_ps_parser_commands_free_list(\
 t_commands *head_command);
-
-/*=============sh_ps_parser.c===============*/
-
-t_commands		*sh_ps_parser(t_shell_s *shell, char *buf_src);
 
 // /*=======SECTION FOR ABSTRACT SYNTAX TREE==============*/
 

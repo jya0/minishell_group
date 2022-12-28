@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_add_missing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 18:21:52 by yoyohann         ###   ########.fr       */
+/*   Updated: 2022/12/27 22:07:19 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word)
 	}
 	if (quote_state != IN_NULL)
 	{
-		return (printf("ERROR UNCLOSED QUOTES!\n"));
+		return (perror("ERROR UNCLOSED QUOTES!\n"), -1);
 		//heredoc_function to read from standard input
 		// sh_ps_lexer_add_missing(word);
 	}
