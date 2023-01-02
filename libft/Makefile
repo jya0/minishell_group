@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
+#    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/10 11:26:00 by yoyohann          #+#    #+#              #
-#    Updated: 2022/11/30 23:24:23 by yoyohann         ###   ########.fr        #
+#    Updated: 2023/01/02 14:44:05 by jyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,17 +39,16 @@ OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 OBJS_B = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
 
-
-.c.o: $(SRCS)
-	$(CC) $(CFLAGS) -c -o $@ $<
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
 
+.c.o: $(SRCS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
 bonus: $(OBJS_B)
 	$(AR) $(NAME) $^
-
-all: $(NAME)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_B)

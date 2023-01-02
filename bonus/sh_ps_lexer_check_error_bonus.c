@@ -6,11 +6,11 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:39:57 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 14:51:43 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/29 18:40:35 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static int	check_bracket(t_words *word)
 {
@@ -27,7 +27,7 @@ static int	check_bracket(t_words *word)
 		{
 			index++;
 			if (index >= BKT_STK_MAX)
-				return (perror("ERROR BRACKET!\n"), -1);
+				return (perror("ERROR BRACKET LIMIT!\n"), -1);
 			bracket_stack[index] = TT_BKT_RND_L;
 		}
 	}
@@ -74,7 +74,8 @@ static int	check_conditional(t_words *word)
 	{
 		return (perror("ERROR COND!\n"), -1);
 	}
-	else if (word->prev != NULL && word->prev->term_type != TT_JUST_WORD)
+	else if (word->prev != NULL && word->prev->term_type != TT_JUST_WORD \
+	&& word->prev->term_type != TT_BKT_RND_R)
 		return (perror("ERROR COND!\n"), -1);
 	return (0);
 }

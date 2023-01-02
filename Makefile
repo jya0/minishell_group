@@ -1,32 +1,78 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
+#    Updated: 2023/01/02 15:24:01 by jyao             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# -*- Makefile [minishell] -*-
+
+NAME := minishell
+
 READLINE_DIR = $(shell brew --prefix readline)
+READLINE_LIB = -lreadline -lhistory -L$(READLINE_DIR)/lib
+LIBFTDIR = ./libft/
+LIBFTHEADER = $(LIBFT)libft.h
+LIBS = $(LIBFTDIR)/libft.a
 
-READLINE_LIB = -lreadline -lhistory -L $(READLINE_DIR)/lib
+# INCLUDES = -I./includes/ -I$(LIBFTDIR)
+HEADERS = minishell.h $(LIBFTHEADER)
 
-FLAG = -Wall -Wextra -Werror -g3
-SRC = ./srcs/executor/main.c ./libft/ft_split.c ./libft/ft_strdup.c ./libft/ft_strlen.c \
-		./libft/ft_strncmp.c ./libft/ft_strjoin.c  \
-		./srcs/executor/sh_ex_builtin.c ./libft/ft_substr.c  \
-		./srcs/executor/sh_ex_bindir.c ./srcs/executor/sh_ex_quote.c ./srcs/executor/sh_ex_signal.c \
-		./libft/ft_strcmp.c ./srcs/executor/sh_ex_shellinit.c ./srcs/executor/sh_ex_utils.c \
-		./srcs/executor/sh_ex_env_utils.c ./srcs/executor/sh_ex_echo.c ./srcs/executor/sh_ex_unset.c \
-		./libft/ft_putstr_fd.c ./libft/ft_putchar_fd.c ./libft/ft_putnbr_fd.c	\
-		 ./srcs/parser/sh_ps_parser_cmds.c ./srcs/parser/sh_ps_parser_cmds_getters.c \
-		./srcs/parser/sh_ps_parser_cmds_free.c ./srcs/parser/sh_ps_lexer.c ./srcs/parser/sh_ps_lexer_words.c \
-		./libft/ft_strrchr.c ./libft/ft_calloc.c ./libft/ft_bzero.c ./srcs/executor/sh_ex_env.c \
-		./srcs/executor/sh_ex_cd.c  ./srcs/executor/sh_ex_export.c ./srcs/executor/sh_ex_pwd.c \
-		./srcs/executor/sh_ex_exit.c  ./srcs/executor/sh_ex_quote_utils.c \
-		./srcs/parser/sh_ps_lexer_add_missing.c ./srcs/parser/sh_ps_lexer_expand_quotes.c ./libft/ft_strlcpy.c \
-		./srcs/parser/sh_ps_parser.c ./srcs/executor/sh_ex_executor.c ./srcs/executor/extra.c	\
-		./srcs/parser/sh_ps_lexer_check_error.c	./srcs/parser/sh_ps_heredoc.c
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror -g3
 
-#	./srcs/executor/sh_ex_executor.c ./srcs/executor/ft_splitset.c ./srcs/executor/extra.c
-all: 
-	gcc $(READLINE_LIB) $(SRC) -g3 -o $(NAME) 
+SRCSDIR := ./srcs/
+EXECDIR_NAME := executor/
+PARSDIR_NAME := parser/
+FILES =	$(EXECDIR_NAME)main \
+	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_bindir			$(EXECDIR_NAME)sh_ex_quote	\
+	$(EXECDIR_NAME)sh_ex_signal			$(EXECDIR_NAME)sh_ex_shellinit		$(EXECDIR_NAME)sh_ex_utils	\
+	$(EXECDIR_NAME)sh_ex_env_utils		$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset	\
+	$(EXECDIR_NAME)sh_ex_cd				$(EXECDIR_NAME)sh_ex_export			$(EXECDIR_NAME)sh_ex_pwd	\
+	$(EXECDIR_NAME)sh_ex_exit			$(EXECDIR_NAME)sh_ex_quote_utils	$(EXECDIR_NAME)sh_ex_executor	\
+	$(EXECDIR_NAME)extra	\
+	$(PARSDIR_NAME)sh_ps_parser_cmds	$(PARSDIR_NAME)sh_ps_parser_cmds_getters	\
+	$(PARSDIR_NAME)sh_ps_parser_cmds_free	\
+	$(PARSDIR_NAME)sh_ps_lexer			$(PARSDIR_NAME)sh_ps_lexer_words	$(PARSDIR_NAME)sh_ps_lexer_add_missing	\
+	$(PARSDIR_NAME)sh_ps_lexer_expand_quotes	\
+	$(PARSDIR_NAME)sh_ps_parser			$(PARSDIR_NAME)sh_ps_lexer_check_error	\
+	$(PARSDIR_NAME)sh_ps_heredoc	\
+
+SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, $(FILES)))
+
+OBJSDIR := ./objsdir/
+OBJS = $(addprefix $(OBJSDIR), $(addsuffix .o, $(FILES)))
+
+$(OBJSDIR)%.o : $(SRCS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(LIBS) $(OBJSDIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ -L$(LIBFTDIR) -lft $(READLINE_LIB)
+
+$(LIBS):
+	make -C $(LIBFTDIR) all
+
+$(OBJSDIR):
+	mkdir -p $@
+	mkdir -p $(OBJSDIR)$(EXECDIR_NAME)
+	mkdir -p $(OBJSDIR)$(PARSDIR_NAME)
+
 clean:
-	rm $(NAME)
-	rm -rf minishell.dSYM
-re: clean all
+	make -C $(LIBFTDIR) clean
+	rm -rf $(OBJSDIR)
 
-leak:
-	valgrind --leak-check=full ./$(NAME)
+fclean: clean
+	make -C $(LIBFTDIR) fclean
+	rm -rf $(NAME)
+
+re: fclean
+	make all
+
+.PHONY: all clean fclean re
