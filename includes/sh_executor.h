@@ -17,10 +17,10 @@
 //******* struct for terminal
 typedef struct t_ter
 {
-	pid_t	shell_pgid;
-	struct	termios shell_tmodes;
-	int		shell_terminal;
-	int		shell_is_interactive;
+    pid_t shell_pgid;
+    struct termios shell_tmodes;
+    int shell_terminal;
+    int shell_is_interactive;
 } t_ter;
 
 typedef struct t_echo
@@ -31,37 +31,37 @@ typedef struct t_echo
     char *key1;
     char *str;
     char *str1;
-}   t_echo;
+} t_echo;
 
 void sh_ex_displayarray(char **commands);
-//void sh_ex_displayecho(t_shell_s *shell);
+// void sh_ex_displayecho(t_shell_s *shell);
 char *sh_ps_convertvalue(t_shell_s *shell, char *arg);
 void sh_ps_echoall(t_shell_s *shell, char *arg);
-//void sh_ps_changearg(t_shell_s *shell, char *arg);
+// void sh_ps_changearg(t_shell_s *shell, char *arg);
 
 void sh_ex_hasflag(t_shell_s *shell);
 
-//void sh_ex_displayecho(char *str);
+// void sh_ex_displayecho(char *str);
 
-char	*ft_charjoin(char const *s1, char c);
+char *ft_charjoin(char const *s1, char c);
 
 void sh_ex_display(t_shell_s *shell);
 void sh_ex_wcmessage();
 int sh_ex_doublelen(char **str);
-//void sh_ex_envlen(t_shell_s *shell);
+// void sh_ex_envlen(t_shell_s *shell);
 void sh_ex_freeallin(char **str);
 void sh_ex_freeall(char **str);
-//void sh_ex_memkeyval(t_shell_s *shell);
-//void sh_ex_createenvp(t_shell_s *shell, char **envp);
-//void sh_ex_viewenvp(t_shell_s *shell);
-//char *sh_ex_searchenvvar(t_shell_s *shell, char *key);
+// void sh_ex_memkeyval(t_shell_s *shell);
+// void sh_ex_createenvp(t_shell_s *shell, char **envp);
+// void sh_ex_viewenvp(t_shell_s *shell);
+// char *sh_ex_searchenvvar(t_shell_s *shell, char *key);
 void sh_ex_initshell(t_shell_s *shell, char **envp);
 void sh_ex_readline(t_shell_s *shell);
 char *sh_ex_cwd(void);
 // char   *sh_ex_createprompt(void);
 char *sh_ex_createprompt(t_shell_s *shell);
 
-//void sh_ex_freeallvar(t_shell_s *shell);
+// void sh_ex_freeallvar(t_shell_s *shell);
 int count_words(const char *str, char c);
 void sh_ex_countcommand(t_shell_s *shell);
 void sh_ex_splitcommands(t_shell_s *shell);
@@ -72,23 +72,23 @@ int sh_ex_indirfound(char c);
 int sh_ex_pipefound(char c);
 // void sh_ex_execcmd(t_shell_s *shell);
 // int sh_ex_isbuiltin(t_shell_s *shell);
-//int sh_ex_isbuiltin(char *cmd);
-//int sh_ex_isbuiltin(t_shell_s *shell, char *cmd);
+// int sh_ex_isbuiltin(char *cmd);
+// int sh_ex_isbuiltin(t_shell_s *shell, char *cmd);
 
-//int sh_ex_exit(void);
-//void sh_ex_echo(t_shell_s *shell);
-//void sh_ex_builtin(t_shell_s *shell);
-// void sh_ex_showpwd(void);
-//void sh_ex_showpwd(t_shell_s *shell);
+// int sh_ex_exit(void);
+// void sh_ex_echo(t_shell_s *shell);
+// void sh_ex_builtin(t_shell_s *shell);
+//  void sh_ex_showpwd(void);
+// void sh_ex_showpwd(t_shell_s *shell);
 
-//char *sh_ex_bindir(t_shell_s *shell, char *cmd);
+// char *sh_ex_bindir(t_shell_s *shell, char *cmd);
 char *sh_ex_finddollar(char *str);
-char *sh_ex_changekey(t_shell_s *shell);//
-//void sh_ex_export(t_shell_s *shell);
-//void sh_ex_addenv(t_shell_s *shell, char *str);
+char *sh_ex_changekey(t_shell_s *shell); //
+// void sh_ex_export(t_shell_s *shell);
+// void sh_ex_addenv(t_shell_s *shell, char *str);
 void sh_ex_addvalue(t_shell_s *shell, char *tmp_value);
 void sh_ex_addkey(t_shell_s *shell, char *tmp_key);
-//void sh_ex_cd(t_shell_s *shell);
+// void sh_ex_cd(t_shell_s *shell);
 void sh_ex_exitcode(void);
 
 int sh_ex_firstdelimeter(char *str);
@@ -101,13 +101,13 @@ int sh_ps_isdoublequote(char c);
 int sh_ps_isescape(char c);
 char *sh_ps_removequote(char *str);
 char *sh_ps_trimspace(char *str);
+void sh_ex_execcmdall(t_shell_s *shell, t_commands *command);
 
 int sh_ps_issinglequotedarg(char *str);
 void sh_ex_removeenv(t_shell_s *shell, char *key);
-void sh_ex_unset(t_shell_s *shell);
+// void sh_ex_unset(t_shell_s *shell);
 void sh_ps_echoall(t_shell_s *shell, char *arg);
 int sh_ps_isvalidname(char c);
-
 
 int ft_chrfound(char *str, char c);
 
@@ -126,42 +126,41 @@ void reset_mode(void);
 
 void sh_ex_redirectfile(t_shell_s *shell);
 
-//void init_shell();
-
+// void init_shell();
 
 //********sh_ex_builtin.c *************
-int sh_ex_isbuiltin(t_commands *command);
-void sh_ex_builtin(t_shell_s *shell, t_commands *command);
+// int sh_ex_isbuiltin(t_shell_s *shell, t_commands *command);
+// void sh_ex_builtin(t_shell_s *shell, t_commands *command);
 
 //******* sh_ex_echo.c*****************
 void sh_ex_displayecho(t_shell_s *shell, t_commands *command);
-void  sh_ex_echoflag(t_shell_s *shell, t_commands *command);
-void sh_ex_echo(t_shell_s *shell, t_commands *command);
-void sh_ex_echoarray(t_shell_s *shell, t_commands *command);
+void sh_ex_echoflag(t_shell_s *shell, t_commands *command);
+int sh_ex_echo(t_shell_s *shell, t_commands *command);
+void sh_ex_echoarray(t_commands *command);
 
 //******* sh_ex_cd.c*******************
-void sh_ex_cd(t_shell_s *shell, t_commands *command);
-void    sh_ex_changepwd(t_shell_s *shell);
+int sh_ex_cd(t_shell_s *shell, t_commands *command);
+void sh_ex_changepwd(t_shell_s *shell);
 
 //******* sh_ex_pwd.c *****************
 char *sh_ex_cwd(void);
-void sh_ex_showpwd(t_shell_s *shell);
+int sh_ex_showpwd(void);
 
 //******** sh_ex_export.c *************
 void sh_ex_addenv(t_shell_s *shell, char *str);
-void sh_ex_export(t_shell_s *shell);
+int sh_ex_export(t_shell_s *shell);
 int sh_ex_searchenvindex(t_shell_s *shell, char *key);
-void    sh_ex_changeenv(t_shell_s *shell, char *key, char *value);
+void sh_ex_changeenv(t_shell_s *shell, char *key, char *value);
 
 //******** sh_ex_env.c ****************
-void sh_ex_viewenvp(t_shell_s *shell);
+int sh_ex_viewenvp(t_shell_s *shell);
 
 //******* sh_ex_unset.c ***************
 void sh_ex_removeenv(t_shell_s *shell, char *key);
-void sh_ex_unset(t_shell_s *shell);
+int sh_ex_unset(t_shell_s *shell);
 
 //******** sh_ex_exit.c ***************
-void sh_ex_exit(t_shell_s *shell);
+int sh_ex_exit(t_shell_s *shell);
 
 //******* sh_ex_utils.c ***************
 void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words);
@@ -171,7 +170,7 @@ char *sh_ex_bindir(t_shell_s *shell, char *cmd);
 
 //******** sh_ex_builtin.c ************
 int sh_ex_isbuiltin(t_commands *command);
-void sh_ex_builtin(t_shell_s *shell, t_commands *command);
+int sh_ex_builtin(t_shell_s *shell, t_commands *command);
 
 //******** sh_ex_env_utils.c **********
 void sh_ex_envlen(t_shell_s *shell);
@@ -192,7 +191,7 @@ int sh_ps_isvalidname(char c);
 char *sh_ps_trimspace(char *str);
 
 //********* sh_ex_shellinit.c **********
-void	init_shell(t_ter *ter);
+void init_shell(t_ter *ter);
 void save_mode(void);
 void set_mode(void);
 void reset_mode(void);
@@ -213,12 +212,53 @@ void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words);
 void sh_ps_changearg(t_shell_s *shell, t_echo *echo, char *arg);
 void sh_ex_display(t_shell_s *shell);
 void sh_ex_displayarray(char **commands);
-char	*ft_charjoin(char const *s1, char c);
+char *ft_charjoin(char const *s1, char c);
 int ft_chrfound(char *str, char c);
-int sh_ps_listlen(t_commands *command);
+int sh_ex_listlen(t_commands *command);
+int sh_ex_pipecount(t_commands *command);
+int sh_count(t_words *word);
+char *sh_ex_fileout(t_commands *command);
+char *sh_ex_filein(t_commands *command);
 
 //**********sh_ex_executor.c ************
 void sh_ex_execcmd(t_shell_s *shell, t_commands *command);
 
+//***********sh_ex_exec_utils.c**********
+int sh_ex_init_pipe_fork(t_shell_s *shell);
+int sh_ex_init_fork(t_shell_s *shell, t_commands *command);
+int sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *idx);
+int sh_ex_close_fd(t_shell_s *shell);
+
+// void sh_ex_execcmd(t_shell_s *shell, t_commands *command);
+// int sh_ex_fork(t_shell_s *shell, t_commands *command, t_context *ctx);
+// int sh_ex_execnode(t_shell_s *shell, t_commands *command, t_context *ctx);
+// int sh_ex_pipe(t_shell_s *shell, t_commands *command, t_context *ctx);
+// void sh_ex_exec(t_shell_s *shell, t_commands *command);
+// void sh_ex_exec(t_shell_s *shell, t_commands *command);
+// int sh_ex_init_fork(t_shell_s *shell, t_commands *command);
+// void sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index);
+// int sh_ex_close_fd(t_shell_s *shell, t_commands *command);
+// int sh_ex_init_pipe_fork(t_shell_s *shell, t_commands *command);
+// void sh_ex_exec_cmd(t_shell_s *shell, t_commands *command);
+// void sh_ex_stdstatus(int status);
+
+//********** sh_ex_exec_extra.c ***********
+void sh_ex_stdstatus(int status);
+// int sh_ex_redirect(t_shell_s *shell, t_commands *command, int fd);
+int sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir);
+int sh_ex_redir_out(t_redirections *redir, int *fd);
+int sh_ex_redir_out_app(t_redirections *redir, int *fd);
+int sh_ex_redir_in(t_redirections *redir, int *fd);
+int sh_ex_exec_cmd(t_shell_s *shell, t_commands *command);
+int sh_ex_fork(t_shell_s *shell, t_commands *command);
+int sh_ex_exec(t_shell_s *shell, t_commands *command);
+void sh_ex_testfork(t_shell_s *shell, t_commands *command);
+
+//*********extra**************
+void sh_display(t_commands *command);
+void sh_dispred(t_redirections *redirs);
+int sh_ex_simplecmd(t_shell_s *shell, t_commands *command);
+int sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command);
+int sh_ex_valid_exec(t_shell_s *shell, t_commands *command);
 
 #endif

@@ -6,37 +6,11 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 13:53:53 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/03 20:04:09 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-static int	run_cmds_getter(\
-t_commands *command, t_words **head_word, t_words **word)
-{
-	if (*((*word)->str) == '<' || *((*word)->str) == '>')
-	{
-		if (sh_ps_parser_get_redirs(command, head_word, word) < 0)
-			return (printf("ERROR REDIRECTION!\n"));
-	}
-	else if (command->cmd_name == NULL && (*word)->term_type == TT_JUST_WORD)
-	{
-		if (sh_ps_parser_get_cmd_name(command, head_word, word) < 0)
-			return (printf("ERROR CMD NAME!\n"));
-	}
-	else if (command->cmd_name != NULL && (*word)->term_type == TT_JUST_WORD)
-	{
-		if (sh_ps_parser_get_cmd_args(command, head_word, word) < 0)
-			return (printf("ERROR CMD ARGS!\n"));
-	}
-	else
-		sh_ps_lexer_word_del_word(head_word, *word, FREE_ALL);
-	*word = *head_word;
-	return (0);
-}
-*/
 
 static int	pipe_error_check(t_words *word, enum e_pipe_error_check flag)
 {
@@ -152,30 +126,5 @@ int	main(int argc, char	*argv[])
 	sh_ps_parser_commands_print_list(head_command);
 	sh_ps_parser_commands_free_list(head_command);
 	return (0);
-}
-*/
-/*
-** check where the executable file is in the bin path
-** and return it if found 
-char *sh_ex_bindir(t_shell_s *shell, char *cmd)
-{
-    int i;
-    char *realpath;
-
-    i = 0;
-    while (shell->path[i])
-    {
-        realpath = malloc(sizeof(char) * (ft_strlen(shell->path[i] + ft_strlen(cmd) + 1)));
-        if (!realpath)
-            return (NULL);
-        realpath = ft_strjoin(shell->path[i], cmd);
-        // check if the file is found in the directory if found 
-        // return it
-        if (access(realpath, F_OK) == 0)
-            return (realpath);
-        i++;
-    }
-    free(realpath);
-    return (NULL);
 }
 */

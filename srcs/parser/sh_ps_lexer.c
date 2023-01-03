@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 13:14:15 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/03 20:26:09 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,28 +140,22 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 	head_word = word;
 	while (word != NULL)
 	{
-		if (word->term_type == TT_ERROR)
-		{
-			printf("ERROR TOKEN!\n");
-			sh_ps_lexer_word_free_list(head_word);
-			return (NULL);
-		}
 		word = get_next_word(NULL);
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
 	sh_ps_lexer_heredoc_mark_variable(head_word);
-	// printf("\n>>original words<<\n");
-	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>add missing spaces & missing env values<<\n");
+	printf("\n>>original words<<\n");
+	sh_ps_lexer_word_print_list(head_word);
+	printf("\n>>add missing spaces & missing env values<<\n");
 	if (sh_ps_lexer_add_missing(shell, head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);
 		return (NULL);
 	}
-	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>connect all words in quotes<<\n");
+	sh_ps_lexer_word_print_list(head_word);
+	printf("\n>>connect all words in quotes<<\n");
 	sh_ps_lexer_expand_quotes(&head_word);
-	// sh_ps_lexer_word_print_list(head_word);
+	sh_ps_lexer_word_print_list(head_word);
 	if (sh_ps_lexer_check_error(head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);

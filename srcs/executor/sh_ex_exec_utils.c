@@ -3,17 +3,126 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_exec_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 10:43:48 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/26 10:52:29 by yoyohann         ###   ########.fr       */
+/*   Created: 2022/12/26 18:05:00 by marvin            #+#    #+#             */
+/*   Updated: 2022/12/26 18:05:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int sh_ex_exec(t_commands *command)
+int sh_ex_init_pipe_fork(t_shell_s *shell)
 {
-    int end[2];
-    
+
+    int i = 0;
+    shell->pid = malloc(sizeof(int) * (shell->num_commands + 1));
+    shell->fd = malloc(sizeof(int) * (shell->num_commands * 2));
+    if (!shell->fd)
+        return (1);
+    while (i < shell->num_commands)
+    {
+        if (pipe(shell->fd + i * 2) < 0)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+// initialize the fork
+
+int sh_ex_init_fork(t_shell_s *shell, t_commands *command)
+{
+    int i;
+    int idx;
+     t_commands *cmd;
+
+      cmd = command;
+
+    i = 0;
+    idx = 0;
+    shell->num_commands--;
+    if (sh_ex_init_pipe_fork(shell))
+        return (1);
+    while (cmd)
+    {
+/*         if (sh_ex_isbuiltin(command))
+        {
+            sh_ex_dup_pipe(shell, cmd, &idx);
+            sh_ex_exitstatus = sh_ex_builtin(shell, command);
+        }
+        else
+        {
+            shell->pid[i] = fork();
+            if (shell->pid[i] == -1)
+                return (1);
+            else if (shell->pid[i] == 0)
+            {
+                sh_ex_dup_pipe(shell, cmd, &idx);
+            }
+            i++;
+        }
+        sh_ex_stdstatus(0);
+        cmd = cmd->next;
+        idx += 2; */
+ 
+
+        shell->pid[i] = fork();
+        if (shell->pid[i] == -1)
+            return (1);
+        else if (shell->pid[i] == 0)
+            sh_ex_dup_pipe(shell, cmd, &idx);
+        cmd = cmd->next;
+        idx += 2;
+        sh_ex_stdstatus(0);
+        i++; 
+
+    }
+    return (sh_ex_close_fd(shell));
+}
+// use dup to duplicate the read and write end of the pipe
+
+int sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *idx)
+{
+    int i = 0;
+
+    if (command->next)
+    {
+        if (dup2(shell->fd[*idx + 1], STDOUT_FILENO) < 0)
+            return (1);
+    }
+    if (*idx != 0)
+    {
+        if (dup2(shell->fd[*idx - 2], STDIN_FILENO) < 0)
+            return (1);
+    }
+    if (command->redirs != NULL)
+    {
+        if (sh_ex_check_redirect(shell, command->redirs))
+            return (1);
+    }  
+    while (i < (shell->num_commands * 2))
+        close(shell->fd[i++]);
+     sh_ex_exitstatus = sh_ex_exec_cmd(shell, command);
+    // sh_ex_exitstatus = sh_ex_simplecmd_exec(shell, command);
+    return (sh_ex_exitstatus);
+}
+
+int sh_ex_close_fd(t_shell_s *shell)
+{
+    int i = 0;
+
+    while (i < (shell->num_commands * 2))
+        close(shell->fd[i++]);
+    i = 0;
+    while (i < (shell->num_commands + 1))
+    {
+        waitpid(shell->pid[i], &sh_ex_exitstatus, 0);
+        if (WIFEXITED(sh_ex_exitstatus))
+            sh_ex_exitstatus = WEXITSTATUS(sh_ex_exitstatus);
+        i++;
+    }
+    free(shell->fd);
+    free(shell->pid);
+    return (sh_ex_exitstatus);
 }

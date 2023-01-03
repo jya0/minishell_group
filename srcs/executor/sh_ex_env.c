@@ -6,13 +6,13 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 22:47:27 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/23 06:55:12 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/01 20:06:23 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sh_ex_viewenvp(t_shell_s *shell)
+int	sh_ex_viewenvp(t_shell_s *shell)
 {
 	int	i;
 
@@ -24,4 +24,5 @@ void	sh_ex_viewenvp(t_shell_s *shell)
 		printf (WHITE"%s\n", shell->envp.value[i]);
 		i++;
 	}
+	return (0);
 }

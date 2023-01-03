@@ -6,19 +6,19 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/23 05:41:38 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/02 23:50:11 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sh_ex_cd(t_shell_s *shell, t_commands *command)
+int	sh_ex_cd(t_shell_s *shell, t_commands *command)
 {
 	char	*olddir;
 
 	olddir = sh_ex_cwd ();
 	sh_ex_changeenv (shell, "OLDPWD", olddir);
-	if (command->cmd_args)
+	if (*(command->cmd_args))
 	{
 		if (chdir (command->cmd_args[0]) == 0)
 			sh_ex_changepwd (shell);
@@ -37,6 +37,7 @@ void	sh_ex_cd(t_shell_s *shell, t_commands *command)
 			sh_ex_changepwd (shell);
 		}
 	}
+	return (0);
 }
 
 void	sh_ex_changepwd(t_shell_s *shell)

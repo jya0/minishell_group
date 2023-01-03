@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:01:08 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 20:12:56 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/03 20:55:23 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ t_commands *command, t_words **head_word, t_words **word)
 }
 */
 
-static void	assign_command_name_args(t_commands	*command)
-{
-	if (command->cmd_argv == NULL)
-		return ;
-	command->cmd_name = command->cmd_argv[0];
-	command->cmd_args = &(command->cmd_argv[1]);
-}
-
 static char	**allocate_argv(t_words *head_word, t_words **ptr_word)
 {
 	int		i;
@@ -68,6 +60,8 @@ static char	**allocate_argv(t_words *head_word, t_words **ptr_word)
 	if (i == 0)
 		return (NULL);
 	argv = (char **)ft_calloc(i + 1, sizeof(char *));
+	if (argv == NULL)
+		return (perror("FAILED TO ALLOCATE ARGV!\n"), NULL);
 	return (argv);
 }
 
@@ -79,12 +73,7 @@ t_commands *command, t_words **head_word)
 
 	command->cmd_argv = allocate_argv(*head_word, &ptr_word);
 	if (command->cmd_argv == NULL)
-	{
-		sh_ps_lexer_word_free_list(*head_word);
-		sh_ps_parser_commands_free(command, FREE_ALL);
-		printf("ERROR ARGV!\n");
-		return (-1);
-	}
+		return (0);
 	i = 0;
 	while (*head_word != ptr_word)
 	{
@@ -92,7 +81,11 @@ t_commands *command, t_words **head_word)
 		i++;
 		sh_ps_lexer_word_del_word(head_word, *head_word, FREE_DEFAULT);
 	}
-	assign_command_name_args(command);
+	if (command->cmd_argv != NULL)
+	{
+		command->cmd_name = command->cmd_argv[0];
+		command->cmd_args = &(command->cmd_argv[1]);
+	}
 	return (0);
 }
 
@@ -131,7 +124,7 @@ t_commands *command, t_words **head_word, t_words	**word)
 	t_redirections	*redirection;
 
 	if ((*word)->next == NULL || (*word)->next->term_type != TT_JUST_WORD)
-		return (perror("ERROR REDIRECTION!\n"), -1);
+		return (perror("PARSER: ERROR REDIRECTION!\n"), -1);
 	redirection = (t_redirections *)ft_calloc(1, sizeof(t_redirections));
 	if (redirection == NULL)
 		return (-1);
@@ -156,7 +149,8 @@ t_commands *command, t_words **head_word)
 	word = *head_word;
 	while (word != NULL && word->term_type != TT_PIPE)
 	{
-		if (*(word->str) == '<' || *(word->str) == '>')
+		if (word->term_type == TT_REDIR_IN || word->term_type == TT_REDIR_OUT \
+		|| word->term_type == TT_APPND_IN || word->term_type == TT_APPND_OUT)
 		{
 			if (get_redir(command, head_word, &word) != 0)
 			{

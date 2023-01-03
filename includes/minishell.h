@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/26 09:19:57 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:17:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
 #include <stdio.h>
 #include <unistd.h>
@@ -40,14 +40,23 @@ typedef struct t_env_s
     char **tokens;
 } t_env_s;
 
+typedef struct t_cmd
+{
+    int *fd;
+    int *pid;
+} t_cmd;
+
 // struct for the command variables
 
 typedef struct t_shell_s
 {
-    char *echo_print; // 
+    char *echo_print; //
+    int *fd;
+    int *pid;
+    int red_fd[2];
+    int i;
 
-
-    char *echovar; // echo argument conveted 
+    char *echovar; // echo argument conveted
     int echoflag;
     char line;       // check command in the execution
     char error_file; //
@@ -63,8 +72,8 @@ typedef struct t_shell_s
     int cmdindex;          // index of the commands
     int num_commands;      // number of all commands
     int num_pipes;         // number of all pipes
-    int fdin;            // file descriptor for redirect in file
-    int fdout;           // file descriptor for redirect out file
+    int fdin;              // file descriptor for redirect in file
+    int fdout;             // file descriptor for redirect out file
     int dbl_infile;        // to check if there is <<
     int dbl_outfile;       // to chec if there is >>
     char *cmd_line;        // read the command line
@@ -75,8 +84,13 @@ typedef struct t_shell_s
     struct t_env_s envp;
 } t_shell_s;
 
-# include "../libft/libft.h"
-# include "./sh_parser.h"
-# include "./sh_executor.h"
+typedef struct t_context
+{
+    int fd[2];
+    int fd_close;
+} t_context;
+#include "../libft/libft.h"
+#include "./sh_parser.h"
+#include "./sh_executor.h"
 
 #endif

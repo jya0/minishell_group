@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 03:44:37 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/23 05:15:09 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:46:46 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	sh_ex_isbuiltin(t_commands *command)
+int sh_ex_isbuiltin(t_commands *command)
 {
 	if (ft_strcmp(command->cmd_name, "echo") == 0)
 		return (1);
@@ -31,20 +31,21 @@ int	sh_ex_isbuiltin(t_commands *command)
 	return (0);
 }
 
-void	sh_ex_builtin(t_shell_s *shell, t_commands *command)
+int sh_ex_builtin(t_shell_s *shell, t_commands *command)
 {
-	if (sh_ex_isbuiltin (command) == 1)
-		sh_ex_echo (shell, command);
-	if (sh_ex_isbuiltin (command) == 2)
-		sh_ex_cd (shell, command);
-	if (sh_ex_isbuiltin (command) == 3)
-		sh_ex_showpwd (shell);
-	if (sh_ex_isbuiltin (command) == 4)
-		sh_ex_export (shell);
-	if (sh_ex_isbuiltin (command) == 5)
-		sh_ex_unset (shell);
-	if (sh_ex_isbuiltin (command) == 6)
-		sh_ex_viewenvp (shell);
-	if (sh_ex_isbuiltin (command) == 7)
-		sh_ex_exit (shell);
+	if (sh_ex_isbuiltin(command) == 1)
+		return (sh_ex_echo(shell, command));
+	else if (sh_ex_isbuiltin(command) == 2)
+		return (sh_ex_cd(shell, command));
+	else if (sh_ex_isbuiltin(command) == 3)
+		return (sh_ex_showpwd());
+	else if (sh_ex_isbuiltin(command) == 4)
+		return (sh_ex_export(shell));
+	else if (sh_ex_isbuiltin(command) == 5)
+		return (sh_ex_unset(shell));
+	else if (sh_ex_isbuiltin(command) == 6)
+		return (sh_ex_viewenvp(shell));
+	else if (sh_ex_isbuiltin(command) == 7)
+		return (sh_ex_exit(shell));
+	return (0);
 }

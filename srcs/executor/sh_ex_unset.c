@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 03:14:14 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/23 08:16:56 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:19:15 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	sh_ex_removeenv(t_shell_s *shell, char *key)
 	int		i;
 	int		j;
 	char	**envp;
-	int		size;
-	char	*str;
 
 	if (sh_ex_searchenvvar (shell, key) != NULL)
 	{
@@ -44,10 +42,9 @@ void	sh_ex_removeenv(t_shell_s *shell, char *key)
 	}
 }
 
-void	sh_ex_unset(t_shell_s *shell)
+int	sh_ex_unset(t_shell_s *shell)
 {
 	char	**tmp_str;
-	char	*tmp;
 	char	*str;
 
 	tmp_str = ft_split (shell->cmd_line, ' ');
@@ -57,4 +54,5 @@ void	sh_ex_unset(t_shell_s *shell)
 		sh_ex_removeenv (shell, str);
 		sh_ex_createenvp (shell, shell->envp.envp);
 	}
+	return (0);
 }

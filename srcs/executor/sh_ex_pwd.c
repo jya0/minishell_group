@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:20:24 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/23 08:41:49 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:26:35 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*sh_ex_cwd(void)
 	return (cwd);
 }
 
-void	sh_ex_showpwd(t_shell_s *shell)
+int	sh_ex_showpwd(void)
 {
 	char	*dir;
 
@@ -33,8 +33,9 @@ void	sh_ex_showpwd(t_shell_s *shell)
 	{
 		sh_ex_exitstatus = 0;
 		dir = ft_strjoin (WHITE, dir);
-		ft_putstr_fd (dir, shell->fdout);
-		ft_putchar_fd ('\n', shell->fdout);
+		ft_putstr_fd (dir, STDOUT_FILENO);
+		ft_putchar_fd ('\n', STDOUT_FILENO);
 	}
 	free (dir);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/29 18:11:39 by jyao             ###   ########.fr       */
+/*   Updated: 2022/12/28 20:24:05 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define DELIM_TERMS_COMBINEABLE	"<>|&$"
 # define DELIM_TERMS_ALL			"<>|&$()'\""
 
-/*====================BONUS CONSTANTS=========================*/
 # define BKT_STK_MAX				2048
+
 # define HEREDOC_FILE				"/tmp/.heredoc_tmp"
 
 enum e_term_type {
@@ -96,26 +96,19 @@ typedef struct s_commands {
 }	t_commands;
 
 /*pipeline_return is the exit status of the last command of the pipeline!*/
-/*
-** pipeline return is the last command's exit status
-*/
 typedef struct s_pipelines {
 	// size_t				index;
 	t_words				*words;
 	t_commands			*commands;
-	enum e_term_type	cond_term_type;
 	int					pipeline_return;
+	enum e_term_type	cond_term_type;
 	struct s_pipelines	*next;
 }	t_pipelines;
 
-/*
-** conditional_return is the entire pipelines' return all logical or'd (|)
-*/
 typedef struct s_conditionals {
 	size_t					index;
 	t_pipelines				*pipelines;
-	enum e_term_type		cond_term_type;
-	int						conditional_return;
+	// int						conditional_return;
 	struct s_conditionals	*next;
 }	t_conditionals;
 

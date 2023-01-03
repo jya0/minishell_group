@@ -12,63 +12,72 @@
 
 #include "../../includes/minishell.h"
 
- void sh_ex_echoarray(t_shell_s *shell, t_commands *command)
+void sh_ex_echoarray(t_commands *command)
 {
 	int i;
-
+	int len;
 	char **cmd;
+	char **echo;
+	
+	len = sh_ex_doublelen(command->cmd_args);
 	cmd = command->cmd_args;
-
-	i = 0;
-	// if (!cmd)
-	// 	ft_putchar_fd('\n', shell->fdout);
-	while (cmd[i])
+	if (ft_strcmp(cmd[0], "-n") == 0)
 	{
-		if (ft_strcmp(cmd[0], "-n") == 0)
-			continue;
-		ft_putstr_fd(cmd[i], shell->fdout);
-		i++;
+		echo = &cmd[1];
+		len--;
 	}
-}
-
-void sh_ex_displayecho(t_shell_s *shell, t_commands *command)
-{
-	if (command->cmd_args[0] != NULL)
+	else
+		echo = cmd;
+	i = 0;
+	while (echo[i])
 	{
-		if (ft_strncmp(command->cmd_args[0], "$?", 2) == 0)
-			ft_putnbr_fd(sh_ex_exitstatus, shell->fdout);
-		else if (shell->echoflag)
-		{
-			sh_ex_echoarray(shell, command);
-			sh_ex_exitstatus = 0;
-		}
+
+		ft_putstr_fd(echo[i], 1);
+		if (i < len - 1)
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
 }
 
 void sh_ex_echoflag(t_shell_s *shell, t_commands *command)
 {
+	char **args;
 
-	if (command->cmd_args[0] != NULL)
+	args = command->cmd_args;
+	if (*args != NULL)
 	{
-		if (ft_strncmp(command->cmd_args[0], "-n", 2) == 0)
-		{
+		// ft_putstr_fd("yes 1\n", shell->fdout);
+		if (ft_strcmp(args[0], "-n") == 0)
 			shell->echoflag = 1;
-			return;
-		}
-		else
-			shell->echoflag = 0;
+	}
+
+	// else
+	// 	shell->echoflag = 0;
+}
+
+void sh_ex_displayecho(t_shell_s *shell, t_commands *command)
+{
+	if (ft_strcmp(command->cmd_args[0], "$?") == 0)
+		ft_putnbr_fd(sh_ex_exitstatus, shell->fdout);
+	else
+	{
+
+		sh_ex_echoarray(command);
+		sh_ex_exitstatus = 0;
 	}
 }
 
-void sh_ex_echo(t_shell_s *shell, t_commands *command)
+int sh_ex_echo(t_shell_s *shell, t_commands *command)
 {
- 	sh_ex_echoflag(shell, command);
-	if (command->cmd_args[0] == NULL)
-		ft_putstr_fd("\n", shell->fdout);
-	else
-	{	
+	shell->echoflag = 0;
+	if (*(command->cmd_args) != NULL)
+	{
+		sh_ex_echoflag(shell, command);
 		sh_ex_displayecho(shell, command);
 		if (!shell->echoflag)
-			ft_putstr_fd("\n", shell->fdout);
-			}
-} 
+			ft_putstr_fd("\n", 1);
+	}
+	else
+		ft_putstr_fd("\n", 1);
+	return (0);
+}

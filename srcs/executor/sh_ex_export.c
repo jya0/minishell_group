@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:36:57 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/23 07:26:09 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/01 20:05:06 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sh_ex_addenv(t_shell_s *shell, char *str)
 	shell->envp.envp = envp;
 }
 
-void	sh_ex_export(t_shell_s *shell)
+int	sh_ex_export(t_shell_s *shell)
 {
 	char	*str;
 	char	**tmp_str;
@@ -48,7 +48,7 @@ void	sh_ex_export(t_shell_s *shell)
 	if (tmp_str[1] == NULL)
 	{
 		sh_ex_viewenvp (shell);
-		return ;
+		return (0);
 	}
 	else
 	{
@@ -62,6 +62,7 @@ void	sh_ex_export(t_shell_s *shell)
 		}
 	}
 	free (str);
+	return (0);
 }
 
 int	sh_ex_searchenvindex(t_shell_s *shell, char *key)
