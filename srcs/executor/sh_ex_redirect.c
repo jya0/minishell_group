@@ -12,35 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-int sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir)
+static int redir_stdout(t_redirections *redir, int *fd)
 {
-
-    while (redir != NULL)
-    {
-        if (redir->redir_term_type == TT_REDIR_OUT)
-        {
-            if (sh_ex_redir_out(redir, &shell->red_fd[1]))
-                return (1);
-        }
-        else if (redir->redir_term_type == TT_APPND_OUT)
-        {
-            if (sh_ex_redir_out_app(redir, &shell->red_fd[1]))
-                return (1);
-        }
-        else if (redir->redir_term_type == TT_REDIR_IN)
-        {
-            if (sh_ex_redir_in(redir, &shell->red_fd[0]))
-                return (1);
-        }
-        redir = redir->next;
-        // printf("hello\n");
-    }
-    return (0);
-}
-
-int sh_ex_redir_out(t_redirections *redir, int *fd)
-{
-    *fd = open(redir->redir_file, O_RDWR | O_CREAT | O_TRUNC, 0777);
+    if (redir->redir_term_type == TT_REDIR_OUT)
+        *fd = open(redir->redir_file, \
+        O_RDWR | O_CREAT | O_TRUNC, 0777);
+    else if (redir->redir_term_type == TT_APPND_OUT)
+        *fd = open(redir->redir_file, \
+        O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, 0777);
     // printf("pass 1\n");
     if ((*fd) == -1)
         return (1);
@@ -52,22 +31,38 @@ int sh_ex_redir_out(t_redirections *redir, int *fd)
     return (0);
 }
 
-int sh_ex_redir_out_app(t_redirections *redir, int *fd)
+static int redir_stdin(t_redirections *redir, int *fd)
 {
-    *fd = open(redir->redir_file, O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, 0777);
-    if ((*fd) == -1)
-        return (1);
-    dup2((*fd), STDOUT_FILENO);
-    close((*fd));
-    return (0);
-}
-
-int sh_ex_redir_in(t_redirections *redir, int *fd)
-{
-    *fd = open(redir->redir_file, O_RDONLY);
+    if (redir->redir_term_type == TT_REDIR_IN)
+        *fd = open(redir->redir_file, O_RDONLY);
+    else if (redir->redir_term_type == TT_APPND_IN)
+        *fd = open(HEREDOC_FILE, O_RDONLY);
     if ((*fd) == -1)
         return (1);
     dup2((*fd), STDIN_FILENO);
     close((*fd));
+    return (0);
+}
+
+int sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir)
+{
+
+    while (redir != NULL)
+    {
+        if (redir->redir_term_type == TT_REDIR_OUT \
+        || redir->redir_term_type == TT_APPND_OUT)
+        {
+            if (redir_stdout(redir, &shell->red_fd[1]))
+                return (1);
+        }
+        else if (redir->redir_term_type == TT_REDIR_IN \
+        || redir->redir_term_type == TT_APPND_IN)
+        {
+            if (redir_stdin(redir, &shell->red_fd[0]))
+                return (1);
+        }
+        redir = redir->next;
+        // printf("hello\n");
+    }
     return (0);
 }

@@ -86,38 +86,41 @@ int sh_ex_simplecmd(t_shell_s *shell, t_commands *command)
             if (WIFEXITED(sh_ex_exitstatus))
                 sh_ex_exitstatus = WEXITSTATUS(sh_ex_exitstatus);
         }
+        return (0);
     }
-    else
-    {
-        // printf("file not found\n");
+     else
         sh_ex_exitstatus = 1;
-    }
     return (sh_ex_exitstatus);
 }
 
 int sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
 {
-    if (sh_ex_isbuiltin(command))
+    // printf("isbuiltin val = %d\n", sh_ex_isbuiltin(command));
+    // printf("shell num cmd val = %d\n", shell->num_commands);
+    if (sh_ex_isbuiltin(command) && shell->num_commands >= 1)
+    {
+        // printf("I AM BUILTIN\n");
         sh_ex_exitstatus = sh_ex_builtin(shell, command);
+        exit(sh_ex_exitstatus);
+    }
     else
+    {
+        // printf("I AM EXTERNAL\n");
         sh_ex_exitstatus =  sh_ex_exec_cmd(shell, command);
+    }
     return (sh_ex_exitstatus);
 }
 
 int sh_ex_exec(t_shell_s *shell, t_commands *command)
 {
-
-    t_redirections *redir;
-
-    redir = command->redirs;
-    shell->red_fd[0] = 0;
-    shell->red_fd[1] = 0;
+    // shell->red_fd[0] = 0;
+    // shell->red_fd[1] = 0;
     shell->num_commands = sh_ex_listlen(command);
 
     // duplicate stdin and stdout using dup
     sh_ex_stdstatus(1);
     // check if there is a redirection
-    if (redir != NULL)
+/*     if (redir != NULL)
     {
         if (sh_ex_check_redirect(shell, redir))
         {
@@ -127,7 +130,7 @@ int sh_ex_exec(t_shell_s *shell, t_commands *command)
             sh_ex_stdstatus(0);
             return (1);
         }
-    }
+    } */
     // printf("hey 2\n");
     if (command == NULL && command->redirs == NULL)
         return (1);

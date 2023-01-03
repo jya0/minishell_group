@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/03 20:28:43 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/04 02:11:41 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void sh_ex_initshell(t_shell_s *shell, char **envp)
 	shell->path[i] = NULL;
 }
 
-/*
-static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
+
+/* static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 {
 	int				i;
 	t_redirections	*redir;
@@ -97,26 +97,26 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 			while (head_command->cmd_args[i] != NULL)
 				printf("<%s>", head_command->cmd_args[i++]);
 		}
-		printf("\nredirs_in = ");
+		printf("\nredirs = ");
 		// redir = head_command->redirs_in;
 		redir = head_command->redirs;
 		while (redir != NULL)
 		{
-			printf("%s ", redir->redir_file);
+			printf("<%s %d> ", redir->redir_file, redir->redir_term_type);
 			redir = redir->next;
 		}
 		head_command = head_command->next;
 	}
-}
-*/
+} */
+
 
 int main(int argc, char **argv, char **envp)
 {
 	t_shell_s shell;
 	t_commands *head_command;
 
-	if (argc < 0 || argv == NULL)
-		return (-1);
+	(void)argc;
+	(void)argv;
 	sh_ex_exitstatus = 0;
 	// sh_ex_wcmessage();
 	// init_shell (void);
