@@ -160,10 +160,10 @@ void sh_ex_removeenv(t_shell_s *shell, char *key);
 int sh_ex_unset(t_shell_s *shell);
 
 //******** sh_ex_exit.c ***************
-int sh_ex_exit(t_shell_s *shell);
+int	sh_ex_exit(t_shell_s *shell, int flag);
 
 //******* sh_ex_utils.c ***************
-void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words);
+void sh_ex_freeallvar(t_shell_s *shell, t_commands *command);
 
 //******* sh_ex_bindir.c **************
 char *sh_ex_bindir(t_shell_s *shell, char *cmd);
@@ -206,7 +206,7 @@ void sh_ex_wcmessage(void);
 int sh_ex_doublelen(char **str);
 void sh_ex_freeall(char **str);
 void sh_ex_freeallin(char **str);
-void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words);
+// void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words);
 
 //********* extra.c ******************
 void sh_ps_changearg(t_shell_s *shell, t_echo *echo, char *arg);
@@ -226,7 +226,7 @@ void sh_ex_execcmd(t_shell_s *shell, t_commands *command);
 //***********sh_ex_exec_utils.c**********
 int sh_ex_init_pipe_fork(t_shell_s *shell);
 int sh_ex_init_fork(t_shell_s *shell, t_commands *command);
-int sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *idx);
+int sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd);
 int sh_ex_close_fd(t_shell_s *shell);
 
 // void sh_ex_execcmd(t_shell_s *shell, t_commands *command);

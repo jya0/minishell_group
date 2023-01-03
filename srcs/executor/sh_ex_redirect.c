@@ -16,10 +16,10 @@ static int redir_stdout(t_redirections *redir, int *fd)
 {
     if (redir->redir_term_type == TT_REDIR_OUT)
         *fd = open(redir->redir_file, \
-        O_RDWR | O_CREAT | O_TRUNC, 0777);
+        O_WRONLY | O_CREAT | O_TRUNC, 0777);
     else if (redir->redir_term_type == TT_APPND_OUT)
         *fd = open(redir->redir_file, \
-        O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, 0777);
+        O_WRONLY | O_CREAT | O_APPEND, 0777);
     // printf("pass 1\n");
     if ((*fd) == -1)
         return (1);

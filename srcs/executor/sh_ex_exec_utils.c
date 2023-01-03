@@ -18,8 +18,8 @@ int sh_ex_init_pipe_fork(t_shell_s *shell)
     int i = 0;
     shell->pid = malloc(sizeof(int) * (shell->num_commands + 1));
     shell->fd = malloc(sizeof(int) * (shell->num_commands * 2));
-    if (!shell->fd)
-        return (1);
+    if (shell->pid == NULL || shell->fd == NULL)
+        return (free(shell->pid), free(shell->fd), 1);
     while (i < shell->num_commands)
     {
         if (pipe(shell->fd + i * 2) < 0)
@@ -34,13 +34,13 @@ int sh_ex_init_pipe_fork(t_shell_s *shell)
 int sh_ex_init_fork(t_shell_s *shell, t_commands *command)
 {
     int i;
-    int idx;
+    int index_fd;
      t_commands *cmd;
 
       cmd = command;
 
     i = 0;
-    idx = 0;
+    index_fd = 0;
     shell->num_commands--;
     if (sh_ex_init_pipe_fork(shell))
         return (1);
@@ -50,34 +50,31 @@ int sh_ex_init_fork(t_shell_s *shell, t_commands *command)
         if (shell->pid[i] == -1)
             return (1);
         else if (shell->pid[i] == 0)
-        {
-            sh_ex_dup_pipe(shell, cmd, &idx);
-        }
+            sh_ex_dup_pipe(shell, cmd, &index_fd);
         cmd = cmd->next;
-        idx += 2;
+        index_fd += 2;
         sh_ex_stdstatus(0);
-        i++;   
-
+        i++;
     }
     return (sh_ex_close_fd(shell));
 }
 // use dup to duplicate the read and write end of the pipe
 
-int sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *idx)
+int sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 {
     int i = 0;
 
     if (command->next)
     {
-        if (dup2(shell->fd[*idx + 1], STDOUT_FILENO) < 0)
+        if (dup2(shell->fd[*index_fd + 1], STDOUT_FILENO) < 0)
             return (1);
     }
-    if (*idx != 0)
+    if (*index_fd != 0)
     {
-        if (dup2(shell->fd[*idx - 2], STDIN_FILENO) < 0)
+        if (dup2(shell->fd[*index_fd - 2], STDIN_FILENO) < 0)
             return (1);
     }
-     if (command->redirs != NULL)
+    if (command->redirs != NULL)
     {
         if (sh_ex_check_redirect(shell, command->redirs))
             return (1);

@@ -65,6 +65,7 @@ void	sh_ex_createenvp(t_shell_s *shell, char **envp)
 			shell->envp.value[i] = ft_strdup (temp_env[1]);
 		else
 			shell->envp.value[i] = ft_strdup ("");
+		sh_ex_freeall(temp_env);
 		i++;
 	}
 	shell->envp.key[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 03:44:37 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/03 19:43:19 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/04 02:44:09 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int sh_ex_builtin(t_shell_s *shell, t_commands *command)
 	else if (sh_ex_isbuiltin(command) == 6)
 		return (sh_ex_viewenvp(shell));
 	else if (sh_ex_isbuiltin(command) == 7)
-		return (sh_ex_exit(shell));
+		return (sh_ex_exit(shell, 1));
 	return (0);
 }

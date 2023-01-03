@@ -65,20 +65,20 @@ void sh_ex_freeallin(char **str)
 	}
 }
 
-void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words)
+void sh_ex_freeallvar(t_shell_s *shell, t_commands *command)
 {
 	sh_ex_freeall(shell->envp.key);
 	sh_ex_freeall(shell->envp.value);
 	sh_ex_freeall(shell->path);
-	free(shell->echovar);
-	sh_ex_freeall(shell->tokens);
-	free(shell->home);
-	sh_ex_freeall(shell->commands);
-	free(shell->cwd);
-	free(shell->echo_print);
-	free(shell->cmd_line);
+	// free(shell->echovar);
+	// sh_ex_freeall(shell->tokens);
+	// free(shell->home);
+	// sh_ex_freeall(shell->commands);
+	// free(shell->cwd);
+	// free(shell->echo_print);
+	// free(shell->cmd_line);
 	sh_ps_parser_commands_free_list(command);
-	sh_ps_lexer_word_free_list(words);
+	// sh_ps_lexer_word_free_list(words);
 }
 
 void display_rd(t_redirections *redir_h)

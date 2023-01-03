@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/04 02:11:41 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/04 03:02:52 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void sh_ex_initshell(t_shell_s *shell, char **envp)
 		i++;
 	}
 	shell->path[i] = NULL;
+	sh_ex_freeall(path);
 }
 
 
@@ -112,8 +113,8 @@ void sh_ex_initshell(t_shell_s *shell, char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-	t_shell_s shell;
-	t_commands *head_command;
+	t_shell_s	shell;
+	t_commands	*head_command;
 
 	(void)argc;
 	(void)argv;
@@ -121,7 +122,6 @@ int main(int argc, char **argv, char **envp)
 	// sh_ex_wcmessage();
 	// init_shell (void);
 	sh_ex_initshell(&shell, envp);
-	shell.i = 0;
 	while (1)
 	{
 		sh_ex_readline(&shell);
@@ -129,11 +129,11 @@ int main(int argc, char **argv, char **envp)
 		{
 			head_command = sh_ps_parser(&shell, shell.cmd_line);
 			// sh_ps_parser_commands_print_list(head_command);
-
-			if (head_command)
+			if (head_command != NULL)
 				sh_ex_exec(&shell, head_command);
+			sh_ps_parser_commands_free_list(head_command);
 		}
 	}
-	//	sh_ex_freeallvar (&shell, head_command, head_word);
+	sh_ex_freeallvar (&shell, head_command);
 	return (0);
 }
