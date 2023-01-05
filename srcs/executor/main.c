@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/06 03:14:19 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 03:20:53 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,9 @@ void	sh_ex_initshell(t_shell_s *shell, char **envp)
 } */
 
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_shell_s	shell;
-	t_commands	*head_command;
 
 	(void)argc;
 	(void)argv;
@@ -124,15 +123,15 @@ int main(int argc, char **argv, char **envp)
 	sh_ex_initshell(&shell, envp);
 	while (1)
 	{
-		head_command = NULL;
+		shell.head_command = NULL;
 		sh_ex_readline(&shell);
 		if (shell.cmd_line != NULL && *(shell.cmd_line) != '\0')
 		{
 			add_history(shell.cmd_line);
-			head_command = sh_ps_parser(&shell, shell.cmd_line);
+			shell.head_command = sh_ps_parser(&shell, shell.cmd_line);
 			// sh_ps_parser_commands_print_list(head_command);
-			if (head_command != NULL)
-				sh_ex_exec(&shell, head_command);
+			if (shell.head_command != NULL)
+				sh_ex_exec(&shell);
 		}
 		sh_ex_free_loop(&shell);
 		// sh_ps_parser_commands_free_list(command);

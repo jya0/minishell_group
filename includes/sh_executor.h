@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 03:15:12 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 03:22:39 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ void			sh_ex_execcmd(t_shell_s *shell, t_commands *command);
 //***********sh_ex_exec_utils.c**********
 int				sh_ex_init_pipe_fork(t_shell_s *shell);
 
-int				sh_ex_init_fork(t_shell_s *shell, t_commands *command);
+int				sh_ex_init_fork(t_shell_s *shell);
 
 int				sh_ex_dup_pipe(\
 t_shell_s *shell, t_commands *command, int *index_fd);
@@ -288,7 +288,7 @@ void			sh_ex_stdstatus(int status);
 int				sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir);
 int				sh_ex_exec_cmd(t_shell_s *shell, t_commands *command);
 int				sh_ex_fork(t_shell_s *shell, t_commands *command);
-int				sh_ex_exec(t_shell_s *shell, t_commands *command);
+int				sh_ex_exec(t_shell_s *shell);
 void			sh_ex_testfork(t_shell_s *shell, t_commands *command);
 
 //*********extra**************

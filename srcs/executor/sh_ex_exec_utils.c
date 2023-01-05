@@ -32,13 +32,13 @@ int	sh_ex_init_pipe_fork(t_shell_s *shell)
 
 // initialize the fork
 
-int	sh_ex_init_fork(t_shell_s *shell, t_commands *command)
+int	sh_ex_init_fork(t_shell_s *shell)
 {
 	int			i;
 	int			index_fd;
 	t_commands	*cmd;
 
-	cmd = command;
+	cmd = shell->head_command;
 	i = 0;
 	index_fd = 0;
 	shell->num_commands--;

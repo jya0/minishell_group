@@ -115,6 +115,8 @@ int sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
     {
         // printf("I AM BUILTIN\n");
         sh_ex_exitstatus = sh_ex_builtin(shell, command);
+		free(shell->fd);
+		free(shell->pid);
         sh_ex_exit(shell, 0);
     }
     else
@@ -125,18 +127,17 @@ int sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
     return (sh_ex_exitstatus);
 }
 
-int sh_ex_exec(t_shell_s *shell, t_commands *command)
+int	sh_ex_exec(t_shell_s *shell)
 {
-    shell->num_commands = sh_ex_listlen(command);
-
+    shell->num_commands = sh_ex_listlen(shell->head_command);
     // duplicate stdin and stdout using dup
     sh_ex_stdstatus(1);
-    if (command == NULL && command->redirs == NULL)
+    if (shell->head_command == NULL && shell->head_command->redirs == NULL)
         return (1);
     if (shell->num_commands > 1)
-        sh_ex_exitstatus = sh_ex_init_fork(shell, command);
+        sh_ex_exitstatus = sh_ex_init_fork(shell);
     else
-        sh_ex_simplecmd(shell, command);
+        sh_ex_simplecmd(shell, shell->head_command);
     sh_ex_stdstatus(0);
     return (sh_ex_exitstatus);
 }
