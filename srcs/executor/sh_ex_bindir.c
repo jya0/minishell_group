@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_bindir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/27 04:47:55 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/05 00:16:04 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ char *sh_ex_bindir(t_shell_s *shell, char *cmd)
 	i = 0;
 	while (shell->path[i])
 	{
-		realpath = malloc(sizeof(char) *
-						  (ft_strlen(shell->path[i] + ft_strlen(cmd) + 1)));
-		if (!realpath)
-			return (NULL);
 		realpath = ft_strjoin(shell->path[i], cmd);
+		if (realpath == NULL)
+			break ;
 		if (access(realpath, F_OK) == 0)
 			return (realpath);
+		free(realpath);
 		i++;
 	}
 	return (NULL);

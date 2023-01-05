@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 20:24:05 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/06 00:13:38 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_PARSER_H
 # define SH_PARSER_H
-
-# include <stdio.h>
-# include <string.h>
-# include <strings.h>
-
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include <fcntl.h>
 
 /*==================DEFINING CONSTANTS======================*/
 
@@ -147,7 +138,7 @@ enum e_quote_state {
 	IN_QUOTE_D = TT_QUOTE_D
 };
 
-int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word);
+int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words **head_word);
 
 /*=============sh_ps_lexer_expand_quotes.c===============*/
 

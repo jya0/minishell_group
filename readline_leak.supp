@@ -1,0 +1,7 @@
+{
+   suppress-readline-leaks
+   Memcheck:Leak
+   ...
+   fun:readline
+   ...
+}

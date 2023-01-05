@@ -6,7 +6,7 @@
 #    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/03 20:00:10 by jyao             ###   ########.fr        #
+#    Updated: 2023/01/06 00:11:11 by jyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME := minishell
 READLINE_TMP := readline_tmp_file
 READLINE_DIR = -L$(shell head -n 1 $(READLINE_TMP))/lib
 READLINE_INC = -I$(shell head -n 1 $(READLINE_TMP))/include
-READLINE_LIB := -lreadline
+READLINE_LIB := -lreadline -lhistory
 LIBFTDIR := ./libft
 LIBFT = -L$(LIBFTDIR) -lft
 LIBFTHEADER = $(LIBFT)libft.h
@@ -27,19 +27,19 @@ LIBS = $(LIBFTDIR)/libft.a
 HEADERS = minishell.h $(LIBFTHEADER)
 
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -g3
+CFLAGS := -Wall -Wextra -Werror -g
 
 SRCSDIR := ./srcs/
 EXECDIR_NAME := executor/
 PARSDIR_NAME := parser/
 FILES =	$(EXECDIR_NAME)main \
-	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_bindir			$(EXECDIR_NAME)sh_ex_quote	\
+	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_bindir	\
 	$(EXECDIR_NAME)sh_ex_signal			$(EXECDIR_NAME)sh_ex_shellinit		$(EXECDIR_NAME)sh_ex_utils	\
-	$(EXECDIR_NAME)sh_ex_env_utils		$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset	\
+	$(EXECDIR_NAME)sh_ex_envp_init		$(EXECDIR_NAME)sh_ex_export_add		$(EXECDIR_NAME)sh_ex_export_var\
+	$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset	\
 	$(EXECDIR_NAME)sh_ex_env			$(EXECDIR_NAME)sh_ex_exec_extra		$(EXECDIR_NAME)sh_ex_exec_utils	\
 	$(EXECDIR_NAME)sh_ex_cd				$(EXECDIR_NAME)sh_ex_export			$(EXECDIR_NAME)sh_ex_pwd	\
-	$(EXECDIR_NAME)sh_ex_exit			$(EXECDIR_NAME)sh_ex_quote_utils	$(EXECDIR_NAME)sh_ex_redirect	\
-	$(EXECDIR_NAME)extra	\
+	$(EXECDIR_NAME)sh_ex_exit			$(EXECDIR_NAME)sh_ex_redirect	\
 	$(PARSDIR_NAME)sh_ps_parser_cmds	$(PARSDIR_NAME)sh_ps_parser_cmds_getters	\
 	$(PARSDIR_NAME)sh_ps_parser_cmds_free	\
 	$(PARSDIR_NAME)sh_ps_lexer			$(PARSDIR_NAME)sh_ps_lexer_words	$(PARSDIR_NAME)sh_ps_lexer_add_missing	\
@@ -83,4 +83,15 @@ fclean: clean
 re: fclean
 	make all
 
-.PHONY: all clean fclean re
+# VALGRIND RULES
+# ONLY RUN RULES IN LINUX ENVIRONMENT WITH DOCKER!!
+leak: all
+	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no ./minishell
+
+leakgensup:
+	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --gen-suppressions=all --log-file=minimalraw.log ./minishell
+
+leakwsup:
+	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=./readline_leak.supp ./minishell
+
+.PHONY: all clean fclean re leak

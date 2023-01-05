@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/03 19:06:42 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/04 19:59:42 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	sh_ex_exitshell(int sig)
 	(void)sig;
 	set_mode ();
 	printf ("exit\n");
-	exit (0);
+	exit(0);
 }

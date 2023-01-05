@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_check_error.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:39:57 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/03 20:21:48 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/04 17:09:24 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	sh_ps_lexer_check_error(t_words *head_word)
 	while (word != NULL)
 	{
 		if (word->term_type == TT_ERROR)
-			return (perror("LEXER: SYNTAX ERROR!\n"), -1);
+			return (perror("LEXER: SYNTAX ERROR!"), -1);
 		else if (word->term_type != TT_JUST_WORD)
 		{
 			if (check_pipe(word) != 0)

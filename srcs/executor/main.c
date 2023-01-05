@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/03 20:28:43 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/05 23:31:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ void sh_ex_readline(t_shell_s *shell)
 	prompt_line = sh_ex_createprompt(shell);
 	sh_ex_sighandle(1);
 	shell->cmd_line = NULL;
-	if (shell->cmd_line)
-	{
-		free(shell->cmd_line);
-		shell->cmd_line = (char *)NULL;
-	}
+	// if (shell->cmd_line)
+	// {
+	// 	free(shell->cmd_line);
+	// 	shell->cmd_line = (char *)NULL;
+	// }
 	shell->cmd_line = readline(prompt_line);
 	free(prompt_line);
 	if (shell->cmd_line == NULL)
 		sh_ex_sighandle(3);
-	if (shell->cmd_line && (*shell->cmd_line))
-		add_history(shell->cmd_line);
 }
 
 char *sh_ex_createprompt(t_shell_s *shell)
@@ -47,24 +45,25 @@ char *sh_ex_createprompt(t_shell_s *shell)
 	free(color);
 	free(prompt);
 	prompt = ft_strjoin(shell->cwd, " >> ");
+	free(shell->cwd);
 	return (prompt);
 }
 
-void sh_ex_initshell(t_shell_s *shell, char **envp)
+void	sh_ex_initshell(t_shell_s *shell, char **envp)
 {
-	int i;
-	char *all_path;
-	char **path;
-	char *home;
+	int		i;
+	char	*all_path;
+	char	**path;
+	char	*home;
 
-	sh_ex_createenvp(shell, envp);
+	sh_ex_envp_init(shell, envp);
 	home = sh_ex_searchenvvar(shell, "HOME");
 	shell->home = ft_strdup(home);
 	all_path = sh_ex_searchenvvar(shell, "PATH");
 	path = ft_split(all_path, ':');
 	shell->path = malloc(sizeof(char *) * (shell->envp.env_size + 1));
 	if (!shell->path)
-		return;
+		return ;
 	i = 0;
 	while (path[i])
 	{
@@ -72,10 +71,11 @@ void sh_ex_initshell(t_shell_s *shell, char **envp)
 		i++;
 	}
 	shell->path[i] = NULL;
+	sh_ex_free_arr(path);
 }
 
-/*
-static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
+
+/* static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 {
 	int				i;
 	t_redirections	*redir;
@@ -97,43 +97,47 @@ static void	sh_ps_parser_commands_print_list(t_commands	*head_command)
 			while (head_command->cmd_args[i] != NULL)
 				printf("<%s>", head_command->cmd_args[i++]);
 		}
-		printf("\nredirs_in = ");
+		printf("\nredirs = ");
 		// redir = head_command->redirs_in;
 		redir = head_command->redirs;
 		while (redir != NULL)
 		{
-			printf("%s ", redir->redir_file);
+			printf("<%s %d> ", redir->redir_file, redir->redir_term_type);
 			redir = redir->next;
 		}
 		head_command = head_command->next;
 	}
-}
-*/
+} */
+
 
 int main(int argc, char **argv, char **envp)
 {
-	t_shell_s shell;
-	t_commands *head_command;
+	t_shell_s	shell;
+	t_commands	*head_command;
 
-	if (argc < 0 || argv == NULL)
-		return (-1);
+	(void)argc;
+	(void)argv;
 	sh_ex_exitstatus = 0;
 	// sh_ex_wcmessage();
 	// init_shell (void);
+	shell = (t_shell_s){0};
 	sh_ex_initshell(&shell, envp);
-	shell.i = 0;
 	while (1)
 	{
+		head_command = NULL;
 		sh_ex_readline(&shell);
-		if (shell.cmd_line && ft_strlen(shell.cmd_line) != 0)
+		if (shell.cmd_line != NULL && *(shell.cmd_line) != '\0')
 		{
+			add_history(shell.cmd_line);
 			head_command = sh_ps_parser(&shell, shell.cmd_line);
 			// sh_ps_parser_commands_print_list(head_command);
-
-			if (head_command)
+			if (head_command != NULL)
 				sh_ex_exec(&shell, head_command);
 		}
+		sh_ex_free_loop(&shell, head_command);
+		// sh_ps_parser_commands_free_list(command);
 	}
-	//	sh_ex_freeallvar (&shell, head_command, head_word);
+	printf("HEY I AM STILL ALIVE\n");
+	// sh_ex_free_all(&shell, head_command);
 	return (0);
 }

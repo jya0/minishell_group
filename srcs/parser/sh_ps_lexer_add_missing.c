@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_add_missing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 22:07:19 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/05 00:02:05 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_words *word, enum e_quote_state quote_state)
 }
 
 static t_words	*word_term_type_change(\
-t_shell_s *shell, t_words *word, enum e_quote_state quote_state)
+t_shell_s *shell, t_words **head_word, t_words *word, enum e_quote_state quote_state)
 {
 	// printf("enterd type change\n");
 	// printf("word = %s\n", word->str);
@@ -109,9 +109,8 @@ t_shell_s *shell, t_words *word, enum e_quote_state quote_state)
 			// printf("entered var expansion\n");
 			if (expand_variable(shell, word) != 0)
 			{
-				sh_ps_lexer_word_del_word(&word, word, FREE_ALL);
 				// printf("word = %s\n", word->str);
-				return (word);
+				return (sh_ps_lexer_word_del_word(head_word, word, FREE_ALL));
 			}
 		}
 	}
@@ -125,14 +124,14 @@ t_shell_s *shell, t_words *word, enum e_quote_state quote_state)
 ** also expands variables then add the value from env directly
 */
 // /*
-int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word)
+int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words **head_word)
 {
 	t_words				*word;
 	enum e_quote_state	quote_state;
 
-	if (head_word == NULL)
+	if (head_word == NULL || (*head_word) == NULL)
 		return (-1);
-	word = head_word;
+	word = *head_word;
 	quote_state = IN_NULL;
 	while (word != NULL)
 	{
@@ -143,7 +142,7 @@ int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words *head_word)
 			word->str_start + word->str_len * sizeof(char), \
 			word->next));
 		}
-		word = word_term_type_change(shell, word, quote_state);
+		word = word_term_type_change(shell, head_word, word, quote_state);
 	}
 	if (quote_state != IN_NULL)
 	{

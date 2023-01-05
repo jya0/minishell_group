@@ -3,89 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 21:36:57 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/01 20:05:06 by yoyohann         ###   ########.fr       */
+/*   Created: 2023/01/05 19:30:00 by jyao              #+#    #+#             */
+/*   Updated: 2023/01/05 23:38:09 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sh_ex_addenv(t_shell_s *shell, char *str)
+static void	var_swap(t_var_s *var1, t_var_s *var2)
 {
-	int		i;
-	char	**envp;
+	t_var_s	tmp_var;
 
-	envp = malloc (sizeof(char *) * (shell->envp.env_size + 2));
-	if (!envp)
-		exit (EXIT_FAILURE);
-	i = 0;
-	while (shell->envp.envp[i])
+	tmp_var = (t_var_s){0};
+	if (ft_strcmp(var1->key, var2->key) > 0)
 	{
-		envp[i] = shell->envp.envp[i];
-		i++;
+		tmp_var = *var1;
+		*var1 = *var2;
+		*var2 = tmp_var;
 	}
-	if (str)
-	{
-		envp[i++] = ft_strdup (str);
-		envp[i] = NULL;
-	}
-	else
-		envp[i] = NULL;
-	shell->envp.envp = NULL;
-	shell->envp.envp = envp;
 }
 
-int	sh_ex_export(t_shell_s *shell)
+static t_var_s	*sort_vars(t_shell_s *shell, t_var_s *vars)
 {
-	char	*str;
-	char	**tmp_str;
-	char	**tmp_env;
+	int	i;
+	int	j;
+	int	len;
 
-	str = NULL;
-	tmp_str = ft_split (shell->cmd_line, ' ');
-	if (tmp_str[1] == NULL)
+	i = 0;
+	j = 0;
+	len = shell->envp.env_size;
+	while (i < (len - 1))
 	{
-		sh_ex_viewenvp (shell);
-		return (0);
-	}
-	else
-	{
-		str = sh_ps_removequote (tmp_str[1]);
-		tmp_env = ft_split (str, '=');
-		if (sh_ex_searchenvvar (shell, tmp_env[0]) == NULL)
+		j = i + 1;
+		while (j < len)
 		{
-			shell->envp.env_size++;
-			sh_ex_addenv (shell, str);
-			sh_ex_createenvp (shell, shell->envp.envp);
+			var_swap(&(vars[i]), &(vars[j]));
+			j++;
 		}
+		i++;
 	}
-	free (str);
+	return (vars);
+}
+
+char	*sh_ex_searchenvvar(t_shell_s *shell, char *key)
+{
+	size_t	i;
+
+	i = 0;
+	while (shell->envp.vars[i].key != NULL)
+	{
+		if (ft_strcmp(shell->envp.vars[i].key, key) == 0)
+			return (shell->envp.vars[i].val);
+		i++;
+	}
+	return (NULL);
+}
+
+static int	export_display(t_shell_s *shell)
+{
+	t_var_s	*tmp_vars;
+	char	*val;
+	size_t	i;
+
+	tmp_vars = sh_ex_dup_vars(shell->envp.vars);
+	if (tmp_vars == NULL)
+		return (-1);
+	sort_vars(shell, tmp_vars);
+	i = 0;
+	while (tmp_vars[i].key != NULL)
+	{
+		printf("declare -x %s", tmp_vars[i].key);
+		val = sh_ex_searchenvvar(shell, tmp_vars[i].key);
+		if (val != NULL)
+			printf("=\"%s\"", val);
+		printf("\n");
+		i++;
+	}
+	free(tmp_vars);
 	return (0);
 }
 
-int	sh_ex_searchenvindex(t_shell_s *shell, char *key)
+int	sh_ex_export(t_shell_s *shell, char **vars)
 {
-	int	i;
-	int	len;
-
-	len = ft_strlen (key);
-	i = 0;
-	while (shell->envp.key[i])
-	{
-		if (ft_strncmp (shell->envp.key[i], key, len) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	sh_ex_changeenv(t_shell_s *shell, char *key, char *value)
-{
-	int	index;
-
-	index = sh_ex_searchenvindex (shell, key);
-	if (index)
-		shell->envp.value[index] = value;
+	if (vars == NULL || *(vars) == NULL)
+		export_display(shell);
+	else
+		sh_ex_export_add_vars(shell, vars);
+	return (0);
 }

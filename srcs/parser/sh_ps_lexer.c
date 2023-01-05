@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/03 21:03:17 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/05 00:05:54 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 	t_words				*head_word;
 	t_words				*word;
 
+	(void)shell;
 	word = get_next_word(buf_src);
 	head_word = word;
 	while (word != NULL)
@@ -144,18 +145,18 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
 	sh_ps_lexer_heredoc_mark_variable(head_word);
-	// printf("\n>>original words<<\n");
-	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>add missing spaces & missing env values<<\n");
-	if (sh_ps_lexer_add_missing(shell, head_word) != 0)
+	// // printf("\n>>original words<<\n");
+	// // sh_ps_lexer_word_print_list(head_word);
+	// // printf("\n>>add missing spaces & missing env values<<\n");
+	if (sh_ps_lexer_add_missing(shell, &head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);
 		return (NULL);
 	}
 	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>connect all words in quotes<<\n");
+	// // printf("\n>>connect all words in quotes<<\n");
 	sh_ps_lexer_expand_quotes(&head_word);
-	// sh_ps_lexer_word_print_list(head_word);
+	// // sh_ps_lexer_word_print_list(head_word);
 	if (sh_ps_lexer_check_error(head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);

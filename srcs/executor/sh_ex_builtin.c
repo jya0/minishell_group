@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 03:44:37 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/03 19:46:46 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/05 20:15:46 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int sh_ex_builtin(t_shell_s *shell, t_commands *command)
 	else if (sh_ex_isbuiltin(command) == 3)
 		return (sh_ex_showpwd());
 	else if (sh_ex_isbuiltin(command) == 4)
-		return (sh_ex_export(shell));
+		return (sh_ex_export(shell, command->cmd_args));
 	else if (sh_ex_isbuiltin(command) == 5)
-		return (sh_ex_unset(shell));
+		return (sh_ex_unset(shell, command->cmd_args));
 	else if (sh_ex_isbuiltin(command) == 6)
-		return (sh_ex_viewenvp(shell));
+		return (sh_ex_view_env(shell));
 	else if (sh_ex_isbuiltin(command) == 7)
-		return (sh_ex_exit(shell));
+		return (sh_ex_exit(shell, command, 1));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 07:44:15 by yoyohann          #+#    #+#             */
-/*   Updated: 2022/12/25 19:07:34 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/04 19:59:13 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_shell(t_ter *ter)
 		if (setpgid (ter->shell_pgid, ter->shell_pgid) < 0)
 		{
 			perror ("Couldn't put the shell in it's own process group.");
-			exit (1);
+			exit(1);
 		}
 		tcsetpgrp (ter->shell_terminal, ter->shell_pgid);
 		tcgetattr (ter->shell_terminal, &ter->shell_tmodes);

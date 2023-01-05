@@ -12,17 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void sh_ex_wcmessage(void)
-{
-	char *term;
-
-	term = getenv("SHELL");
-	printf(RED "The default interactive shell is now %s.\n", term);
-	printf("To update your account to use %s\n", term);
-	printf("please run 'chsh -s /bin/zsh'.\n");
-	printf("For more details, please contact Yao and Yonas.\n" WHITE);
-}
-
 int sh_ex_doublelen(char **str)
 {
 	int i;
@@ -33,12 +22,12 @@ int sh_ex_doublelen(char **str)
 	return (i);
 }
 
-void sh_ex_freeall(char **str)
+void sh_ex_free_arr(char **str)
 {
 	int i;
 
-	if (!str && !(*str))
-		return;
+	if (str == NULL)
+		return ;
 	i = 0;
 	while (str[i])
 	{
@@ -46,11 +35,12 @@ void sh_ex_freeall(char **str)
 		str[i] = NULL;
 		i++;
 	}
+	free(str[i]);
 	free(str);
 	str = NULL;
 }
 
-void sh_ex_freeallin(char **str)
+/* void sh_ex_freeallin(char **str)
 {
 	int i;
 
@@ -63,23 +53,41 @@ void sh_ex_freeallin(char **str)
 		str[i] = NULL;
 		i++;
 	}
-}
+} */
 
-void sh_ex_freeallvar(t_shell_s *shell, t_commands *command, t_words *words)
+void	sh_ex_free_loop(t_shell_s *shell, t_commands *command)
 {
-	sh_ex_freeall(shell->envp.key);
-	sh_ex_freeall(shell->envp.value);
-	sh_ex_freeall(shell->path);
-	free(shell->echovar);
-	sh_ex_freeall(shell->tokens);
-	free(shell->home);
-	sh_ex_freeall(shell->commands);
-	free(shell->cwd);
-	free(shell->echo_print);
 	free(shell->cmd_line);
 	sh_ps_parser_commands_free_list(command);
-	sh_ps_lexer_word_free_list(words);
+	// sh_ps_lexer_word_free_list(words);
 }
+
+void	sh_ex_free_vars(t_var_s *vars)
+{
+	size_t	i;
+
+	i = 0;
+	while (vars[i].key != NULL)
+	{
+		if (vars[i].key != NULL)
+			free(vars[i].key);
+		if (vars[i].val != NULL)
+			free(vars[i].val);
+		i++;
+	}
+	free(vars);
+}
+
+void	sh_ex_free_all(t_shell_s *shell, t_commands *command)
+{
+	sh_ex_free_vars(shell->envp.vars);
+	sh_ex_free_arr(shell->envp.envp_chain);
+	sh_ex_free_arr(shell->path);
+	free(shell->home);
+	sh_ex_free_loop(shell, command);
+	// sh_ps_lexer_word_free_list(words);
+}
+
 
 void display_rd(t_redirections *redir_h)
 {
@@ -90,4 +98,17 @@ void display_rd(t_redirections *redir_h)
 		printf("redir file = %s redir termtype = %d\n", redir->redir_file, redir->redir_term_type);
 		redir = redir->next;
 	}
+}
+
+int sh_ex_listlen(t_commands *command)
+{
+    int i;
+
+    i = 0;
+    while (command)
+    {
+        command = command->next;
+        i++;
+    }
+    return (i);
 }

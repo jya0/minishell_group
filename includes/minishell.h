@@ -3,42 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/01 14:17:22 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/05 22:51:24 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <sys/wait.h>
-#include <sys/types.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+# include <sys/ioctl.h>
+# include <fcntl.h>
+# include <termios.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <errno.h>
+
 // struct for the environment variables
 
 // struct termios new_term, old_term;
-int sh_ex_exitstatus;
+int				sh_ex_exitstatus;
 struct termios old_term, new_term;
 
-typedef struct t_env_s
-{
-    int env_index; // current index of enviroment variable
-    int env_size;  // total number of enviroment variables
-    char **envp;   // environment variable
-    char **key;    // keys of environment variables
-    char **value;  // values of environment variables
-    char **tokens;
-} t_env_s;
+typedef struct	t_var_s {
+	char	*key;
+	char	*val;
+}	t_var_s;
+
+typedef struct	t_env_s	{
+	char		**envp_chain;
+	size_t		env_size;
+	// char		**key_chain;
+	// char		**val_chain;
+	t_var_s		*vars;
+}	t_env_s;
 
 typedef struct t_cmd
 {
@@ -89,8 +94,8 @@ typedef struct t_context
     int fd[2];
     int fd_close;
 } t_context;
-#include "../libft/libft.h"
-#include "./sh_parser.h"
-#include "./sh_executor.h"
+# include "../libft/libft.h"
+# include "./sh_parser.h"
+# include "./sh_executor.h"
 
 #endif
