@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 00:12:30 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 03:15:12 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # include "../libft/libft.h"
 // #include "sh_parser.h"
+
+typedef struct t_var_s	t_var_s;
 
 //******* struct for terminal
 typedef struct t_ter {
@@ -112,7 +114,6 @@ void			sh_ex_execcmdall(t_shell_s *shell, t_commands *command);
 int				is_str_quoted(char *str);
 
 int				sh_ps_issinglequotedarg(char *str);
-void			sh_ex_removeenv(t_shell_s *shell, char *key);
 // void sh_ex_unset(t_shell_s *shell);
 void			sh_ps_echoall(t_shell_s *shell, char *arg);
 int				sh_ps_isvalidname(char c);
@@ -163,6 +164,7 @@ char			*sh_ex_searchenvvar(t_shell_s *shell, char *key);
 //******** sh_ex_export_add.c *************
 char			**sh_ex_realloc_str_arr(char **old_arr, size_t new_arr_size);
 int				sh_ex_export_add_vars(t_shell_s *shell, char **vars);
+int				sh_ex_find_key_index(t_var_s *vars, char *key);
 
 //******** sh_ex_export_var.c *************
 t_var_s			*sh_ex_dup_vars(t_var_s *vars);
@@ -176,14 +178,13 @@ void			sh_ex_envp_init(t_shell_s *shell, char **envp);
 char			**sh_ex_get_envp_chain(t_shell_s *shell);
 
 //******* sh_ex_unset.c ***************
-void			sh_ex_removeenv(t_shell_s *shell, char *key);
 int				sh_ex_unset(t_shell_s *shell, char **var_names);
 
 //******** sh_ex_exit.c ***************
-int				sh_ex_exit(t_shell_s *shell, t_commands *command, int flag);
+int				sh_ex_exit(t_shell_s *shell, int flag);
 
 //******* sh_ex_utils.c ***************
-void			sh_ex_free_loop(t_shell_s *shell, t_commands *command);
+void			sh_ex_free_loop(t_shell_s *shell);
 
 //******* sh_ex_bindir.c **************
 char			*sh_ex_bindir(t_shell_s *shell, char *cmd);
@@ -297,6 +298,6 @@ int				sh_ex_simplecmd(t_shell_s *shell, t_commands *command);
 int				sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command);
 int				sh_ex_valid_exec(t_shell_s *shell, t_commands *command);
 
-void			sh_ex_free_all(t_shell_s *shell, t_commands *command);
+void			sh_ex_free_all(t_shell_s *shell);
 
 #endif

@@ -115,7 +115,7 @@ int sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
     {
         // printf("I AM BUILTIN\n");
         sh_ex_exitstatus = sh_ex_builtin(shell, command);
-        sh_ex_exit(shell, command, 0);
+        sh_ex_exit(shell, 0);
     }
     else
     {

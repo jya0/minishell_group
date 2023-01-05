@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/03 20:04:09 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 01:06:03 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,48 @@ static int	pipe_error_check(t_words *word, enum e_pipe_error_check flag)
 		return (word->term_type == TT_PIPE \
 		&& word->next == NULL);
 	return (0);
+}
+
+/* static t_commands	*get_next_command(t_words **head_word)
+{
+	t_commands	*command;
+
+	if (head_word == NULL || *head_word == NULL)
+		return (NULL);
+	if (pipe_error_check(*head_word, CHECK_BEFORE) != 0)
+	{
+		printf("PIPE ERROR!\n");
+		return (NULL);
+	}
+	command = (t_commands *)ft_calloc(1, sizeof(t_commands));
+	if (command == NULL)
+		return (NULL);
+	if (sh_ps_parser_get_redirs(command, head_word) != 0 \
+	|| sh_ps_parser_get_cmd_argv(command, head_word) != 0)
+		return (NULL);
+	if (pipe_error_check(*head_word, CHECK_AFTER) != 0)
+	{
+		// get_more_words()
+		printf("PIPE ERROR!\n");
+	}
+	// sh_ps_lexer_word_print_list(*head_word);
+	sh_ps_lexer_word_del_word(head_word, *head_word, FREE_ALL);
+	return (command);
+} */
+
+static void	str_to_lowercase(char *cmd_name)
+{
+	int	i;
+
+	if (cmd_name == NULL)
+		return ;
+	i = 0;
+	while (cmd_name[i] != '\0')
+	{
+		if (cmd_name[i] >= 'A' && cmd_name[i] <= 'Z')
+			cmd_name[i] += 'a' - 'A';
+		i++;
+	}
 }
 
 static t_commands	*get_next_command(t_words **head_word)
@@ -48,6 +90,7 @@ static t_commands	*get_next_command(t_words **head_word)
 		printf("PIPE ERROR!\n");
 	}
 	// sh_ps_lexer_word_print_list(*head_word);
+	str_to_lowercase(command->cmd_name);
 	sh_ps_lexer_word_del_word(head_word, *head_word, FREE_ALL);
 	return (command);
 }

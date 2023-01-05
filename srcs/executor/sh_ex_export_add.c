@@ -6,22 +6,22 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:13:43 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 00:09:54 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 00:34:21 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	does_key_already_exist(t_var_s *vars, char *new_key)
+int	sh_ex_find_key_index(t_var_s *vars, char *key)
 {
 	int	i;
 
-	if (new_key == NULL)
+	if (key == NULL)
 		return (-1);
 	i = 0;
 	while (vars[i].key != NULL)
 	{
-		if (ft_strcmp(vars[i].key, new_key) == 0)
+		if (ft_strcmp(vars[i].key, key) == 0)
 			return (i);
 		i++;
 	}
@@ -61,7 +61,7 @@ static int	envp_edit_one_var(t_shell_s *shell, char *var)
 	if (var == NULL)
 		return (-1);
 	key_val = ft_split(var, '=');
-	i = does_key_already_exist(shell->envp.vars, key_val[0]);
+	i = sh_ex_find_key_index(shell->envp.vars, key_val[0]);
 	if (i < 0)
 		add_one_var(shell, var, key_val);
 	else

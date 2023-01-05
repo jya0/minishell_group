@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/05 23:31:55 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 03:14:19 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int main(int argc, char **argv, char **envp)
 			if (head_command != NULL)
 				sh_ex_exec(&shell, head_command);
 		}
-		sh_ex_free_loop(&shell, head_command);
+		sh_ex_free_loop(&shell);
 		// sh_ps_parser_commands_free_list(command);
 	}
 	printf("HEY I AM STILL ALIVE\n");

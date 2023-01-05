@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-int sh_ex_doublelen(char **str)
+int	sh_ex_doublelen(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -22,9 +22,9 @@ int sh_ex_doublelen(char **str)
 	return (i);
 }
 
-void sh_ex_free_arr(char **str)
+void	sh_ex_free_arr(char **str)
 {
-	int i;
+	int	i;
 
 	if (str == NULL)
 		return ;
@@ -55,10 +55,10 @@ void sh_ex_free_arr(char **str)
 	}
 } */
 
-void	sh_ex_free_loop(t_shell_s *shell, t_commands *command)
+void	sh_ex_free_loop(t_shell_s *shell)
 {
 	free(shell->cmd_line);
-	sh_ps_parser_commands_free_list(command);
+	sh_ps_parser_commands_free_list(shell->head_command);
 	// sh_ps_lexer_word_free_list(words);
 }
 
@@ -78,13 +78,15 @@ void	sh_ex_free_vars(t_var_s *vars)
 	free(vars);
 }
 
-void	sh_ex_free_all(t_shell_s *shell, t_commands *command)
+void	sh_ex_free_all(t_shell_s *shell)
 {
 	sh_ex_free_vars(shell->envp.vars);
 	sh_ex_free_arr(shell->envp.envp_chain);
 	sh_ex_free_arr(shell->path);
+	free(shell->fd);
+	free(shell->pid);
 	free(shell->home);
-	sh_ex_free_loop(shell, command);
+	sh_ex_free_loop(shell);
 	// sh_ps_lexer_word_free_list(words);
 }
 

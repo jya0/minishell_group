@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 00:13:38 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 02:40:46 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define BKT_STK_MAX				2048
 
 # define HEREDOC_FILE				"/tmp/.heredoc_tmp"
+
+typedef struct t_shell_s	t_shell_s;
 
 enum e_term_type {
 	TT_ERROR = -1,

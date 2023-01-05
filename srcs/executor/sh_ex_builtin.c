@@ -6,13 +6,13 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 03:44:37 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/05 20:15:46 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 03:15:17 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int sh_ex_isbuiltin(t_commands *command)
+int	sh_ex_isbuiltin(t_commands *command)
 {
 	if (ft_strcmp(command->cmd_name, "echo") == 0)
 		return (1);
@@ -31,7 +31,7 @@ int sh_ex_isbuiltin(t_commands *command)
 	return (0);
 }
 
-int sh_ex_builtin(t_shell_s *shell, t_commands *command)
+int	sh_ex_builtin(t_shell_s *shell, t_commands *command)
 {
 	if (sh_ex_isbuiltin(command) == 1)
 		return (sh_ex_echo(shell, command));
@@ -46,6 +46,6 @@ int sh_ex_builtin(t_shell_s *shell, t_commands *command)
 	else if (sh_ex_isbuiltin(command) == 6)
 		return (sh_ex_view_env(shell));
 	else if (sh_ex_isbuiltin(command) == 7)
-		return (sh_ex_exit(shell, command, 1));
+		return (sh_ex_exit(shell, 1));
 	return (0);
 }

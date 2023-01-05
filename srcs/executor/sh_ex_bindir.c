@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_bindir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/05 00:16:04 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/06 01:50:59 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char *sh_ex_bindir(t_shell_s *shell, char *cmd)
+char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 {
-	int i;
-	char *realpath;
+	int		i;
+	char	*realpath;
 
 	i = 0;
 	while (shell->path[i])
