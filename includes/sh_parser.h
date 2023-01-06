@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 02:40:46 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 21:16:05 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # define DELIM_SPACES				" \n\t\v\f\r"
 # define DELIM_TERMS_COMBINEABLE	"<>|&$"
 # define DELIM_TERMS_ALL			"<>|&$()'\""
+# define UNDERSCORE					"_"
+# define D_DIGITS					"0123456789"
+# define A_LOWER					"abcdefghijklmnopqrstuvwxyz"
+# define A_UPPER					"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# define S_D_QUOTES					"\'\""
 
 # define BKT_STK_MAX				2048
-
 # define HEREDOC_FILE				"/tmp/.heredoc_tmp"
 
 typedef struct t_shell_s	t_shell_s;
@@ -145,6 +149,10 @@ int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words **head_word);
 /*=============sh_ps_lexer_expand_quotes.c===============*/
 
 void			sh_ps_lexer_expand_quotes(t_words **head_word);
+
+/*==============sh_ps_lexer_join_connected.c================*/
+
+int				sh_ps_lexer_join_connected(t_words	**head_word);
 
 /*====================sh_ps_heredoc.c=====================*/
 

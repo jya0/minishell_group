@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 00:10:17 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 00:10:27 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 22:39:15 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,21 @@ t_var_s	*sh_ex_dup_vars(t_var_s *vars)
 		i++;
 	}
 	return (new_vars);
+}
+
+int	sh_ex_is_valid_key(char *key)
+{
+	int		i;
+
+	if (key == NULL)
+		return (-1);
+	i = 0;
+	while (key[i] != '\0')
+	{
+		if (ft_strchr(\
+		UNDERSCORE D_DIGITS A_LOWER A_UPPER, key[i]) == NULL)
+			return (-1);
+		i++;
+	}
+	return (0);
 }

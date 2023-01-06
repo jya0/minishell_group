@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:13:43 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 00:34:21 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 23:14:05 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	add_one_var(t_shell_s *shell, char *var, char **key_val)
 	shell->envp.envp_chain = sh_ex_get_envp_chain(shell);
 }
 
-static void	replace_one_var(\
+/* static void	replace_one_var(\
 t_shell_s *shell, char *var, char **key_val, int i)
 {
 	if (ft_strchr(var, '=') == NULL)
@@ -51,16 +51,32 @@ t_shell_s *shell, char *var, char **key_val, int i)
 	shell->envp.vars[i].val = ft_strdup(key_val[1]);
 	if (ft_strchr(var, '=') != NULL && key_val[1] == NULL)
 		shell->envp.vars[i].val = ft_strdup("");
+} */
+
+static void	replace_one_var(\
+t_shell_s *shell, char *addr_e_sign, char **key_val, int i)
+{
+	if (addr_e_sign == NULL)
+		return ;
+	if (shell->envp.vars[i].val != NULL)
+		free(shell->envp.vars[i].val);
+	shell->envp.vars[i].val = ft_strdup(key_val[1]);
+	if (addr_e_sign != NULL && key_val[1] == NULL)
+		shell->envp.vars[i].val = ft_strdup("");
 }
 
-static int	envp_edit_one_var(t_shell_s *shell, char *var)
+/* static int	envp_edit_one_var(t_shell_s *shell, char *var)
 {
-	char	**key_val;
+	char	*key_val[2];
+	char	*addr_eql_sign;
 	int		i;
 
 	if (var == NULL)
 		return (-1);
-	key_val = ft_split(var, '=');
+	ft_bzero(key_val, sizeof(char *) * 2);
+	addr_eql_sign = ft_strrchr(var, '=');
+	if (addr_eql_sign == NULL)
+		key_val[0] = 
 	i = sh_ex_find_key_index(shell->envp.vars, key_val[0]);
 	if (i < 0)
 		add_one_var(shell, var, key_val);
@@ -68,18 +84,48 @@ static int	envp_edit_one_var(t_shell_s *shell, char *var)
 		replace_one_var(shell, var, key_val, i);
 	sh_ex_free_arr(key_val);
 	return (0);
+} */
+
+static int	envp_edit_one_var(t_shell_s *shell, char *addr_e_sign, char **key_val)
+{
+	int		i;
+
+	if (key_val == NULL)
+		return (-1);
+	if (sh_ex_is_valid_key(key_val[0]) != 0)
+		return (perror("NOT VALID KEY!\n"), -1);
+	i = sh_ex_find_key_index(shell->envp.vars, key_val[0]);
+	if (i < 0)
+		add_one_var(shell, addr_e_sign, key_val);
+	else
+		replace_one_var(shell, addr_e_sign, key_val, i);
+	return (0);
 }
 
 int	sh_ex_export_add_vars(t_shell_s *shell, char **vars)
 {
 	size_t	i;
+	char	*key_val[2];
+	char	*addr_e_sign;
 
 	if (vars == NULL || (*vars) == NULL)
 		return (-1);
 	i = 0;
 	while (vars[i] != NULL)
 	{
-		envp_edit_one_var(shell, vars[i]);
+		ft_bzero(key_val, sizeof(char *) * 2);
+		addr_e_sign = ft_strchr(vars[i], '=');
+		if (addr_e_sign == NULL)
+			key_val[0] = ft_strdup(vars[i]);
+		else
+		{
+			key_val[0] = ft_substr(vars[i], 0, addr_e_sign - vars[i]);
+			key_val[1] = ft_substr(vars[i], addr_e_sign - vars[i] + 1, \
+			ft_strlen(vars[i]));
+		}
+		envp_edit_one_var(shell, vars[i], key_val);
+		free(key_val[0]);
+		free(key_val[1]);
 		i++;
 	}
 	return (0);

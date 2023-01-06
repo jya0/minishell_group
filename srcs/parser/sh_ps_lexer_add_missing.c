@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_add_missing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/05 00:02:05 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/06 20:55:48 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	expand_variable(t_shell_s *shell, t_words *word)
 	if (word->str == NULL)
 		return (-1);
 	word->str_len = ft_strlen(word->str);
-	word->str_start = NULL;
+	// word->str_start = NULL;
 	word->term_type = TT_JUST_WORD;
 	return (0);
 }

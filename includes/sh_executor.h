@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 03:22:39 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/06 22:15:34 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int				sh_ex_find_key_index(t_var_s *vars, char *key);
 //******** sh_ex_export_var.c *************
 t_var_s			*sh_ex_dup_vars(t_var_s *vars);
 t_var_s			*sh_ex_realloc_vars(t_var_s *old_vars, size_t new_vars_size);
+int				sh_ex_is_valid_key(char *key);
 
 //******** sh_ex_env.c ****************
 int				sh_ex_view_env(t_shell_s *shell);

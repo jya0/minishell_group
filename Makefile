@@ -6,7 +6,7 @@
 #    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/06 00:11:11 by jyao             ###   ########.fr        #
+#    Updated: 2023/01/06 21:18:10 by jyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ FILES =	$(EXECDIR_NAME)main \
 	$(PARSDIR_NAME)sh_ps_parser_cmds_free	\
 	$(PARSDIR_NAME)sh_ps_lexer			$(PARSDIR_NAME)sh_ps_lexer_words	$(PARSDIR_NAME)sh_ps_lexer_add_missing	\
 	$(PARSDIR_NAME)sh_ps_lexer_expand_quotes	\
+	$(PARSDIR_NAME)sh_ps_lexer_join_connected	\
 	$(PARSDIR_NAME)sh_ps_parser			$(PARSDIR_NAME)sh_ps_lexer_check_error	\
 	$(PARSDIR_NAME)sh_ps_heredoc	\
 
