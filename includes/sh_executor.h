@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 22:15:34 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 21:08:13 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,5 +300,6 @@ int				sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command);
 int				sh_ex_valid_exec(t_shell_s *shell, t_commands *command);
 
 void			sh_ex_free_all(t_shell_s *shell);
+int				sh_ex_fork(t_shell_s *shell, t_commands *command);
 
 #endif

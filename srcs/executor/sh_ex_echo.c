@@ -12,13 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-void sh_ex_echoarray(t_commands *command)
+void	sh_ex_echoarray(t_commands *command)
 {
-	int i;
-	int len;
-	char **cmd;
-	char **echo;
-	
+	int		i;
+	int		len;
+	char	**cmd;
+	char	**echo;
+
 	len = sh_ex_doublelen(command->cmd_args);
 	cmd = command->cmd_args;
 	if (ft_strcmp(cmd[0], "-n") == 0)
@@ -31,7 +31,6 @@ void sh_ex_echoarray(t_commands *command)
 	i = 0;
 	while (echo[i])
 	{
-
 		ft_putstr_fd(echo[i], 1);
 		if (i < len - 1)
 			ft_putchar_fd(' ', 1);
@@ -39,35 +38,30 @@ void sh_ex_echoarray(t_commands *command)
 	}
 }
 
-void sh_ex_echoflag(t_shell_s *shell, t_commands *command)
+void	sh_ex_echoflag(t_shell_s *shell, t_commands *command)
 {
-	char **args;
+	char	**args;
 
 	args = command->cmd_args;
 	if (*args != NULL)
 	{
-		// ft_putstr_fd("yes 1\n", shell->fdout);
 		if (ft_strcmp(args[0], "-n") == 0)
 			shell->echoflag = 1;
 	}
-
-	// else
-	// 	shell->echoflag = 0;
 }
 
-void sh_ex_displayecho(t_shell_s *shell, t_commands *command)
+void	sh_ex_displayecho(t_shell_s *shell, t_commands *command)
 {
 	if (ft_strcmp(command->cmd_args[0], "$?") == 0)
 		ft_putnbr_fd(sh_ex_exitstatus, shell->fdout);
 	else
 	{
-
 		sh_ex_echoarray(command);
 		sh_ex_exitstatus = 0;
 	}
 }
 
-int sh_ex_echo(t_shell_s *shell, t_commands *command)
+int	sh_ex_echo(t_shell_s *shell, t_commands *command)
 {
 	shell->echoflag = 0;
 	if (*(command->cmd_args) != NULL)

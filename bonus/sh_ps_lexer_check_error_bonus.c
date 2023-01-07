@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_check_error_bonus.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:39:57 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/29 18:40:35 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 21:26:10 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,7 @@ static int	check_pipe(t_words *word)
 	if (word == NULL || word->term_type != TT_PIPE)
 		return (0);
 	if (word->prev == NULL || word->next == NULL)
-	{
-		//call heredoc function to add more
-		//check_pipe(new_word_chain)
 		return (perror("ERROR PIPE!\n"), -1);
-	}
 	return (0);
 }
 

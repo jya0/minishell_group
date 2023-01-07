@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:20:24 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/05 01:20:57 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/07 21:19:37 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*sh_ex_cwd(void)
 int	sh_ex_showpwd(void)
 {
 	char	*dir;
-	char *tmp;
+	char	*tmp;
+
 	dir = sh_ex_cwd ();
 	if (dir == NULL)
 		sh_ex_exitstatus = 1;

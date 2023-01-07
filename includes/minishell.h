@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 03:11:57 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 21:30:08 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct t_var_s {
 typedef struct t_env_s {
 	char		**envp_chain;
 	size_t		env_size;
-	// char		**key_chain;
-	// char		**val_chain;
 	t_var_s		*vars;
 }	t_env_s;
 

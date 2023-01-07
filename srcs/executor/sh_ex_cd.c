@@ -3,60 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/05 23:26:20 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 20:44:32 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* static int	sh_ex_searchenvindex(t_shell_s *shell, char *key)
-{
-    int i;
-    int len;
-
-    len = ft_strlen (key);
-    i = 0;
-    while (shell->envp.key_chain[i])
-    {
-        if (ft_strncmp (shell->envp.key_chain[i], key, len) == 0)
-            return (i);
-        i++;
-    }
-    return (-1);
-} */
-
 static int	sh_ex_searchenvindex(t_shell_s *shell, char *key)
 {
-    int i;
-    int len;
+	int	i;
+	int	len;
 
-    len = ft_strlen (key);
-    i = 0;
-    while (shell->envp.vars[i].key != NULL)
-    {
-        if (ft_strncmp (shell->envp.vars[i].key, key, len) == 0)
-            return (i);
-        i++;
-    }
-    return (-1);
+	len = ft_strlen (key);
+	i = 0;
+	while (shell->envp.vars[i].key != NULL)
+	{
+		if (ft_strncmp (shell->envp.vars[i].key, key, len) == 0)
+			return (i);
+			i++;
+	}
+	return (-1);
 }
 
 static void	sh_ex_changeenv(t_shell_s *shell, char *key, char *value)
 {
-    int     index;
-    char    *old_value;
+	int		index;
+	char	*old_value;
 
-    old_value = NULL;
-    index = sh_ex_searchenvindex (shell, key);
-    if (index)
-    {
-        old_value = shell->envp.vars[index].val;
-        shell->envp.vars[index].val = value;
-        free(old_value);
-    }
+	old_value = NULL;
+	index = sh_ex_searchenvindex (shell, key);
+	if (index)
+	{
+		old_value = shell->envp.vars[index].val;
+		shell->envp.vars[index].val = value;
+		free(old_value);
+	}
 }
 
 int	sh_ex_cd(t_shell_s *shell, t_commands *command)

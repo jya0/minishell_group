@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 15:10:46 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/05 00:06:21 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/07 20:36:07 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,5 @@ t_commands	*sh_ps_parser(t_shell_s *shell, char *buf_src)
 	head_command = sh_ps_parser_commands(head_word);
 	if (head_command == NULL)
 		sh_ps_lexer_word_free_list(head_word);
-	// sh_ps_parser_commands_print_list(head_command);
 	return (head_command);
 }
-
-/*================ALREADY tested for memory leaks!==================*/
-/*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
-/*
-int	main(int argc, char	*argv[])
-{
-	t_commands	*head_command;
-
-	if (argc == 1)
-		return (0);
-	head_command = sh_ps_parser(argv[1]);
-	sh_ps_parser_commands_free_list(head_command);
-	return (0);
-}
-*/

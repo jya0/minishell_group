@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_expand_quotes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:14:04 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/23 15:01:41 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 20:38:52 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,29 +102,3 @@ void	sh_ps_lexer_expand_quotes(t_words **head_word)
 			word = word->next;
 	}
 }
-
-/*================ALREADY tested for memory leaks!==================*/
-/*gcc -Wall -Wextra -Werror -g sh_ps_lexer*.c sh_ps_parser*.c -L../../libft -lft*/
-/*
-int	main(int argc, char	*argv[])
-{
-	t_words		*head_word;
-	t_commands	*head_command;
-
-	if (argc == 1)
-		return (0);
-	head_word = sh_ps_lexer(argv[1]);
-	printf("\n>>original words<<\n");
-	sh_ps_lexer_word_print_list(head_word);
-	sh_ps_lexer_add_missing(head_word);
-	printf("\n>>add missing spaces & missing env values<<\n");
-	sh_ps_lexer_word_print_list(head_word);
-	sh_ps_lexer_expand_quotes(&head_word);
-	printf("\n>>connect all words in quotes<<\n");
-	sh_ps_lexer_word_print_list(head_word);
-	head_command = sh_ps_parser_commands(head_word);
-	sh_ps_parser_commands_print_list(head_command);
-	sh_ps_parser_commands_free_list(head_command);
-	return (0);
-}
-*/

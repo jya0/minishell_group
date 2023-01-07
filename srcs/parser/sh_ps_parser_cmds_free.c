@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_parser_cmds_free.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 23:06:23 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 20:15:31 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 21:24:36 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	sh_ps_parser_commands_free_list(t_commands *head_command)
 {
 	t_commands	*command;
 
-	printf("\nfreeing commands list\n");
 	while (head_command != NULL)
 	{
 		command = head_command;

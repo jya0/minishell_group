@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export_add.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:13:43 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 23:14:05 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 21:09:36 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,6 @@ static void	add_one_var(t_shell_s *shell, char *var, char **key_val)
 	shell->envp.envp_chain = sh_ex_get_envp_chain(shell);
 }
 
-/* static void	replace_one_var(\
-t_shell_s *shell, char *var, char **key_val, int i)
-{
-	if (ft_strchr(var, '=') == NULL)
-		return ;
-	if (shell->envp.vars[i].val != NULL)
-		free(shell->envp.vars[i].val);
-	shell->envp.vars[i].val = ft_strdup(key_val[1]);
-	if (ft_strchr(var, '=') != NULL && key_val[1] == NULL)
-		shell->envp.vars[i].val = ft_strdup("");
-} */
-
 static void	replace_one_var(\
 t_shell_s *shell, char *addr_e_sign, char **key_val, int i)
 {
@@ -65,28 +53,8 @@ t_shell_s *shell, char *addr_e_sign, char **key_val, int i)
 		shell->envp.vars[i].val = ft_strdup("");
 }
 
-/* static int	envp_edit_one_var(t_shell_s *shell, char *var)
-{
-	char	*key_val[2];
-	char	*addr_eql_sign;
-	int		i;
-
-	if (var == NULL)
-		return (-1);
-	ft_bzero(key_val, sizeof(char *) * 2);
-	addr_eql_sign = ft_strrchr(var, '=');
-	if (addr_eql_sign == NULL)
-		key_val[0] = 
-	i = sh_ex_find_key_index(shell->envp.vars, key_val[0]);
-	if (i < 0)
-		add_one_var(shell, var, key_val);
-	else
-		replace_one_var(shell, var, key_val, i);
-	sh_ex_free_arr(key_val);
-	return (0);
-} */
-
-static int	envp_edit_one_var(t_shell_s *shell, char *addr_e_sign, char **key_val)
+static int	envp_edit_one_var(t_shell_s *shell, \
+char *addr_e_sign, char **key_val)
 {
 	int		i;
 

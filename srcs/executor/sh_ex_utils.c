@@ -40,26 +40,10 @@ void	sh_ex_free_arr(char **str)
 	str = NULL;
 }
 
-/* void sh_ex_freeallin(char **str)
-{
-	int i;
-
-	if (!str && !(*str))
-		return;
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		str[i] = NULL;
-		i++;
-	}
-} */
-
 void	sh_ex_free_loop(t_shell_s *shell)
 {
 	free(shell->cmd_line);
 	sh_ps_parser_commands_free_list(shell->head_command);
-	// sh_ps_lexer_word_free_list(words);
 }
 
 void	sh_ex_free_vars(t_var_s *vars)
@@ -85,30 +69,4 @@ void	sh_ex_free_all(t_shell_s *shell)
 	sh_ex_free_arr(shell->path);
 	free(shell->home);
 	sh_ex_free_loop(shell);
-	// sh_ps_lexer_word_free_list(words);
-}
-
-
-void display_rd(t_redirections *redir_h)
-{
-	t_redirections *redir;
-	redir = redir_h;
-	while (redir)
-	{
-		printf("redir file = %s redir termtype = %d\n", redir->redir_file, redir->redir_term_type);
-		redir = redir->next;
-	}
-}
-
-int sh_ex_listlen(t_commands *command)
-{
-    int i;
-
-    i = 0;
-    while (command)
-    {
-        command = command->next;
-        i++;
-    }
-    return (i);
 }

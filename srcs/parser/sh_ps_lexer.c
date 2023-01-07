@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 19:21:29 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 20:38:07 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static enum e_term_type	get_term_type(t_words	*word)
 	sum = word->str[0];
 	if (word->str[1] != '\0')
 		sum *= word->str[1];
-	// if (sum == '&')
-	// 	return (TT_ERROR);
 	i = 0;
 	while (DELIM_TERMS_ALL[i] != '\0')
 	{
@@ -122,7 +120,6 @@ static t_words	*get_next_word(const char *buf_src)
 	word = make_word(buf_stored, start, &end);
 	word->term_type = get_term_type(word);
 	word->str_start = &(buf_stored[start]);
-	// printf("start%zu |%c| end%zu |%c| src_start = |%c|\n", start, buf_stored[start], end, buf_stored[end], *(word->str_start));
 	if (buf_stored[end] == '\0')
 		buf_stored = NULL;
 	else
@@ -145,21 +142,13 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
 	sh_ps_lexer_heredoc_mark_variable(head_word);
-	// printf("\n>>original words<<\n");
-	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>add missing spaces & missing env values<<\n");
 	if (sh_ps_lexer_add_missing(shell, &head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);
 		return (NULL);
 	}
-	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>connect all words in quotes<<\n");
 	sh_ps_lexer_expand_quotes(&head_word);
-	// sh_ps_lexer_word_print_list(head_word);
-	// printf("\n>>join all words next to each other<<\n");
 	sh_ps_lexer_join_connected(&head_word);
-	// sh_ps_lexer_word_print_list(head_word);
 	if (sh_ps_lexer_check_error(head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);
@@ -167,27 +156,3 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 	}
 	return (head_word);
 }
-
-/*================Already tested for memory leaks!==================*/
-/*gcc -Wall -Wextra -Werror sh_ps_lexer*.c -L../../libft -lft*/
-/*
-int	main(int argc, char	*argv[])
-{
-	t_words	*head_word;
-
-	if (argc == 1)
-		return (0);
-	head_word = sh_ps_lexer(argv[1]);
-	head_word = sh_ps_lexer_word_del_at(head_word, 0);
-	head_word = sh_ps_lexer_word_del_at(head_word, 0);
-	head_word = sh_ps_lexer_word_del_at(head_word, 4);
-	head_word = sh_ps_lexer_word_del_at(head_word, 4);
-	head_word = sh_ps_lexer_word_del_at(head_word, 0);
-	head_word = sh_ps_lexer_word_del_at(head_word, 0);
-	head_word = sh_ps_lexer_word_del_at(head_word, -1);
-	head_word = sh_ps_lexer_word_del_at(head_word, -1);
-	sh_ps_lexer_word_print_list(head_word);
-	sh_ps_lexer_word_free_list(head_word);
-	return (0);
-}
-*/

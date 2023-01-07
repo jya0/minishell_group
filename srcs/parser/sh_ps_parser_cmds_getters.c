@@ -3,45 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_parser_cmds_getters.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:01:08 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/03 20:55:23 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 20:36:55 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-int	sh_ps_parser_get_cmd_args(\
-t_commands *command, t_words **head_word, t_words **word)
-{
-	int		i;
-	t_words	*ptr_word;
-
-	i = 0;
-	ptr_word = *word;
-	while (ptr_word != NULL && ptr_word->term_type == TT_JUST_WORD)
-	{
-		ptr_word = ptr_word->next;
-		i++;
-	}
-	if (i == 0)
-		return (0);
-	command->cmd_args = (char **)ft_calloc(i + 1, sizeof(char *));
-	if (command->cmd_args == NULL)
-		return (-1);
-	i = 0;
-	while (*head_word != ptr_word)
-	{
-		command->cmd_args[i] = (*head_word)->str;
-		i++;
-		sh_ps_lexer_word_del_word(head_word, *head_word, FREE_DEFAULT);
-	}
-	*word = *head_word;
-	return (0);
-}
-*/
 
 static char	**allocate_argv(t_words *head_word, t_words **ptr_word)
 {
@@ -88,17 +57,6 @@ t_commands *command, t_words **head_word)
 	}
 	return (0);
 }
-
-/*
-int	sh_ps_parser_get_cmd_name(\
-t_commands *command, t_words **head_word, t_words	**word)
-{
-	command->cmd_name = (*word)->str;
-	sh_ps_lexer_word_del_word(head_word, *word, FREE_DEFAULT);
-	*word = *head_word;
-	return (0);
-}
-*/
 
 static void	add_redirection(\
 t_redirections **head_redir, t_redirections *redir)

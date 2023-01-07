@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:57:36 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/27 14:41:47 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 20:38:35 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,29 +111,4 @@ t_words **head_word, t_words *word, enum e_free_option flag)
 		next->prev = prev;
 	sh_ps_lexer_word_free(word, flag);
 	return (next);
-}
-
-void	sh_ps_lexer_word_print_list(t_words *head_word)
-{
-	t_words	*last;
-
-	if (head_word == NULL)
-	{
-		printf("\n-------NO MORE WORDS IN LIST!------\n");
-		return ;
-	}
-	printf("\n------going forwards-------\n");
-	while (head_word != NULL)
-	{
-		printf("%s %ld %d\n", head_word->str, head_word->str_len, head_word->term_type);
-		if (head_word->next == NULL)
-			last = head_word;
-		head_word = head_word->next;
-	}
-	printf("\n------going backwards-------\n");
-	while (last != NULL)
-	{
-		printf("%s %ld %d\n", last->str, last->str_len, last->term_type);
-		last = last->prev;
-	}
 }
