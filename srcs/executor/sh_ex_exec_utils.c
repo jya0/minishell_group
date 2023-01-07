@@ -50,9 +50,8 @@ int	sh_ex_init_fork(t_shell_s *shell)
 		if (shell->pid[i] == -1)
 			return (1);
 		else if (shell->pid[i] == 0)
-		{
 			sh_ex_dup_pipe(shell, cmd, &index_fd);
-		}
+		shell->exit_info.if_pid_fork = shell->pid[i];
 		cmd = cmd->next;
 		index_fd += 2;
 		sh_ex_stdstatus(0);
@@ -84,11 +83,11 @@ int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 	}
 	while (i < (shell->num_commands * 2))
 		close(shell->fd[i++]);
-	sh_ex_exitstatus = sh_ex_simplecmd_exec(shell, command);
+	shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
 	free(shell->fd);
 	free(shell->pid);
 	sh_ex_exit(shell, 0);
-	return (sh_ex_exitstatus);
+	return (shell->exit_info.exit_code);
 }
 
 int	sh_ex_close_fd(t_shell_s *shell)
@@ -101,11 +100,11 @@ int	sh_ex_close_fd(t_shell_s *shell)
 	i = 0;
 	while (i < (shell->num_commands + 1))
 	{
-		waitpid(shell->pid[i], &sh_ex_exitstatus, 0);
-		sh_ex_exitstatus = WEXITSTATUS(sh_ex_exitstatus);
+		waitpid(shell->pid[i], &(shell->exit_info.exit_code), 0);
+		shell->exit_info.exit_code = WEXITSTATUS(shell->exit_info.exit_code);
 		i++;
 	}
 	free(shell->fd);
 	free(shell->pid);
-	return (sh_ex_exitstatus);
+	return (shell->exit_info.exit_code);
 }

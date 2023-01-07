@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 21:30:08 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/07 23:16:51 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ typedef struct t_cmd {
 
 // struct for the command variables
 
+typedef struct s_exit_info {
+	int				if_pid_fork;
+	int				exit_code;
+}	t_exit_info;
+
+//******* struct for terminal
+typedef struct s_terminal {
+	pid_t				shell_pgid;
+	struct termios		shell_tmodes;
+	struct termios		old_term;
+	struct termios		new_term;
+	int					shell_terminal;
+	int					shell_is_interactive;
+}	t_terminal;
 
 typedef struct t_shell_s
 {
@@ -72,10 +86,11 @@ typedef struct t_shell_s
 	char			*home;
 	char			**path;
 	t_commands		*head_command;
+	t_exit_info		exit_info;
+	t_terminal		mini_terminal;
 	struct t_env_s	envp;
 }	t_shell_s;
 
-int				sh_ex_exitstatus;
-struct termios	old_term, new_term;
+t_shell_s					g_shell;
 
 #endif

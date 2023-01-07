@@ -61,7 +61,7 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 		if (execve(file_name, command->cmd_argv, \
 		(char **)shell->envp.envp_chain) == -1)
 		{
-			sh_ex_exitstatus = 127;
+			shell->exit_info.exit_code = 127;
 			free(file_name);
 			exit(EXIT_FAILURE);
 		}

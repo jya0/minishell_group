@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:20:24 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/07 21:19:37 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/07 22:46:10 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	sh_ex_showpwd(void)
 
 	dir = sh_ex_cwd ();
 	if (dir == NULL)
-		sh_ex_exitstatus = 1;
+		g_shell.exit_info.exit_code = 1;
 	else
 	{
-		sh_ex_exitstatus = 0;
+		g_shell.exit_info.exit_code = 0;
 		tmp = ft_strjoin (WHITE, dir);
 		free(dir);
 		ft_putstr_fd (tmp, STDOUT_FILENO);

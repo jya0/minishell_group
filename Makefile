@@ -6,7 +6,7 @@
 #    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/07 20:57:05 by yoyohann         ###   ########.fr        #
+#    Updated: 2023/01/07 23:09:40 by yoyohann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ PARSDIR_NAME := parser/
 FILES =	$(EXECDIR_NAME)main \
 	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_bindir	\
 	$(EXECDIR_NAME)sh_ex_signal			$(EXECDIR_NAME)sh_ex_shellinit		$(EXECDIR_NAME)sh_ex_utils	\
-	$(EXECDIR_NAME)sh_ex_envp_init		$(EXECDIR_NAME)sh_ex_export_add		$(EXECDIR_NAME)sh_ex_export_var\
-	$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset			$(EXECDIR_NAME)sh_ex_exec_cmd\
+	$(EXECDIR_NAME)sh_ex_envp_init		$(EXECDIR_NAME)sh_ex_export_add		$(EXECDIR_NAME)sh_ex_export_var	\
+	$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset			$(EXECDIR_NAME)sh_ex_exec_cmd	\
 	$(EXECDIR_NAME)sh_ex_env			$(EXECDIR_NAME)sh_ex_exec_extra		$(EXECDIR_NAME)sh_ex_exec_utils	\
 	$(EXECDIR_NAME)sh_ex_cd				$(EXECDIR_NAME)sh_ex_export			$(EXECDIR_NAME)sh_ex_pwd	\
 	$(EXECDIR_NAME)sh_ex_exit			$(EXECDIR_NAME)sh_ex_redirect	\

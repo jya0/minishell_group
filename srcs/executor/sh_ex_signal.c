@@ -6,41 +6,53 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/07 21:12:33 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/08 00:21:51 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "minishell.h"
 #include "../../includes/minishell.h"
 
-void	sh_ex_sighandle(int sig)
+static void	killchild_handler(int sig)
 {
-	set_mode ();
-	if (sig == 1)
+	if (sig == SIGQUIT && g_shell.exit_info.if_pid_fork != 0)
 	{
-		signal (SIGINT, sh_ex_newprompt);
-		signal (SIGQUIT, SIG_IGN);
-	}
-	if (sig == 3)
-	{
-		sh_ex_exitshell (3);
+		perror("quited");
+		kill(g_shell.exit_info.if_pid_fork, SIGQUIT);
+		g_shell.exit_info.if_pid_fork = 0;
 	}
 }
 
-void	sh_ex_newprompt(int sig)
+static void	newprompt_handler(int sig)
 {
-	set_mode ();
-	sh_ex_exitstatus = 130;
-	write (1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line ();
-	rl_redisplay ();
-	(void)sig;
+	set_mode();
+	if (sig == SIGINT)
+	{
+		g_shell.exit_info.exit_code = 130;
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
-void	sh_ex_exitshell(int sig)
+static void	exitshell(void)
 {
-	(void)sig;
-	set_mode ();
+	set_mode();
+	sh_ex_exit(&g_shell, 1);
+	// sh_ex_free_all(&g_shell);
 	exit(0);
 }
+
+void	sh_ex_sighandle(int sig)
+{
+	set_mode();
+	if (sig == 1)
+	{
+		signal(SIGINT, newprompt_handler);
+		signal(SIGQUIT, killchild_handler);
+	}
+	if (sig == 3)
+		exitshell();
+}
+

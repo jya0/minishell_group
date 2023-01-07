@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/07 20:44:32 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/07 23:22:06 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	sh_ex_searchenvindex(t_shell_s *shell, char *key)
 	{
 		if (ft_strncmp (shell->envp.vars[i].key, key, len) == 0)
 			return (i);
-			i++;
+		i++;
 	}
 	return (-1);
 }
@@ -56,7 +56,7 @@ int	sh_ex_cd(t_shell_s *shell, t_commands *command)
 		else
 		{
 			printf("cd: no such file or directory: %s\n", command->cmd_args[0]);
-			sh_ex_exitstatus = 1;
+			g_shell.exit_info.exit_code = 1;
 		}
 	}
 	else

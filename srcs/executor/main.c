@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/07 21:21:05 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/08 00:08:50 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,22 @@ void	sh_ex_initshell(t_shell_s *shell, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell_s	shell;
-
 	(void)argc;
 	(void)argv;
-	sh_ex_exitstatus = 0;
-	shell = (t_shell_s){0};
-	sh_ex_initshell(&shell, envp);
+	g_shell = (t_shell_s){0};
+	sh_ex_initshell(&g_shell, envp);
 	while (1)
 	{
-		shell.head_command = NULL;
-		sh_ex_readline(&shell);
-		if (shell.cmd_line != NULL && *(shell.cmd_line) != '\0')
+		g_shell.head_command = NULL;
+		sh_ex_readline(&g_shell);
+		if (g_shell.cmd_line != NULL && *(g_shell.cmd_line) != '\0')
 		{
-			add_history(shell.cmd_line);
-			shell.head_command = sh_ps_parser(&shell, shell.cmd_line);
-			if (shell.head_command != NULL)
-				sh_ex_exec(&shell);
+			add_history(g_shell.cmd_line);
+			g_shell.head_command = sh_ps_parser(&g_shell, g_shell.cmd_line);
+			if (g_shell.head_command != NULL)
+				sh_ex_exec(&g_shell);
 		}
-		sh_ex_free_loop(&shell);
+		sh_ex_free_loop(&g_shell);
 	}
 	return (0);
 }

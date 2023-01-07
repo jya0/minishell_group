@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 21:25:41 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/07 23:11:27 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ typedef struct s_pipelines {
 typedef struct s_conditionals {
 	size_t					index;
 	t_pipelines				*pipelines;
-	// int						conditional_return;
 	struct s_conditionals	*next;
 }	t_conditionals;
 
@@ -187,6 +186,5 @@ t_commands *command, enum e_free_option flag);
 
 void			sh_ps_parser_commands_free_list(\
 t_commands *head_command);
-
 
 #endif
