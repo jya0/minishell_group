@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/06 22:40:21 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/07 19:21:29 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static t_words	*make_word(const char *buf_stored, size_t start, size_t *end)
 				(*end)++;
 			else
 				(*end) += forward_while_char_set(\
-				&buf_stored[*end], UNDERSCORE D_DIGITS A_LOWER A_UPPER, 0);
+				&buf_stored[*end], UNDERSCORE D_DIGITS A_LOWER A_UPPER "?", 0);
 		}
 		else if ((*c != '\"' && *c != '\'') && buf_stored[*end] != '\0' \
 		&& ft_strrchr(DELIM_TERMS_COMBINEABLE, buf_stored[*end]) != NULL)
@@ -157,9 +157,9 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 	// printf("\n>>connect all words in quotes<<\n");
 	sh_ps_lexer_expand_quotes(&head_word);
 	// sh_ps_lexer_word_print_list(head_word);
-	printf("\n>>join all words next to each other<<\n");
+	// printf("\n>>join all words next to each other<<\n");
 	sh_ps_lexer_join_connected(&head_word);
-	sh_ps_lexer_word_print_list(head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	if (sh_ps_lexer_check_error(head_word) != 0)
 	{
 		sh_ps_lexer_word_free_list(head_word);

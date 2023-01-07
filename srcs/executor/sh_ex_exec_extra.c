@@ -56,7 +56,7 @@ int sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
     file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
     if (file_name == NULL)
     {
-        printf("commnad not found: %s\n", command->cmd_argv[0]);
+        perror("commnad not found\n");
         free(file_name);
         return (127);
     }
@@ -115,9 +115,9 @@ int sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
     {
         // printf("I AM BUILTIN\n");
         sh_ex_exitstatus = sh_ex_builtin(shell, command);
-		free(shell->fd);
-		free(shell->pid);
-        sh_ex_exit(shell, 0);
+		// free(shell->fd);
+		// free(shell->pid);
+        // sh_ex_exit(shell, 0);
     }
     else
     {
