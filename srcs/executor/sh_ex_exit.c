@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/08 08:22:31 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/08 08:43:42 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ static int	exit_one_arg(char *arg)
 	return (1);
 }
 
-static int	sh_ex_exit_all(t_shell_s *shell, int flag)
+int	sh_ex_exit_all(t_shell_s *shell, int flag)
 {
 	rl_clear_history();
 	sh_ex_free_all(shell);
 	if (flag == 1)
+	{
 		write (1, "exit\n", 5);
+		open(HEREDOC_FILE, O_TRUNC | O_CREAT, 0777);
+		unlink(HEREDOC_FILE);
+	}
 	exit(shell->exit_info.exit_code);
 }
 

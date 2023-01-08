@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 23:25:25 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/08 08:55:05 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int				sh_ex_unset(t_shell_s *shell, char **var_names);
 
 //******** sh_ex_exit.c ***************
 int				sh_ex_exit(t_shell_s *shell, int flag);
+int				sh_ex_exit_all(t_shell_s *shell, int flag);
 
 //******* sh_ex_utils.c ***************
 void			sh_ex_free_loop(t_shell_s *shell);
@@ -153,6 +154,10 @@ void			reset_mode(void);
 
 //********* sh_ex_signal.c *************
 void			sh_ex_sighandle(int sig);
+
+void			sh_ex_nl_sigint_handler(int sig);
+
+void			sh_ex_killchild_handler(int sig);
 
 //********* sh_ex_utils.c **************
 void			sh_ex_wcmessage(void);
@@ -202,7 +207,6 @@ int				sh_ex_close_fd(t_shell_s *shell);
 void			sh_ex_stdstatus(int status);
 int				sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir);
 int				sh_ex_exec_cmd(t_shell_s *shell, t_commands *command);
-int				sh_ex_fork(t_shell_s *shell, t_commands *command);
 int				sh_ex_exec(t_shell_s *shell);
 void			sh_ex_testfork(t_shell_s *shell, t_commands *command);
 
@@ -213,6 +217,5 @@ int				sh_ex_simplecmd(t_shell_s *shell, t_commands *command);
 int				sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command);
 int				sh_ex_valid_exec(t_shell_s *shell, t_commands *command);
 void			sh_ex_free_all(t_shell_s *shell);
-int				sh_ex_fork(t_shell_s *shell, t_commands *command);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_exec_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/08 00:00:04 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/08 08:54:21 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	sh_ex_fork(t_shell_s *shell, t_commands *command)
+static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 {
 	int	fid;
 
@@ -43,7 +43,10 @@ int	sh_ex_simplecmd(t_shell_s *shell, t_commands *command)
 	if (sh_ex_isbuiltin(command))
 		shell->exit_info.exit_code = sh_ex_builtin(shell, command);
 	else if (!sh_ex_valid_exec(shell, command))
+	{
+		signal(SIGQUIT, sh_ex_killchild_handler);
 		shell->exit_info.exit_code = sh_ex_fork(shell, command);
+	}
 	else
 		shell->exit_info.exit_code = 1;
 	return (shell->exit_info.exit_code);
@@ -60,6 +63,7 @@ int	sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
 
 int	sh_ex_exec(t_shell_s *shell)
 {
+	signal(SIGINT, sh_ex_nl_sigint_handler);
 	shell->num_commands = sh_ex_listlen(shell->head_command);
 	sh_ex_stdstatus(1);
 	if (shell->head_command == NULL && shell->head_command->redirs == NULL)

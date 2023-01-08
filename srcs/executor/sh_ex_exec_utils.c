@@ -31,7 +31,6 @@ int	sh_ex_init_pipe_fork(t_shell_s *shell)
 }
 
 // initialize the fork
-
 int	sh_ex_init_fork(t_shell_s *shell)
 {
 	int			i;
@@ -44,6 +43,7 @@ int	sh_ex_init_fork(t_shell_s *shell)
 	shell->num_commands--;
 	if (sh_ex_init_pipe_fork(shell))
 		return (1);
+	signal(SIGQUIT, sh_ex_killchild_handler);
 	while (cmd)
 	{
 		shell->pid[i] = fork();
@@ -51,7 +51,6 @@ int	sh_ex_init_fork(t_shell_s *shell)
 			return (1);
 		else if (shell->pid[i] == 0)
 			sh_ex_dup_pipe(shell, cmd, &index_fd);
-		shell->exit_info.if_pid_fork = shell->pid[i];
 		cmd = cmd->next;
 		index_fd += 2;
 		sh_ex_stdstatus(0);
@@ -86,7 +85,7 @@ int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 	shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
 	free(shell->fd);
 	free(shell->pid);
-	sh_ex_exit(shell, 0);
+	sh_ex_exit_all(shell, 0);
 	return (shell->exit_info.exit_code);
 }
 
