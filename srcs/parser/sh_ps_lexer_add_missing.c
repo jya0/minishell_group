@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_add_missing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 20:39:50 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:49:46 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@ int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words **head_word)
 		word = word_term_type_change(shell, head_word, word, quote_state);
 	}
 	if (quote_state != IN_NULL)
-		return (perror("ERROR UNCLOSED QUOTES!\n"), -1);
+	{
+		shell->exit_info.exit_code = EXT_QUOTES_ERR;
+		return (EXT_QUOTES_ERR);
+	}
 	return (0);
 }

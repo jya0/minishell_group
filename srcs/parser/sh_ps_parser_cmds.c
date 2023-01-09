@@ -6,24 +6,11 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:18:27 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 13:39:20 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 13:40:21 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	pipe_error_check(t_words *word, enum e_pipe_error_check flag)
-{
-	if (word == NULL)
-		return (0);
-	if (flag == CHECK_BEFORE)
-		return (word->term_type == TT_PIPE \
-		&& word->prev == NULL);
-	else if (flag == CHECK_AFTER)
-		return (word->term_type == TT_PIPE \
-		&& word->next == NULL);
-	return (0);
-}
 
 static void	str_to_lowercase(char *cmd_name)
 {
@@ -46,19 +33,12 @@ static t_commands	*get_next_command(t_words **head_word)
 
 	if (head_word == NULL || *head_word == NULL)
 		return (NULL);
-	if (pipe_error_check(*head_word, CHECK_BEFORE) != 0)
-	{
-		printf("PIPE ERROR!\n");
-		return (NULL);
-	}
 	command = (t_commands *)ft_calloc(1, sizeof(t_commands));
 	if (command == NULL)
 		return (NULL);
 	if (sh_ps_parser_get_redirs(command, head_word) != 0 \
 	|| sh_ps_parser_get_cmd_argv(command, head_word) != 0)
 		return (NULL);
-	if (pipe_error_check(*head_word, CHECK_AFTER) != 0)
-		printf("PIPE ERROR!\n");
 	str_to_lowercase(command->cmd_name);
 	sh_ps_lexer_word_del_word(head_word, *head_word, FREE_ALL);
 	return (command);

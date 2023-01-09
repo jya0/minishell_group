@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_ps_get_error_message.c                          :+:      :+:    :+:   */
+/*   sh_get_error_message.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 05:10:41 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 13:33:31 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 14:03:19 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-const char	*sh_get_error_msg(enum e_exit_codes exit_code)
+char	*sh_get_error_msg(enum e_exit_codes exit_code)
 {
 	if (exit_code == EXT_MALLOC_FAILURE)
 		return ("MALLOC CAN'T MALLOC ERROR!\n");

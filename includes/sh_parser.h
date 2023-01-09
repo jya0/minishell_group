@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 13:33:56 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 14:09:02 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,11 +173,6 @@ t_commands		*sh_ps_parser(t_shell_s *shell, char *buf_src);
 
 /*===================sh_ps_parser_commands.c=====================*/
 
-enum e_pipe_error_check {
-	CHECK_BEFORE,
-	CHECK_AFTER
-};
-
 t_commands		*sh_ps_parser_commands(t_words	*head_word);
 
 /*=============sh_ps_parser_cmds_getters.c===============*/
@@ -204,6 +199,6 @@ t_commands *head_command);
 
 /*=================sh_get_error_message.c===================*/
 
-const char		*sh_get_error_msg(enum e_exit_codes exit_code);
+char			*sh_get_error_msg(enum e_exit_codes exit_code);
 
 #endif

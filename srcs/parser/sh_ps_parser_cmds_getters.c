@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_parser_cmds_getters.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:01:08 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 20:36:55 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:42:18 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	**allocate_argv(t_words *head_word, t_words **ptr_word)
 		return (NULL);
 	argv = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (argv == NULL)
-		return (perror("FAILED TO ALLOCATE ARGV!\n"), NULL);
+		return (NULL);
 	return (argv);
 }
 
@@ -81,8 +81,6 @@ t_commands *command, t_words **head_word, t_words	**word)
 {
 	t_redirections	*redirection;
 
-	if ((*word)->next == NULL || (*word)->next->term_type != TT_JUST_WORD)
-		return (perror("PARSER: ERROR REDIRECTION!\n"), -1);
 	redirection = (t_redirections *)ft_calloc(1, sizeof(t_redirections));
 	if (redirection == NULL)
 		return (-1);
@@ -109,14 +107,7 @@ t_commands *command, t_words **head_word)
 	{
 		if (word->term_type == TT_REDIR_IN || word->term_type == TT_REDIR_OUT \
 		|| word->term_type == TT_APPND_IN || word->term_type == TT_APPND_OUT)
-		{
-			if (get_redir(command, head_word, &word) != 0)
-			{
-				sh_ps_lexer_word_free_list(*head_word);
-				sh_ps_parser_commands_free(command, FREE_ALL);
-				return (-1);
-			}
-		}
+			get_redir(command, head_word, &word);
 		else
 			word = word->next;
 	}

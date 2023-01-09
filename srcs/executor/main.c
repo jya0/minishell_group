@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/08 00:08:50 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:51:24 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		g_shell.head_command = NULL;
+		g_shell.exit_info = (t_exit_info){0};
 		sh_ex_readline(&g_shell);
 		if (g_shell.cmd_line != NULL && *(g_shell.cmd_line) != '\0')
 		{
