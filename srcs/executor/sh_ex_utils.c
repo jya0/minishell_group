@@ -17,6 +17,8 @@ int	sh_ex_doublelen(char **str)
 	int	i;
 
 	i = 0;
+	if (str == NULL || *str == NULL)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
@@ -66,6 +68,7 @@ void	sh_ex_free_all(t_shell_s *shell)
 {
 	sh_ex_free_vars(shell->envp.vars);
 	sh_ex_free_arr(shell->envp.envp_chain);
+	// free(shell->cwd);
 	free(shell->home);
 	sh_ex_free_loop(shell);
 }

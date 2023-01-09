@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 14:09:33 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 01:49:07 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,12 @@ static t_words	*get_next_word(const char *buf_src)
 	return (word);
 }
 
-/*Gets the input from readline, then returns a words each time it is called!*/
-t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
+/*
+** Gets the input from readline, then returns a words each time it is called!
+** lexer_error_code is added later to get the error code if any;
+*/
+t_words	*sh_ps_lexer(\
+t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 {
 	t_words				*head_word;
 	t_words				*word;
@@ -143,13 +147,14 @@ t_words	*sh_ps_lexer(t_shell_s *shell, const char *buf_src)
 	}
 	sh_ps_lexer_heredoc_mark_variable(head_word);
 	if (sh_ps_lexer_add_missing(shell, &head_word) != 0)
-		return (sh_ps_lexer_word_free_list(head_word), ft_putstr_fd(\
-		sh_get_error_msg(shell->exit_info.exit_code), STDERR_FILENO), NULL);
+		return (sh_ps_lexer_word_free_list(head_word), NULL);
 	sh_ps_lexer_expand_quotes(&head_word);
 	sh_ps_lexer_join_connected(&head_word);
-	shell->exit_info.exit_code = sh_ps_lexer_check_error(head_word);
-	if (shell->exit_info.exit_code != 0)
-		return (sh_ps_lexer_word_free_list(head_word), ft_putstr_fd(\
-		sh_get_error_msg(shell->exit_info.exit_code), STDERR_FILENO), NULL);
+	*lexer_error_code = sh_ps_lexer_check_error(head_word);
+	if (*lexer_error_code != 0)
+	{
+		shell->exit_info.exit_code = *lexer_error_code;
+		return (sh_ps_lexer_word_free_list(head_word), NULL);
+	}
 	return (head_word);
 }

@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/09 22:42:01 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 01:05:37 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,11 @@ static char	**dir_path(t_shell_s *shell)
 	return (NULL);
 }
 
-static char	*absolute_path(char *cwd, char *path)
+static char	*path_var_path(t_shell_s *shell, char *cmd)
 {
-	char	*cwd_w_slash;
-	char	*absolute_path;
-
-	cwd_w_slash = ft_strjoin(cwd, "/");
-	free(cwd);
-	absolute_path = ft_strjoin(cwd_w_slash, path);
-	free(cwd_w_slash);
-	return (absolute_path);
-}
-
-char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
-{
-	int		i;
-	char	*realpath;
 	char	**path;
+	char	*realpath;
+	int		i;
 
 	path = dir_path(shell);
 	if (path != NULL)
@@ -64,9 +52,7 @@ char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 		while (path[i] != NULL)
 		{
 			realpath = ft_strjoin(path[i], cmd);
-			if (realpath == NULL)
-				break ;
-			if (access(realpath, F_OK) == 0)
+			if (realpath == NULL || access(realpath, F_OK) == 0)
 			{
 				sh_ex_free_arr(path);
 				return (realpath);
@@ -76,17 +62,57 @@ char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 		}
 		sh_ex_free_arr(path);
 	}
-	else
+	return (NULL);
+}
+
+static char	*relative_path(char *cwd, char *path)
+{
+	char	*cwd_w_slash;
+	char	*relative_path;
+
+	cwd_w_slash = ft_strjoin(cwd, "/");
+	free(cwd);
+	relative_path = ft_strjoin(cwd_w_slash, path);
+	free(cwd_w_slash);
+	if (cwd_w_slash == NULL || relative_path == NULL)
+		return (free(cwd_w_slash), free(relative_path), NULL);
+	if (access(relative_path, F_OK) != 0)
 	{
-		realpath = absolute_path(sh_ex_cwd(), cmd);
-		printf("%s\n", realpath);
-		if (access(realpath, F_OK) != 0)
-		{
-			free(realpath);
-			printf("FILE EXECUTION error\n");
-			return (NULL);
-		}
-		return (realpath);
+		free(relative_path);
+		relative_path = NULL;
+		return (NULL);
 	}
+	return (relative_path);
+}
+
+/*
+** we use ft_strdup here for it because, absolute_path is
+** entered in the command line and will be freed later using
+** sh_ps_free_command_list
+** for consistency with the previous realpath if conditions
+** it's necessary to malloc here.
+*/
+static char	*absolute_path(char *absolute_path)
+{
+	if (absolute_path == NULL)
+		return (NULL);
+	if (access(absolute_path, F_OK) == 0)
+		return (ft_strdup(absolute_path));
+	return (NULL);
+}
+
+char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
+{
+	char	*realpath;
+
+	realpath = path_var_path(shell, cmd);
+	if (realpath != NULL)
+		return (printf("VAR PATH\n"), realpath);
+	realpath = relative_path(sh_ex_cwd(), cmd);
+	if (realpath != NULL)
+		return (printf("RELATIVE PATH\n"), realpath);
+	realpath = absolute_path(cmd);
+	if (realpath != NULL)
+		return (printf("ABSOLUTE PATH\n"), realpath);
 	return (NULL);
 }

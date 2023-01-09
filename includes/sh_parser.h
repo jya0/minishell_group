@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 19:19:18 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 01:45:52 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void			sh_ps_lexer_word_print_list(t_words *head_word);
 
 /*===================sh_ps_lexer.c=====================*/
 
-t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src);
+t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src, int *lexer_error_code);
 
 /*===========sh_ps_lexer_check_error.c=============*/
 

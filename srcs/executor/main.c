@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/09 23:18:05 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 02:03:24 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	sh_ex_initshell(t_shell_s *shell, char **envp)
 	sh_ex_envp_init(shell, envp);
 	home = sh_ex_searchenvvar(shell, "HOME");
 	shell->home = ft_strdup(home);
-	shell->cwd = sh_ex_cwd();
 	oldpwd[0] = "OLDPWD";
 	oldpwd[1] = NULL;
 	sh_ex_export(shell, oldpwd);
@@ -67,7 +66,6 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		g_shell.head_command = NULL;
-		g_shell.exit_info = (t_exit_info){0};
 		sh_ex_readline(&g_shell);
 		if (g_shell.cmd_line != NULL && *(g_shell.cmd_line) != '\0')
 		{

@@ -72,5 +72,5 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 		}
 	}
 	free(file_name);
-	return (0);
+	return (shell->exit_info.exit_code);
 }

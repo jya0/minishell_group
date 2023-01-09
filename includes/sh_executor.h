@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/08 08:55:05 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 00:20:19 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char			**sh_ex_get_envp_chain(t_shell_s *shell);
 int				sh_ex_unset(t_shell_s *shell, char **var_names);
 
 //******** sh_ex_exit.c ***************
-int				sh_ex_exit(t_shell_s *shell, int flag);
+int				sh_ex_exit(t_shell_s *shell, t_commands *command, int flag);
 int				sh_ex_exit_all(t_shell_s *shell, int flag);
 
 //******* sh_ex_utils.c ***************
