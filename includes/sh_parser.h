@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 23:11:27 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:33:56 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ enum e_term_type {
 	TT_COND_OR = '|' * '|',
 	TT_BKT_RND_L = '(',
 	TT_BKT_RND_R = ')'
+};
+
+enum e_exit_codes {
+	EXT_MALLOC_FAILURE = -255,
+	EXT_HEREDOC_ERR = 256,
+	EXT_QUOTES_ERR,
+	EXT_REDIR_ERR,
+	EXT_PIPE_ERR,
+	EXT_SYNTAX_ERR,
+	EXT_CMD_NOT_FOUND_ERR,
+	EXT_CANT_FORK_ERR,
+	EXT_NO_CD_ERR,
+	EXT_NOT_VALID_KEY_ERR,
+	EXT_IN_FILE_ERR,
+	EXT_OUT_FILE_ERR,
 };
 
 /*==================SECTION FOR TOKENIZING===============*/
@@ -186,5 +201,9 @@ t_commands *command, enum e_free_option flag);
 
 void			sh_ps_parser_commands_free_list(\
 t_commands *head_command);
+
+/*=================sh_get_error_message.c===================*/
+
+const char		*sh_get_error_msg(enum e_exit_codes exit_code);
 
 #endif

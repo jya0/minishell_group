@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_words.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:57:36 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 20:38:35 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:35:08 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	sh_ps_lexer_word_free_list(t_words	*head_word)
 	t_words	*current;
 	t_words	*next;
 
-	printf("\nfreeing words list\n");
 	if (head_word == NULL)
 		return ;
 	current = head_word;

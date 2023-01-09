@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
+#    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/07 23:09:40 by yoyohann         ###   ########.fr        #
+#    Updated: 2023/01/09 13:34:04 by jyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ FILES =	$(EXECDIR_NAME)main \
 	$(PARSDIR_NAME)sh_ps_lexer_expand_quotes	\
 	$(PARSDIR_NAME)sh_ps_lexer_join_connected	\
 	$(PARSDIR_NAME)sh_ps_parser			$(PARSDIR_NAME)sh_ps_lexer_check_error	\
-	$(PARSDIR_NAME)sh_ps_heredoc	\
+	$(PARSDIR_NAME)sh_ps_heredoc		$(PARSDIR_NAME)sh_get_error_message
 
 SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, $(FILES)))
 

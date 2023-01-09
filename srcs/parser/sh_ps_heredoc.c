@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:14:02 by jyao              #+#    #+#             */
-/*   Updated: 2022/12/28 13:32:29 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 13:36:23 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int	sh_ps_parser_heredoc(t_redirections *redirection)
 		return (-1);
 	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < -1)
-		return (\
-		perror("CAN'T CREATE FILE: " HEREDOC_FILE " FOR HEREDOC!\n"), -1);
+		return (EXT_HEREDOC_ERR);
 	delim = redirection->redir_file;
 	while (1)
 	{
