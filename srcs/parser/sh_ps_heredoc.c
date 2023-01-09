@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:14:02 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 13:36:23 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 21:37:22 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	sh_ps_parser_heredoc(t_redirections *redirection)
 	while (1)
 	{
 		str_stdin = readline("> ");
-		if (ft_strcmp(str_stdin, delim) == 0)
+		if (str_stdin == NULL || ft_strcmp(str_stdin, delim) == 0)
 		{
 			free(str_stdin);
 			break ;

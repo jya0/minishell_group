@@ -62,6 +62,7 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 	}
 	else
 	{
+		printf("hey\n");
 		if (execve(file_name, command->cmd_argv, \
 		(char **)shell->envp.envp_chain) == -1)
 		{

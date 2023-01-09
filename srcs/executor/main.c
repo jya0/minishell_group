@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/09 13:51:24 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 23:18:05 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,16 @@ char	*sh_ex_createprompt(t_shell_s *shell)
 
 void	sh_ex_initshell(t_shell_s *shell, char **envp)
 {
-	int		i;
-	char	*all_path;
-	char	**path;
 	char	*home;
+	char	*oldpwd[2];
 
 	sh_ex_envp_init(shell, envp);
 	home = sh_ex_searchenvvar(shell, "HOME");
 	shell->home = ft_strdup(home);
-	all_path = sh_ex_searchenvvar(shell, "PATH");
-	path = ft_split(all_path, ':');
-	shell->path = malloc(sizeof(char *) * (shell->envp.env_size + 1));
-	if (!shell->path)
-		return ;
-	i = 0;
-	while (path[i])
-	{
-		shell->path[i] = ft_strjoin(path[i], "/");
-		i++;
-	}
-	shell->path[i] = NULL;
-	sh_ex_free_arr(path);
+	shell->cwd = sh_ex_cwd();
+	oldpwd[0] = "OLDPWD";
+	oldpwd[1] = NULL;
+	sh_ex_export(shell, oldpwd);
 }
 
 int	main(int argc, char **argv, char **envp)

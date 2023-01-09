@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/09 19:16:18 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 20:13:09 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	newprompt_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_shell.exit_info.exit_code = 130;
+		// g_shell.exit_info.exit_code = 130;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/09 18:45:23 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 23:32:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	sh_ex_changeenv(t_shell_s *shell, char *key, char *value)
 	char	*old_value;
 
 	old_value = NULL;
-	index = sh_ex_searchenvindex (shell, key);
-	if (index)
+	index = sh_ex_searchenvindex(shell, key);
+	if (index >= 0)
 	{
 		old_value = shell->envp.vars[index].val;
 		shell->envp.vars[index].val = value;
@@ -43,12 +43,20 @@ static void	sh_ex_changeenv(t_shell_s *shell, char *key, char *value)
 	}
 }
 
+static void	change_old_pwd(t_shell_s *shell)
+{
+	char	*pwd_val;
+
+	pwd_val = sh_ex_searchenvvar(shell, "PWD");
+	if (pwd_val != NULL)
+		sh_ex_changeenv(shell, "OLDPWD", ft_strdup(pwd_val));
+	else
+		sh_ex_changeenv(shell, "OLDPWD", ft_strdup("\0"));
+}
+
 int	sh_ex_cd(t_shell_s *shell, t_commands *command)
 {
-	char	*olddir;
-
-	olddir = sh_ex_cwd();
-	sh_ex_changeenv(shell, "OLDPWD", olddir);
+	change_old_pwd(shell);
 	if (*(command->cmd_args))
 	{
 		if (chdir(command->cmd_args[0]) == 0)
