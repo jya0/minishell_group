@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 05:10:41 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 14:03:19 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 18:46:00 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	*sh_get_error_msg(enum e_exit_codes exit_code)
 		return ("COMMAND NOT FOUND ERROR!\n");
 	else if (exit_code == EXT_CANT_FORK_ERR)
 		return ("CAN'T FORK ERROR!\n");
-	else if (exit_code == EXT_NO_CD_ERR)
-		return ("NO SUCH DIRECTORY ERROR!\n");
+	else if (exit_code == EXT_CD_ERR)
+		return ("CD ERROR!\n");
 	else if (exit_code == EXT_NOT_VALID_KEY_ERR)
 		return ("NOT VALID KEY ERROR!\n");
 	else if (exit_code == EXT_IN_FILE_ERR)

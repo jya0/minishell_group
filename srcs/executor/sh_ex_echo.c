@@ -53,11 +53,11 @@ void	sh_ex_echoflag(t_shell_s *shell, t_commands *command)
 void	sh_ex_displayecho(t_shell_s *shell, t_commands *command)
 {
 	if (ft_strcmp(command->cmd_args[0], "$?") == 0)
-		ft_putnbr_fd(g_shell.exit_info.exit_code, shell->fdout);
+		ft_putnbr_fd(shell->exit_info.exit_code, shell->fdout);
 	else
 	{
 		sh_ex_echoarray(command);
-		g_shell.exit_info.exit_code = 0;
+		shell->exit_info.exit_code = 0;
 	}
 }
 

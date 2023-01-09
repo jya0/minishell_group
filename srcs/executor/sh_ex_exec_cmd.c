@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/08 08:54:21 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 18:48:16 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 		sh_ex_exec_cmd(shell, command);
 	else
 	{
-		waitpid(fid, &g_shell.exit_info.exit_code, 0);
-		if (WIFEXITED(g_shell.exit_info.exit_code))
+		waitpid(fid, &(shell->exit_info.exit_code), 0);
+		if (WIFEXITED(shell->exit_info.exit_code))
 			shell->exit_info.exit_code = \
 			WEXITSTATUS(shell->exit_info.exit_code);
 	}

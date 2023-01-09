@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/07 23:22:06 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 18:45:23 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ int	sh_ex_cd(t_shell_s *shell, t_commands *command)
 			sh_ex_changepwd(shell);
 		else
 		{
-			printf("cd: no such file or directory: %s\n", command->cmd_args[0]);
-			g_shell.exit_info.exit_code = 1;
+			shell->exit_info.exit_code = EXT_CD_ERR;
+			ft_putstr_fd(\
+			sh_get_error_msg(shell->exit_info.exit_code), STDERR_FILENO);
 		}
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export_add.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:13:43 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 21:09:36 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:19:39 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ char *addr_e_sign, char **key_val)
 	if (key_val == NULL)
 		return (-1);
 	if (sh_ex_is_valid_key(key_val[0]) != 0)
-		return (perror("NOT VALID KEY!\n"), -1);
+	{
+		shell->exit_info.exit_code = EXT_INVALID_KEY_ERR;
+		return (ft_putstr_fd("INVALID KEY ERROR\n", STDERR_FILENO), -1);
+	}
 	i = sh_ex_find_key_index(shell->envp.vars, key_val[0]);
 	if (i < 0)
 		add_one_var(shell, addr_e_sign, key_val);

@@ -6,7 +6,7 @@
 #    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/09 13:34:04 by jyao             ###   ########.fr        #
+#    Updated: 2023/01/09 18:49:39 by jyao             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ EXECDIR_NAME := executor/
 PARSDIR_NAME := parser/
 FILES =	$(EXECDIR_NAME)main \
 	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_bindir	\
-	$(EXECDIR_NAME)sh_ex_signal			$(EXECDIR_NAME)sh_ex_shellinit		$(EXECDIR_NAME)sh_ex_utils	\
+	$(EXECDIR_NAME)sh_ex_signal			$(EXECDIR_NAME)sh_ex_utils	\
 	$(EXECDIR_NAME)sh_ex_envp_init		$(EXECDIR_NAME)sh_ex_export_add		$(EXECDIR_NAME)sh_ex_export_var	\
 	$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset			$(EXECDIR_NAME)sh_ex_exec_cmd	\
 	$(EXECDIR_NAME)sh_ex_env			$(EXECDIR_NAME)sh_ex_exec_extra		$(EXECDIR_NAME)sh_ex_exec_utils	\

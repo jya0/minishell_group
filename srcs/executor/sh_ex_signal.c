@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/08 08:57:02 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/09 19:16:18 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ void	sh_ex_killchild_handler(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-		perror("quited");
+		ft_putstr_fd("CHILD QUITED!\n", STDERR_FILENO);
 	}
 }
 
 static void	newprompt_handler(int sig)
 {
-	// set_mode();
 	if (sig == SIGINT)
 	{
 		g_shell.exit_info.exit_code = 130;
@@ -42,15 +41,12 @@ static void	newprompt_handler(int sig)
 
 static void	exitshell(void)
 {
-	// set_mode();
 	sh_ex_exit_all(&g_shell, 1);
-	// sh_ex_free_all(&g_shell);
 	exit(0);
 }
 
 void	sh_ex_sighandle(int sig)
 {
-	// set_mode();
 	if (sig == 1)
 	{
 		signal(SIGINT, newprompt_handler);

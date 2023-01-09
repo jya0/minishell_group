@@ -38,8 +38,10 @@ int	sh_ex_valid_exec(t_shell_s *shell, t_commands *command)
 	file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
 	if (file_name == NULL)
 	{
-		printf("commnad not found: %s\n", command->cmd_argv[0]);
-		return (127);
+		shell->exit_info.exit_code = EXT_CMD_NOT_FOUND_ERR;
+		ft_putstr_fd(sh_get_error_msg(\
+		shell->exit_info.exit_code), STDERR_FILENO);
+		return (EXT_CMD_NOT_FOUND_ERR);
 	}
 	free(file_name);
 	return (0);
@@ -52,16 +54,18 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 	file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
 	if (file_name == NULL)
 	{
-		perror("commnad not found\n");
+		shell->exit_info.exit_code = EXT_CMD_NOT_FOUND_ERR;
+		ft_putstr_fd(sh_get_error_msg(\
+		shell->exit_info.exit_code), STDERR_FILENO);
 		free(file_name);
-		return (127);
+		return (EXT_CMD_NOT_FOUND_ERR);
 	}
 	else
 	{
 		if (execve(file_name, command->cmd_argv, \
 		(char **)shell->envp.envp_chain) == -1)
 		{
-			shell->exit_info.exit_code = 127;
+			printf("DIDNT HANDLE THIS YET\n");
 			free(file_name);
 			exit(EXIT_FAILURE);
 		}
