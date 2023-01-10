@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/10 01:54:37 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 05:10:33 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 {
 	int	fid;
+	int	*status;
 
+	status = NULL;
 	fid = fork();
 	if (fid == -1)
 		return (1);
@@ -23,11 +25,22 @@ static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 		sh_ex_exec_cmd(shell, command);
 	else
 	{
-		waitpid(fid, &(shell->exit_info.exit_code), 0);
-		if (WIFEXITED(shell->exit_info.exit_code))
+		waitpid(fid, status, 0);
+		printf("%d\n", WIFEXITED(status));
+		if (WIFEXITED(status) != 0)
+			shell->exit_info.exit_code = WEXITSTATUS(status);
+		printf("%d\n", WIFSIGNALED(status));
+		if (WIFSIGNALED(status) != 0)
 		{
-			shell->exit_info.exit_code = \
-			WEXITSTATUS(shell->exit_info.exit_code);
+			printf("hey!\n");
+			if (WTERMSIG(status) == SIGINT)
+			{
+				printf("SIGINT!\n");
+			}
+			else if (WTERMSIG(status) == SIGQUIT)
+			{
+				printf("SIGQUIT!\n");
+			}
 		}
 	}
 	return (shell->exit_info.exit_code);
