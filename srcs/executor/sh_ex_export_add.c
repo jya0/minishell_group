@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:13:43 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 19:19:39 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 02:46:30 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_shell_s *shell, char *addr_e_sign, char **key_val, int i)
 }
 
 static int	envp_edit_one_var(t_shell_s *shell, \
-char *addr_e_sign, char **key_val)
+char *addr_e_sign, char *vararg, char **key_val)
 {
 	int		i;
 
@@ -67,7 +67,7 @@ char *addr_e_sign, char **key_val)
 	}
 	i = sh_ex_find_key_index(shell->envp.vars, key_val[0]);
 	if (i < 0)
-		add_one_var(shell, addr_e_sign, key_val);
+		add_one_var(shell, vararg, key_val);
 	else
 		replace_one_var(shell, addr_e_sign, key_val, i);
 	return (0);
@@ -94,7 +94,7 @@ int	sh_ex_export_add_vars(t_shell_s *shell, char **vars)
 			key_val[1] = ft_substr(vars[i], addr_e_sign - vars[i] + 1, \
 			ft_strlen(vars[i]));
 		}
-		envp_edit_one_var(shell, vars[i], key_val);
+		envp_edit_one_var(shell, addr_e_sign, vars[i], key_val);
 		free(key_val[0]);
 		free(key_val[1]);
 		i++;

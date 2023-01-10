@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 03:14:14 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/06 00:53:19 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 03:32:14 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static void	sh_ex_del_one_var(t_shell_s *shell, char *key)
 {
 	int		index;
 
+	if (sh_ex_is_valid_key(key) != 0)
+	{
+		shell->exit_info.exit_code = EXT_INVALID_KEY_ERR;
+		return (ft_putstr_fd("INVALID KEY ERROR\n", STDERR_FILENO));
+	}
 	index = sh_ex_find_key_index(shell->envp.vars, key);
 	if (index >= 0)
 	{
@@ -66,5 +71,5 @@ int	sh_ex_unset(t_shell_s *shell, char **var_names)
 		sh_ex_del_one_var(shell, var_names[i]);
 		i++;
 	}
-	return (0);
+	return (shell->exit_info.exit_code);
 }

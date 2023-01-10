@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:30:00 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/05 23:38:09 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 03:07:47 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ int	sh_ex_export(t_shell_s *shell, char **vars)
 		export_display(shell);
 	else
 		sh_ex_export_add_vars(shell, vars);
-	return (0);
+	return (shell->exit_info.exit_code);
 }

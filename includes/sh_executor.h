@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/10 00:20:19 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/10 03:31:06 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void			sh_ex_free_arr(char **str);
 void			sh_ex_initshell(t_shell_s *shell, char **envp);
 void			sh_ex_readline(t_shell_s *shell);
 char			*sh_ex_cwd(void);
-char			*sh_ex_createprompt(t_shell_s *shell);
 int				count_words(const char *str, char c);
 void			sh_ex_countcommand(t_shell_s *shell);
 void			sh_ex_splitcommands(t_shell_s *shell);
@@ -83,7 +82,6 @@ void			sh_ex_echoarray(t_commands *command);
 //******* sh_ex_cd.c*******************
 
 int				sh_ex_cd(t_shell_s *shell, t_commands *command);
-void			sh_ex_changepwd(t_shell_s *shell);
 
 //******* sh_ex_pwd.c *****************
 char			*sh_ex_cwd(void);
