@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:14:04 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 20:33:29 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 21:07:17 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,7 @@ static t_words	*get_word_from_quote(t_words *start)
 	t_words	*word;
 	size_t	str_len;
 
-	if (start == NULL || is_word_quote(start) != 0)
-		return (NULL);
 	str_len = new_word_str_len(start);
-	if (str_len <= start->str_len)
-		return (start);
 	word = (t_words *)ft_calloc(1, sizeof(t_words));
 	if (word == NULL)
 		return (NULL);
