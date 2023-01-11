@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:34:36 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:15:48 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,15 +142,13 @@ t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
 	sh_ps_lexer_heredoc_mark_variable(head_word);
-	if (sh_ps_lexer_add_missing(shell, &head_word) != 0)
+	*lexer_error_code = sh_ps_lexer_add_missing(shell, &head_word);
+	if (*lexer_error_code != 0)
 		return (sh_ps_lexer_word_free_list(head_word), NULL);
 	sh_ps_lexer_expand_quotes(&head_word);
 	sh_ps_lexer_join_connected(&head_word);
 	*lexer_error_code = sh_ps_lexer_check_error(head_word);
 	if (*lexer_error_code != 0)
-	{
-		shell->exit_info.exit_code = *lexer_error_code;
 		return (sh_ps_lexer_word_free_list(head_word), NULL);
-	}
 	return (head_word);
 }
