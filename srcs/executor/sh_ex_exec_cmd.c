@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_exec_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 15:51:12 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/11 16:21:12 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	sh_ex_get_exit_code(int status)
 		if (WTERMSIG(status) == SIGINT)
 			return (130);
 		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			ft_putstr_fd("CHILD QUITED!\n", STDERR_FILENO);
 			return (131);
+		}
 	}
 	else if (WIFEXITED(status) != 0)
 		return (WEXITSTATUS(status));

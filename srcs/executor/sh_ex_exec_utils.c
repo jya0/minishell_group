@@ -100,10 +100,10 @@ int	sh_ex_close_fd(t_shell_s *shell)
 	while (i < (shell->num_commands + 1))
 	{
 		waitpid(shell->pid[i], &(shell->exit_info.exit_code), 0);
-		shell->exit_info.exit_code = \
-		sh_ex_get_exit_code(shell->exit_info.exit_code);
 		i++;
 	}
+	shell->exit_info.exit_code = \
+	sh_ex_get_exit_code(shell->exit_info.exit_code);
 	free(shell->fd);
 	free(shell->pid);
 	return (shell->exit_info.exit_code);
