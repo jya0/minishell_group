@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 15:33:28 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:39:49 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	change_old_pwd(t_shell_s *shell)
 
 static void	calling_system_cd(t_shell_s *shell, char *dir_path)
 {
+	if (*dir_path == '\0')
+		return ;
 	if (chdir(dir_path) == 0)
 		change_pwd(shell);
 	else
@@ -71,16 +73,19 @@ int	sh_ex_cd(t_shell_s *shell, t_commands *command)
 {
 	char	*home_dir;
 
-	home_dir = sh_ex_searchenvvar(shell, "HOME");
 	change_old_pwd(shell);
-	if (*(command->cmd_args))
+	if (*(command->cmd_args) != NULL)
 		calling_system_cd(shell, command->cmd_args[0]);
-	else if (home_dir == NULL)
+	else
 	{
-		ft_putstr_fd("HOME NOT SET ERROR!\n", STDERR_FILENO);
-		shell->exit_info.exit_code = 1;
+		home_dir = sh_ex_searchenvvar(shell, "HOME");
+		if (home_dir == NULL)
+		{
+			ft_putstr_fd("HOME NOT SET ERROR!\n", STDERR_FILENO);
+			shell->exit_info.exit_code = 1;
+		}
+		else
+			calling_system_cd(shell, home_dir);
 	}
-	else if (*home_dir != '\0')
-		calling_system_cd(shell, home_dir);
 	return (shell->exit_info.exit_code);
 }

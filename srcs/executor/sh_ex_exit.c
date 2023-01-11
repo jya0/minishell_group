@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 17:59:01 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 22:41:35 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	is_atoi_proper_format(char *arg)
 {
 	int	i;
 
+	if (arg == NULL || *arg == '\0')
+		return (1);
 	i = 0;
 	while ((arg[i] == ' ') || (arg[i] == '\f') || (arg[i] == '\n')
 		|| (arg[i] == '\r') || (arg[i] == '\t') || (arg[i] == '\v'))
