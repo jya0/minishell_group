@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/10 03:31:35 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:33:42 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	sh_ex_readline(t_shell_s *shell)
 	if (shell->cmd_line == NULL)
 		sh_ex_sighandle(3);
 }
-
 
 void	sh_ex_initshell(t_shell_s *shell, char **envp)
 {

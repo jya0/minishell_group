@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:21:25 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:34:36 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,35 +127,6 @@ static t_words	*get_next_word(const char *buf_src)
 	return (word);
 }
 
-/* static void	sh_ps_lexer_word_print_list(t_words *head_word)
-{
-	t_words	*last;
-
-	if (head_word == NULL)
-	{
-		printf("\n-------NO MORE WORDS IN LIST!------\n");
-		return ;
-	}
-	printf("\n------going forwards-------\n");
-	while (head_word != NULL)
-	{
-		printf("%s %ld %d\n", head_word->str, head_word->str_len, head_word->term_type);
-		if (head_word->next == NULL)
-			last = head_word;
-		head_word = head_word->next;
-	}
-	printf("\n------going backwards-------\n");
-	while (last != NULL)
-	{
-		printf("%s %ld %d\n", last->str, last->str_len, last->term_type);
-		last = last->prev;
-	}
-} */
-
-/*
-** Gets the input from readline, then returns a words each time it is called!
-** lexer_error_code is added later to get the error code if any;
-*/
 t_words	*sh_ps_lexer(\
 t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 {

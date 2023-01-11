@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:16:45 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:32:27 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ t_words **head_word, t_words *word, enum e_free_option flag);
 
 /*===================sh_ps_lexer.c=====================*/
 
-t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src, int *lexer_error_code);
+t_words			*sh_ps_lexer(t_shell_s *shell, \
+const char *buf_src, int *lexer_error_code);
 
 /*===========sh_ps_lexer_check_error.c=============*/
 

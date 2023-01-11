@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_parser.h                                        :+:      :+:    :+:   */
+/*   sh_parser_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:15:11 by jyao             ###   ########.fr       */
+/*   Created: 2023/01/11 15:29:22 by yoyohann          #+#    #+#             */
+/*   Updated: 2023/01/11 15:31:07 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_PARSER_H
-# define SH_PARSER_H
+#ifndef SH_PARSER_BONUS_H
+# define SH_PARSER_BONUS_H
 
 /*==================DEFINING CONSTANTS======================*/
 
@@ -136,7 +136,8 @@ t_words **head_word, t_words *word, enum e_free_option flag);
 
 /*===================sh_ps_lexer.c=====================*/
 
-t_words			*sh_ps_lexer(t_shell_s *shell, const char *buf_src, int *lexer_error_code);
+t_words			*sh_ps_lexer(t_shell_s *shell, \
+const char *buf_src, int *lexer_error_code);
 
 /*===========sh_ps_lexer_check_error.c=============*/
 

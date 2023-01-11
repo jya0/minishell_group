@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/10 03:23:55 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:32:15 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ typedef struct t_shell_s
 	int				fdin;
 	int				fdout;
 	char			*cmd_line;
-	// char			*cwd;
-	// char			*home;
-	// char			**path;
 	t_commands		*head_command;
 	t_exit_info		exit_info;
 	t_terminal		mini_terminal;

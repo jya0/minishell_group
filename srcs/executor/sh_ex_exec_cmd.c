@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_exec_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 14:59:29 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:51:12 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ int	sh_ex_simplecmd(t_shell_s *shell, t_commands *command)
 		shell->exit_info.exit_code = sh_ex_builtin(shell, command);
 	else if (sh_ex_valid_exec(shell, command) == 0)
 	{
-		printf("running\n");
 		signal(SIGQUIT, sh_ex_child_handler);
 		shell->exit_info.exit_code = sh_ex_fork(shell, command);
 	}
 	else
 	{
-		printf("didnt run\n");
 		shell->exit_info.exit_code = 1;
 	}
 	return (shell->exit_info.exit_code);
