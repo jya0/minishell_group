@@ -17,8 +17,8 @@ int	sh_ex_init_pipe_fork(t_shell_s *shell)
 	int	i;
 
 	i = 0;
-	shell->pid = malloc(sizeof(int) * (shell->num_commands + 1));
-	shell->fd = malloc(sizeof(int) * (shell->num_commands * 2));
+	shell->pid = (int *)malloc(sizeof(int) * (shell->num_commands + 1));
+	shell->fd = (int *)malloc(sizeof(int) * (shell->num_commands * 2));
 	if (shell->pid == NULL || shell->fd == NULL)
 		return (free(shell->pid), free(shell->fd), 1);
 	while (i < shell->num_commands)
@@ -60,6 +60,19 @@ int	sh_ex_init_fork(t_shell_s *shell)
 }
 // use dup to duplicate the read and write end of the pipe
 
+void	free_fd_pid(t_shell_s **shell)
+{
+	if (shell == NULL || *shell == NULL)
+		return ;
+	if ((*shell)->fd != NULL && (*shell)->pid != NULL)
+	{
+		free((*shell)->fd);
+		free((*shell)->pid);
+		(*shell)->fd = NULL;
+		(*shell)->pid = NULL;
+	}
+}
+
 int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 {
 	int	i;
@@ -83,8 +96,7 @@ int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 	while (i < (shell->num_commands * 2))
 		close(shell->fd[i++]);
 	shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
-	free(shell->fd);
-	free(shell->pid);
+	free_fd_pid(&shell);
 	sh_ex_exit_all(shell, 0);
 	return (shell->exit_info.exit_code);
 }
@@ -104,7 +116,6 @@ int	sh_ex_close_fd(t_shell_s *shell)
 	}
 	shell->exit_info.exit_code = \
 	sh_ex_get_exit_code(shell->exit_info.exit_code);
-	free(shell->fd);
-	free(shell->pid);
+	free_fd_pid(&shell);
 	return (shell->exit_info.exit_code);
 }

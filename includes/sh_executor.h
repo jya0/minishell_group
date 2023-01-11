@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:45:15 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:13:18 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int				sh_ex_dup_pipe(\
 t_shell_s *shell, t_commands *command, int *index_fd);
 
 int				sh_ex_close_fd(t_shell_s *shell);
+void			free_fd_pid(t_shell_s **shell);
 
 //******** sh_ex_exit.c ***************
 

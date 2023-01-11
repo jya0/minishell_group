@@ -5,3 +5,11 @@
    fun:readline
    ...
 }
+
+{
+   suppress-readline-leaks
+   Memcheck:Leak
+   ...
+   fun:add_history
+   ...
+}

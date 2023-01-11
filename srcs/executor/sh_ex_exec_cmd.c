@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 16:21:12 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 17:05:13 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	sh_ex_exec(t_shell_s *shell)
 	signal(SIGINT, sh_ex_child_handler);
 	shell->num_commands = sh_ex_listlen(shell->head_command);
 	sh_ex_stdstatus(1);
+	shell->fd = NULL;
+	shell->pid = NULL;
 	if (shell->head_command == NULL && shell->head_command->redirs == NULL)
 		return (1);
 	if (shell->num_commands > 1)
