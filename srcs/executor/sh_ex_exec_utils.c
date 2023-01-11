@@ -43,7 +43,7 @@ int	sh_ex_init_fork(t_shell_s *shell)
 	shell->num_commands--;
 	if (sh_ex_init_pipe_fork(shell))
 		return (1);
-	signal(SIGQUIT, sh_ex_killchild_handler);
+	signal(SIGQUIT, sh_ex_child_handler);
 	while (cmd)
 	{
 		shell->pid[i] = fork();

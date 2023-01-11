@@ -6,24 +6,21 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 08:02:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/09 20:13:09 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 13:46:35 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "minishell.h"
 #include "../../includes/minishell.h"
 
-void	sh_ex_nl_sigint_handler(int sig)
+void	sh_ex_child_handler(int sig)
 {
 	if (sig == SIGINT)
-		write(1, "\n", 1);
-}
-
-void	sh_ex_killchild_handler(int sig)
-{
-	if (sig == SIGQUIT)
+		g_shell.exit_info.exit_code = 130;
+	else if (sig == SIGQUIT)
 	{
 		ft_putstr_fd("CHILD QUITED!\n", STDERR_FILENO);
+		g_shell.exit_info.exit_code = 131;
 	}
 }
 
@@ -31,7 +28,7 @@ static void	newprompt_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// g_shell.exit_info.exit_code = 130;
+		g_shell.exit_info.exit_code = 1;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

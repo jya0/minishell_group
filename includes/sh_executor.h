@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/10 03:31:06 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 13:38:36 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,7 @@ void			reset_mode(void);
 //********* sh_ex_signal.c *************
 void			sh_ex_sighandle(int sig);
 
-void			sh_ex_nl_sigint_handler(int sig);
-
-void			sh_ex_killchild_handler(int sig);
+void			sh_ex_child_handler(int sig);
 
 //********* sh_ex_utils.c **************
 void			sh_ex_wcmessage(void);

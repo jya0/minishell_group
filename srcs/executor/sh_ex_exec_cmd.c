@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/10 05:10:33 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 14:17:59 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 	int	fid;
 	int	*status;
 
-	status = NULL;
 	fid = fork();
 	if (fid == -1)
 		return (1);
@@ -25,23 +24,28 @@ static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 		sh_ex_exec_cmd(shell, command);
 	else
 	{
-		waitpid(fid, status, 0);
-		printf("%d\n", WIFEXITED(status));
-		if (WIFEXITED(status) != 0)
-			shell->exit_info.exit_code = WEXITSTATUS(status);
-		printf("%d\n", WIFSIGNALED(status));
-		if (WIFSIGNALED(status) != 0)
+		status = NULL;
+		wait(status);
+		// printf("%d\n", WIFEXITED(status));
+		if (WIFEXITED(*status) != 0)
 		{
-			printf("hey!\n");
-			if (WTERMSIG(status) == SIGINT)
-			{
-				printf("SIGINT!\n");
-			}
-			else if (WTERMSIG(status) == SIGQUIT)
-			{
-				printf("SIGQUIT!\n");
-			}
+			shell->exit_info.exit_code = WEXITSTATUS(*status);
+			printf("%d\n", shell->exit_info.exit_code);
 		}
+		// waitpid(fid, status, WNOWAIT);
+		// printf("%d\n", WIFSIGNALED(status));
+		// if (WIFSIGNALED(status) != 0)
+		// {
+		// 	printf("hey!\n");
+		// 	if (WTERMSIG(status) == SIGINT)
+		// 	{
+		// 		printf("SIGINT!\n");
+		// 	}
+		// 	else if (WTERMSIG(status) == SIGQUIT)
+		// 	{
+		// 		printf("SIGQUIT!\n");
+		// 	}
+		// }
 	}
 	return (shell->exit_info.exit_code);
 }
@@ -60,7 +64,7 @@ int	sh_ex_simplecmd(t_shell_s *shell, t_commands *command)
 	else if (sh_ex_valid_exec(shell, command) == 0)
 	{
 		printf("running\n");
-		signal(SIGQUIT, sh_ex_killchild_handler);
+		signal(SIGQUIT, sh_ex_child_handler);
 		shell->exit_info.exit_code = sh_ex_fork(shell, command);
 	}
 	else
@@ -82,7 +86,7 @@ int	sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command)
 
 int	sh_ex_exec(t_shell_s *shell)
 {
-	signal(SIGINT, sh_ex_nl_sigint_handler);
+	signal(SIGINT, sh_ex_child_handler);
 	shell->num_commands = sh_ex_listlen(shell->head_command);
 	sh_ex_stdstatus(1);
 	if (shell->head_command == NULL && shell->head_command->redirs == NULL)
