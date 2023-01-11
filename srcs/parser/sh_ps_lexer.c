@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 21:46:38 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 22:21:49 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ static t_words	*make_word(const char *buf_stored, size_t start, size_t *end)
 		(*end)++;
 		if (*c == '$')
 		{
-			if (buf_stored[*end] == '$')
+			if (buf_stored[*end] == '?' || buf_stored[*end] == '?')
 				(*end)++;
 			else
 				(*end) += forward_while_char_set(\
-				&buf_stored[*end], UNDERSCORE D_DIGITS A_LOWER A_UPPER "?", 0);
+				&buf_stored[*end], UNDERSCORE D_DIGITS A_LOWER A_UPPER, 0);
 		}
 		else if ((*c != '\"' && *c != '\'' && *c != '|') && buf_stored[*end] != \
 		'\0' && ft_strrchr(DELIM_TERMS_COMBINEABLE, buf_stored[*end]) != NULL)
@@ -166,13 +166,16 @@ t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 		word = get_next_word(NULL);
 		sh_ps_lexer_word_add_end(head_word, word);
 	}
+	// sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_heredoc_mark_variable(head_word);
 	*lexer_error_code = sh_ps_lexer_add_missing(shell, &head_word);
 	if (*lexer_error_code != 0)
 		return (sh_ps_lexer_word_free_list(head_word), NULL);
+	// sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_expand_quotes(&head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_join_connected(&head_word);
-	sh_ps_lexer_word_print_list(head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	*lexer_error_code = sh_ps_lexer_check_error(head_word);
 	if (*lexer_error_code != 0)
 	{

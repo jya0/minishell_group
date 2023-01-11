@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 13:49:46 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 22:32:06 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ static int	expand_variable(t_shell_s *shell, t_words *word)
 		return (0);
 	if (word->str_len <= 1)
 		return (0);
-	if (ft_strcmp(word->str, "$?") == 0)
-		return (0);
-	value = sh_ex_searchenvvar(shell, &((word->str)[1]));
-	free(word->str);
-	word->str = NULL;
+	if (ft_strcmp(word->str, "$?") != 0)
+		value = ft_strdup(sh_ex_searchenvvar(shell, &((word->str)[1])));
+	else
+		value = ft_itoa(shell->exit_info.exit_code);
 	if (value == NULL)
 		return (-1);
-	word->str = ft_strdup(value);
-	if (word->str == NULL)
-		return (-1);
+	free(word->str);
+	word->str = value;
 	word->str_len = ft_strlen(word->str);
 	word->term_type = TT_JUST_WORD;
 	return (0);
