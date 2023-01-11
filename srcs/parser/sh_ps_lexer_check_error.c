@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:39:57 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 14:09:19 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:12:21 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	check_pipe(t_words *word)
 {
 	if (word == NULL || word->term_type != TT_PIPE)
 		return (0);
-	if (word->prev == NULL || word->next == NULL)
+	if (word->prev == NULL || word->next == NULL \
+	|| word->next->term_type == TT_PIPE)
 		return (EXT_PIPE_ERR);
 	return (0);
 }

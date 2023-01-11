@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/10 01:49:07 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:21:25 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static t_words	*make_word(const char *buf_stored, size_t start, size_t *end)
 				(*end) += forward_while_char_set(\
 				&buf_stored[*end], UNDERSCORE D_DIGITS A_LOWER A_UPPER "?", 0);
 		}
-		else if ((*c != '\"' && *c != '\'') && buf_stored[*end] != '\0' \
-		&& ft_strrchr(DELIM_TERMS_COMBINEABLE, buf_stored[*end]) != NULL)
+		else if ((*c != '\"' && *c != '\'' && *c != '|') && buf_stored[*end] != \
+		'\0' && ft_strrchr(DELIM_TERMS_COMBINEABLE, buf_stored[*end]) != NULL)
 			(*end)++;
 	}
 	word->str_len = *end - start;
@@ -126,6 +126,31 @@ static t_words	*get_next_word(const char *buf_src)
 		buf_stored = &buf_stored[end];
 	return (word);
 }
+
+/* static void	sh_ps_lexer_word_print_list(t_words *head_word)
+{
+	t_words	*last;
+
+	if (head_word == NULL)
+	{
+		printf("\n-------NO MORE WORDS IN LIST!------\n");
+		return ;
+	}
+	printf("\n------going forwards-------\n");
+	while (head_word != NULL)
+	{
+		printf("%s %ld %d\n", head_word->str, head_word->str_len, head_word->term_type);
+		if (head_word->next == NULL)
+			last = head_word;
+		head_word = head_word->next;
+	}
+	printf("\n------going backwards-------\n");
+	while (last != NULL)
+	{
+		printf("%s %ld %d\n", last->str, last->str_len, last->term_type);
+		last = last->prev;
+	}
+} */
 
 /*
 ** Gets the input from readline, then returns a words each time it is called!

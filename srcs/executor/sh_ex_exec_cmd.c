@@ -6,46 +6,40 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 14:17:59 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 14:59:29 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	sh_ex_get_exit_code(int status)
+{
+	if (WIFSIGNALED(status) != 0)
+	{
+		if (WTERMSIG(status) == SIGINT)
+			return (130);
+		else if (WTERMSIG(status) == SIGQUIT)
+			return (131);
+	}
+	else if (WIFEXITED(status) != 0)
+		return (WEXITSTATUS(status));
+	return (1);
+}
+
 static int	sh_ex_fork(t_shell_s *shell, t_commands *command)
 {
-	int	fid;
-	int	*status;
+	int	pid;
 
-	fid = fork();
-	if (fid == -1)
+	pid = fork();
+	if (pid == -1)
 		return (1);
-	if (fid == 0)
+	if (pid == 0)
 		sh_ex_exec_cmd(shell, command);
 	else
 	{
-		status = NULL;
-		wait(status);
-		// printf("%d\n", WIFEXITED(status));
-		if (WIFEXITED(*status) != 0)
-		{
-			shell->exit_info.exit_code = WEXITSTATUS(*status);
-			printf("%d\n", shell->exit_info.exit_code);
-		}
-		// waitpid(fid, status, WNOWAIT);
-		// printf("%d\n", WIFSIGNALED(status));
-		// if (WIFSIGNALED(status) != 0)
-		// {
-		// 	printf("hey!\n");
-		// 	if (WTERMSIG(status) == SIGINT)
-		// 	{
-		// 		printf("SIGINT!\n");
-		// 	}
-		// 	else if (WTERMSIG(status) == SIGQUIT)
-		// 	{
-		// 		printf("SIGQUIT!\n");
-		// 	}
-		// }
+		wait(&(shell->exit_info.exit_code));
+		shell->exit_info.exit_code = \
+		sh_ex_get_exit_code(shell->exit_info.exit_code);
 	}
 	return (shell->exit_info.exit_code);
 }

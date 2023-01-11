@@ -69,7 +69,5 @@ void	sh_ex_free_all(t_shell_s *shell)
 	rl_clear_history();
 	sh_ex_free_vars(shell->envp.vars);
 	sh_ex_free_arr(shell->envp.envp_chain);
-	// free(shell->cwd);
-	// free(shell->home);
 	sh_ex_free_loop(shell);
 }

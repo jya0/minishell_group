@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 13:38:36 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:01:34 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void			save_mode(void);
 void			set_mode(void);
 void			reset_mode(void);
 void			sh_ex_redirectfile(t_shell_s *shell);
+
 //******* sh_ex_echo.c*****************
 void			sh_ex_displayecho(t_shell_s *shell, t_commands *command);
 void			sh_ex_echoflag(t_shell_s *shell, t_commands *command);
@@ -205,6 +206,7 @@ int				sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir);
 int				sh_ex_exec_cmd(t_shell_s *shell, t_commands *command);
 int				sh_ex_exec(t_shell_s *shell);
 void			sh_ex_testfork(t_shell_s *shell, t_commands *command);
+int				sh_ex_get_exit_code(int status);
 
 //*********extra**************
 void			sh_display(t_commands *command);

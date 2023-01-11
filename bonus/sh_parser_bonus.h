@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:16:45 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 15:15:11 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ enum e_term_type {
 	TT_REDIR_OUT = '>',
 	TT_APPND_IN = '<' * '<',
 	TT_APPND_OUT = '>' * '>',
+	TT_COND_AND = '&' * '&',
+	TT_COND_OR = '|' * '|',
+	TT_BKT_RND_L = '(',
+	TT_BKT_RND_R = ')'
 };
 
 enum e_exit_codes {
