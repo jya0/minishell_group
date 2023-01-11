@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 21:07:25 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 21:46:38 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,9 @@ t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 	sh_ps_lexer_word_print_list(head_word);
 	*lexer_error_code = sh_ps_lexer_check_error(head_word);
 	if (*lexer_error_code != 0)
+	{
+		shell->exit_info.exit_code = *lexer_error_code;
 		return (sh_ps_lexer_word_free_list(head_word), NULL);
+	}
 	return (head_word);
 }

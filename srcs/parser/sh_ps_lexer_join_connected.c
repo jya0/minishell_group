@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_join_connected.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 19:51:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/07 20:38:42 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:41:02 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	sh_ps_lexer_join_connected(t_words	**head_word)
 		if (word->next != NULL && word->next->term_type == TT_JUST_WORD \
 		&& ft_strchr(S_D_QUOTES, \
 		*(word->next->str_start - sizeof(char))) != NULL \
-		&& ft_strchr(DELIM_SPACES, \
-		*(word->next->str_start - sizeof(char) * 2)) == NULL)
+		&& word->term_type == TT_JUST_WORD)
 		{
 			join_str_two_words(word, word->next);
 			word->next = \
