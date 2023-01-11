@@ -95,7 +95,8 @@ int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 	}
 	while (i < (shell->num_commands * 2))
 		close(shell->fd[i++]);
-	shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
+	if (sh_ex_valid_exec(shell, command) == 0)
+		shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
 	free_fd_pid(&shell);
 	sh_ex_exit_all(shell, 0);
 	return (shell->exit_info.exit_code);
