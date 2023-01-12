@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_bindir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 15:50:20 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/11 23:03:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,23 @@ char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 {
 	char	*realpath;
 
-	realpath = path_var_path(shell, cmd);
-	if (realpath != NULL)
-		return (realpath);
-	realpath = relative_path(sh_ex_cwd(), cmd);
-	if (realpath != NULL)
-		return (realpath);
-	realpath = absolute_path(cmd);
-	if (realpath != NULL)
-		return (realpath);
+	if (*cmd == '.')
+	{
+		realpath = relative_path(sh_ex_cwd(), cmd);
+		if (realpath != NULL)
+			return (printf("RELATIVE PATH\n"), realpath);
+	}
+	else if (*cmd == '/')
+	{
+		realpath = absolute_path(cmd);
+		if (realpath != NULL)
+			return (printf("ABSOLUTE PATH\n"), realpath);
+	}
+	else
+	{
+		realpath = path_var_path(shell, cmd);
+		if (realpath != NULL)
+			return (printf("BIN PATH\n"), realpath);
+	}
 	return (NULL);
 }

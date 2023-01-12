@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 22:41:35 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/11 23:23:35 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,40 @@
 	return (0);
 } */
 
+int	shell_atoi(const char *nbr)
+{
+	int		i;
+	int		sign;
+	size_t	result;
+
+	i = 0;
+	sign = 1;
+	result = 0;
+	while ((nbr[i] == ' ') || (nbr[i] == '\f') || (nbr[i] == '\n')
+		|| (nbr[i] == '\r') || (nbr[i] == '\t') || (nbr[i] == '\v'))
+		i++;
+	if ((nbr[i] == '-') || (nbr[i] == '+'))
+	{
+		if (nbr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while ((nbr[i] >= 48) && (nbr[i] <= 57))
+	{
+		result = (result * 10) + ((int )nbr[i] - 48);
+		i++;
+	}
+	return ((int)(result * sign));
+}
+
 int	is_atoi_proper_format(char *arg)
 {
-	int	i;
+	int		i;
+	size_t	cmp;
 
 	if (arg == NULL || *arg == '\0')
-		return (1);
 	i = 0;
+		return (1);
 	while ((arg[i] == ' ') || (arg[i] == '\f') || (arg[i] == '\n')
 		|| (arg[i] == '\r') || (arg[i] == '\t') || (arg[i] == '\v'))
 		i++;
