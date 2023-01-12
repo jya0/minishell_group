@@ -91,7 +91,7 @@ int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
 	if (command->redirs != NULL)
 	{
 		if (sh_ex_check_redirect(shell, command->redirs))
-			return (1);
+			return (ft_putstr_fd("NO SUCH FILE ERROR!\n", STDERR_FILENO), 1);
 	}
 	while (i < (shell->num_commands * 2))
 		close(shell->fd[i++]);

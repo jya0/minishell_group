@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 17:05:13 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/12 17:56:00 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	sh_ex_get_exit_code(int status)
 		}
 	}
 	else if (WIFEXITED(status) != 0)
+	{
 		return (WEXITSTATUS(status));
+	}
 	return (1);
 }
 
@@ -52,7 +54,7 @@ int	sh_ex_simplecmd(t_shell_s *shell, t_commands *command)
 	if (command->redirs != NULL)
 	{
 		if (sh_ex_check_redirect(shell, command->redirs))
-			return (1);
+			return (ft_putstr_fd("NO SUCH FILE ERROR!\n", STDERR_FILENO), 1);
 	}
 	if (command->cmd_argv == NULL)
 		return (0);
@@ -62,10 +64,6 @@ int	sh_ex_simplecmd(t_shell_s *shell, t_commands *command)
 	{
 		signal(SIGQUIT, sh_ex_child_handler);
 		shell->exit_info.exit_code = sh_ex_fork(shell, command);
-	}
-	else
-	{
-		shell->exit_info.exit_code = 1;
 	}
 	return (shell->exit_info.exit_code);
 }

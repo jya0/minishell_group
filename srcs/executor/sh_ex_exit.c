@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/12 14:18:06 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/12 18:04:14 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	shell_atoi(const char *nbr)
 	while (strchr(DELIM_SPACES, nbr[i]) != NULL)
 		i++;
 	i += (nbr[i] == '-' || nbr[i] == '+');
-	sign = 1 - ((nbr[i - 1] == '-') * 2);
+	sign = 1 - ((nbr[i - (1 * (i > 0))] == '-') * 2);
 	result = 0;
 	while (ft_isdigit(nbr[i]) == 1)
 	{
@@ -63,7 +63,7 @@ int	is_atoi_proper_format(char *arg)
 	while (strchr(DELIM_SPACES, arg[i]) != NULL)
 		i++;
 	i += (arg[i] == '-' || arg[i] == '+');
-	nve = arg[i - 1] == '-';
+	nve = arg[i - (1 * (i > 0))] == '-';
 	cmp = 0;
 	while (ft_isdigit(arg[i]) == 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:32:27 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:34:30 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 /*==================DEFINING CONSTANTS======================*/
 
 # define DELIM_SPACES				" \n\t\v\f\r"
-# define DELIM_TERMS_COMBINEABLE	"<>|&$"
-# define DELIM_TERMS_ALL			"<>|&$()'\""
+# define DELIM_TERMS_COMBINEABLE	"<>$"
+# define DELIM_TERMS_ALL			"<>|$'\""
 # define UNDERSCORE					"_"
 # define D_DIGITS					"0123456789"
 # define A_LOWER					"abcdefghijklmnopqrstuvwxyz"
 # define A_UPPER					"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-# define S_D_QUOTES					"\'\""
+# define S_D_QUOTES					"'\""
 
 # define BKT_STK_MAX				2048
 # define HEREDOC_FILE				"/tmp/.heredoc_tmp"
