@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 15:32:15 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:17:14 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <errno.h>
+# include <limits.h>
 
 # include "../libft/libft.h"
 # include "./sh_parser.h"
