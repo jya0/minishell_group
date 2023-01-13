@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 16:31:16 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 17:56:32 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*sh_ex_createprompt(void)
 	char	*cwd;
 
 	cwd = sh_ex_cwd();
+	if (cwd == NULL)
+		cwd = ft_strdup("BASH");
 	color = ft_strdup(GREEN);
 	prompt = ft_strjoin(color, cwd);
 	free(cwd);

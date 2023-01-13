@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_pwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:20:24 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/10 03:10:00 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 17:51:16 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*sh_ex_cwd(void)
 	char	*cwd;
 	char	cwd_str[1024];
 
-	getcwd(cwd_str, sizeof (cwd_str));
+	if (getcwd(cwd_str, sizeof (cwd_str)) == NULL)
+		return (NULL);
 	cwd = ft_strdup(cwd_str);
 	return (cwd);
 }
