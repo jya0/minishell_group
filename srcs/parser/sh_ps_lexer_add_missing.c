@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 22:32:06 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 16:14:44 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** else the target is 
 */
 
-// /*
+/*
 static int	expand_variable(t_shell_s *shell, t_words *word)
 {
 	char	*value;
@@ -39,7 +39,7 @@ static int	expand_variable(t_shell_s *shell, t_words *word)
 	word->term_type = TT_JUST_WORD;
 	return (0);
 }
-// */
+*/
 
 // /*
 static t_words	*get_word_missing_space(\
@@ -99,7 +99,7 @@ t_words *word, enum e_quote_state quote_state)
 		word->term_type = TT_JUST_WORD;
 		if (quote_state != IN_QUOTE_S)
 		{
-			if (expand_variable(shell, word) != 0)
+			if (sh_ps_lexer_expand_variable(shell, word, quote_state) != NULL)
 				return (sh_ps_lexer_word_del_word(head_word, word, FREE_ALL));
 		}
 	}

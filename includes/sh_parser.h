@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/12 18:34:30 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 16:41:01 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,22 +130,29 @@ t_words			*sh_ps_lexer_word_add_after(t_words *word, t_words *new_word);
 t_words			*sh_ps_lexer_word_del_word(\
 t_words **head_word, t_words *word, enum e_free_option flag);
 
+enum e_quote_state {
+	IN_NULL = -1,
+	IN_QUOTE_S = TT_QUOTE_S,
+	IN_QUOTE_D = TT_QUOTE_D
+};
+
 /*===================sh_ps_lexer.c=====================*/
 
 t_words			*sh_ps_lexer(t_shell_s *shell, \
 const char *buf_src, int *lexer_error_code);
+
+/*=================sh_ps_lexer_words_gen.c===================*/
+t_words			*sh_ps_lexer_words_gen(const char *buf_src);
+
+/*==============sh_ps_lexer_expand_variable.c==============*/
+t_words			*sh_ps_lexer_expand_variable(\
+t_shell_s *shell, t_words *word, enum e_quote_state quote_state);
 
 /*===========sh_ps_lexer_check_error.c=============*/
 
 int				sh_ps_lexer_check_error(t_words *head_word);
 
 /*=============sh_ps_lexer_add_missing.c===============*/
-
-enum e_quote_state {
-	IN_NULL = -1,
-	IN_QUOTE_S = TT_QUOTE_S,
-	IN_QUOTE_D = TT_QUOTE_D
-};
 
 int				sh_ps_lexer_add_missing(t_shell_s *shell, t_words **head_word);
 

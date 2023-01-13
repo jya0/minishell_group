@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 00:10:17 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 21:52:16 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 14:52:41 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	sh_ex_is_valid_key(char *key)
 	{
 		if (ft_strchr(\
 		UNDERSCORE D_DIGITS A_LOWER A_UPPER, key[i]) == NULL)
-			return (-1);
+			return (i);
 		i++;
 	}
 	return (0);
