@@ -6,7 +6,7 @@
 #    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/13 22:35:54 by yoyohann         ###   ########.fr        #
+#    Updated: 2023/01/14 00:10:23 by yoyohann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,14 +88,11 @@ re: fclean
 
 # VALGRIND RULES
 # ONLY RUN RULES IN LINUX ENVIRONMENT WITH DOCKER!!
-leak: all
-	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no ./minishell
-
 leakgensup:
 	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --gen-suppressions=all --log-file=minimalraw.log ./minishell
 	touch readline_leak.supp
 
 leakwsup:
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --error-limit=no --suppressions=./readline_leak.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=./readline_leak.supp ./minishell
 	
 .PHONY: all clean fclean re leak
