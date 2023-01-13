@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/12 18:04:14 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 17:10:34 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	sh_ex_exit_all(t_shell_s *shell, int flag)
 	sh_ex_free_all(shell);
 	if (flag == 1)
 		write(1, "exit\n", 5);
-	open(HEREDOC_FILE, O_TRUNC | O_CREAT, 0777);
+	close(open(HEREDOC_FILE, O_TRUNC | O_CREAT, 0777));
 	unlink(HEREDOC_FILE);
 	exit(shell->exit_info.exit_code);
 }

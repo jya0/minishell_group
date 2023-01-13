@@ -12,64 +12,19 @@
 
 #include "../../includes/minishell.h"
 
-/* void	sh_ex_echoarray(t_commands *command)
+static int	check_flag(char *str)
 {
-	int		i;
-	int		len;
-	char	**cmd;
-	char	**echo;
+	int	i;
 
-	len = sh_ex_doublelen(command->cmd_args);
-	cmd = command->cmd_args;
-	if (ft_strcmp(cmd[0], "-n") == 0)
-	{
-		echo = &cmd[1];
-		len--;
-	}
-	else
-		echo = cmd;
 	i = 0;
-	while (echo[i])
+	while (str[i])
 	{
-		ft_putstr_fd(echo[i], 1);
-		if (i < len - 1)
-			ft_putchar_fd(' ', 1);
+		if (str[i] != 'n')
+			return (0);
 		i++;
 	}
+	return (1);
 }
-
-void	sh_ex_echoflag(t_shell_s *shell, t_commands *command)
-{
-	char	**args;
-
-	args = command->cmd_args;
-	if (*args != NULL)
-	{
-		if (ft_strcmp(args[0], "-n") == 0)
-			shell->echoflag = 1;
-	}
-}
-
-void	sh_ex_displayecho(t_shell_s *shell, t_commands *command)
-{
-	sh_ex_echoarray(command);
-	shell->exit_info.exit_code = 0;
-}
-
-int	sh_ex_echo(t_shell_s *shell, t_commands *command)
-{
-	shell->echoflag = 0;
-	if (*(command->cmd_args) != NULL)
-	{
-		sh_ex_echoflag(shell, command);
-		sh_ex_displayecho(shell, command);
-		if (!shell->echoflag)
-			ft_putstr_fd("\n", 1);
-	}
-	else
-		ft_putstr_fd("\n", 1);
-	return (0);
-} */
 
 static void	echo_array(t_shell_s *shell, t_commands *command)
 {
@@ -80,7 +35,8 @@ static void	echo_array(t_shell_s *shell, t_commands *command)
 
 	i = 0;
 	cmd = command->cmd_args;
-	while (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
+	while (cmd[i] && ft_strncmp(cmd[i], "-n", 2) == 0 \
+	&& (check_flag(&cmd[i][1])))
 	{
 		shell->echoflag = 1;
 		i++;
@@ -88,7 +44,6 @@ static void	echo_array(t_shell_s *shell, t_commands *command)
 	echo = &cmd[i];
 	i = 0;
 	len = sh_ex_doublelen(echo);
-	printf("%d\n", len);
 	while (echo[i])
 	{
 		ft_putstr_fd(echo[i], 1);

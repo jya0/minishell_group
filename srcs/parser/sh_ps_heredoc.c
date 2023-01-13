@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:14:02 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/09 21:37:22 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 17:11:01 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	sh_ps_parser_heredoc(t_redirections *redirection)
 		str_stdin = readline("> ");
 		if (str_stdin == NULL || ft_strcmp(str_stdin, delim) == 0)
 		{
+			close(fd);
 			free(str_stdin);
 			break ;
 		}
