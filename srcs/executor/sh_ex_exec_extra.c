@@ -42,44 +42,18 @@ int	sh_ex_valid_exec(t_shell_s *shell, t_commands *command)
 		file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
 	if (file_name == NULL)
 	{
-		shell->exit_info.exit_code = EXT_CMD_NOT_FOUND_ERR;
+		shell->exit_info.exit_code = 1;
+		if (errno == ENOTDIR)
+			shell->exit_info.exit_code = EXT_NOT_DIRECTORY;
+		else if (errno == ENOENT || *(command->cmd_name) == '\0')
+			shell->exit_info.exit_code = EXT_CMD_NOT_FOUND_ERR;
 		ft_putstr_fd(sh_get_error_msg(\
 		shell->exit_info.exit_code), STDERR_FILENO);
-		return (EXT_CMD_NOT_FOUND_ERR);
+		return (shell->exit_info.exit_code);
 	}
 	free(file_name);
 	return (0);
 }
-
-/* int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
-{
-	char	*file_name;
-
-	file_name = NULL;
-	if (command->cmd_name != NULL && *(command->cmd_name) != '\0')
-		file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
-	if (file_name == NULL)
-	{
-		shell->exit_info.exit_code = EXT_CMD_NOT_FOUND_ERR;
-		ft_putstr_fd(sh_get_error_msg(\
-		shell->exit_info.exit_code), STDERR_FILENO);
-		free(file_name);
-		return (EXT_CMD_NOT_FOUND_ERR);
-	}
-	else
-	{
-		if (execve(file_name, command->cmd_argv, \
-		(char **)shell->envp.envp_chain) == -1)
-		{
-			shell->exit_info.exit_code = 126;
-			ft_putstr_fd("CAN'T EXECUTE ERROR!\n", STDERR_FILENO);
-			free(file_name);
-			exit(shell->exit_info.exit_code);
-		}
-	}
-	free(file_name);
-	return (shell->exit_info.exit_code);
-} */
 
 int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 {

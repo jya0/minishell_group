@@ -30,6 +30,45 @@ int	sh_ex_init_pipe_fork(t_shell_s *shell)
 	return (0);
 }
 
+/*use dup to duplicate the read and write end of the pipe*/
+static int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
+{
+	if (command->next)
+	{
+		if (dup2(shell->fd[*index_fd + 1], STDOUT_FILENO) < 0)
+			return (1);
+	}
+	if (*index_fd != 0)
+	{
+		if (dup2(shell->fd[*index_fd - 2], STDIN_FILENO) < 0)
+			return (1);
+	}
+	if (command->redirs != NULL)
+	{
+		if (sh_ex_check_redirect(shell, command->redirs) != 0)
+			return (ft_putstr_fd("NO SUCH FILE ERROR!\n", STDERR_FILENO), 1);
+	}
+	return (0);
+}
+
+static int	in_child_process(\
+t_shell_s *shell, t_commands *command, int *index_fd)
+{
+	int	i;
+
+	if (sh_ex_dup_pipe(shell, command, index_fd) != 0)
+		shell->exit_info.exit_code = 1;
+	i = 0;
+	while (i < (shell->num_commands * 2))
+		close(shell->fd[i++]);
+	if (sh_ex_valid_exec(shell, command) == 0 \
+	&& shell->exit_info.exit_code == 0)
+		shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
+	free_fd_pid(&shell);
+	sh_ex_exit_all(shell, 0);
+	return (shell->exit_info.exit_code);
+}
+
 // initialize the fork
 int	sh_ex_init_fork(t_shell_s *shell)
 {
@@ -50,57 +89,13 @@ int	sh_ex_init_fork(t_shell_s *shell)
 		if (shell->pid[i] == -1)
 			return (1);
 		else if (shell->pid[i] == 0)
-			sh_ex_dup_pipe(shell, cmd, &index_fd);
+			in_child_process(shell, cmd, &index_fd);
 		cmd = cmd->next;
 		index_fd += 2;
 		sh_ex_stdstatus(0);
 		i++;
 	}
 	return (sh_ex_close_fd(shell));
-}
-// use dup to duplicate the read and write end of the pipe
-
-void	free_fd_pid(t_shell_s **shell)
-{
-	if (shell == NULL || *shell == NULL)
-		return ;
-	if ((*shell)->fd != NULL && (*shell)->pid != NULL)
-	{
-		free((*shell)->fd);
-		free((*shell)->pid);
-		(*shell)->fd = NULL;
-		(*shell)->pid = NULL;
-	}
-	sh_ex_stdstatus(0);
-}
-
-int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
-{
-	int	i;
-
-	i = 0;
-	if (command->next)
-	{
-		if (dup2(shell->fd[*index_fd + 1], STDOUT_FILENO) < 0)
-			return (1);
-	}
-	if (*index_fd != 0)
-	{
-		if (dup2(shell->fd[*index_fd - 2], STDIN_FILENO) < 0)
-			return (1);
-	}
-	if (command->redirs != NULL)
-	{
-		if (sh_ex_check_redirect(shell, command->redirs))
-			return (ft_putstr_fd("NO SUCH FILE ERROR!\n", STDERR_FILENO), 1);
-	}
-	while (i < (shell->num_commands * 2))
-		close(shell->fd[i++]);
-	if (sh_ex_valid_exec(shell, command) == 0)
-		shell->exit_info.exit_code = sh_ex_simplecmd_exec(shell, command);
-	free_fd_pid(&shell);
-	sh_ex_exit_all(shell, 0);
-	return (shell->exit_info.exit_code);
 }
 
 int	sh_ex_close_fd(t_shell_s *shell)

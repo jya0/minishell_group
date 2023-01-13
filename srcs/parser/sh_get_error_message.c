@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_get_error_message.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 05:10:41 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/12 18:16:35 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 23:09:11 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ static char	*get_error_exec(enum e_exit_codes exit_code)
 		return ("COMMAND NOT FOUND ERROR!\n");
 	else if (exit_code == EXT_CANT_FORK_ERR)
 		return ("CAN'T FORK ERROR!\n");
-	else if (exit_code == EXT_CD_ERR)
-		return ("CD ERROR!\n");
-	else if (exit_code == EXT_NOT_VALID_KEY_ERR)
-		return ("NOT VALID KEY ERROR!\n");
 	else if (exit_code == EXT_IN_FILE_ERR)
 		return ("IN FILE ERROR!\n");
 	else if (exit_code == EXT_OUT_FILE_ERR)
 		return ("OUT FILE ERROR!\n");
+	else if (exit_code == EXT_NOT_DIRECTORY)
+		return ("NOT DIRECTORY ERROR!\n");
 	return (NULL);
 }
 

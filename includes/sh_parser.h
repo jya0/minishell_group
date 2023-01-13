@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 18:25:21 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/13 23:07:50 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ enum e_exit_codes {
 	EXT_REDIR_ERR,
 	EXT_PIPE_ERR,
 	EXT_SYNTAX_ERR,
+	EXT_NOT_DIRECTORY = 126,
 	EXT_CMD_NOT_FOUND_ERR = 127,
 	EXT_CANT_FORK_ERR,
 	EXT_CD_ERR = 1,
 	EXT_INVALID_KEY_ERR = 1,
-	EXT_NOT_VALID_KEY_ERR,
 	EXT_IN_FILE_ERR,
 	EXT_OUT_FILE_ERR,
 };

@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/13 22:23:51 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/14 00:08:11 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,20 @@ int	is_atoi_proper_format(char *arg)
 	if (arg[i] != '\0')
 		return (1);
 	return (0);
+}
+
+void	free_fd_pid(t_shell_s **shell)
+{
+	if (shell == NULL || *shell == NULL)
+		return ;
+	if ((*shell)->fd != NULL && (*shell)->pid != NULL)
+	{
+		free((*shell)->fd);
+		free((*shell)->pid);
+		(*shell)->fd = NULL;
+		(*shell)->pid = NULL;
+	}
+	sh_ex_stdstatus(0);
 }
 
 int	sh_ex_exit_all(t_shell_s *shell, int flag)

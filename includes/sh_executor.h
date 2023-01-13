@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 18:00:56 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/14 00:08:24 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,13 @@ int				sh_ex_init_pipe_fork(t_shell_s *shell);
 
 int				sh_ex_init_fork(t_shell_s *shell);
 
-int				sh_ex_dup_pipe(\
-t_shell_s *shell, t_commands *command, int *index_fd);
-
 int				sh_ex_close_fd(t_shell_s *shell);
-void			free_fd_pid(t_shell_s **shell);
 
 //******** sh_ex_exit.c ***************
 
 int				sh_ex_exit_all(t_shell_s *shell, int flag);
+
+void			free_fd_pid(t_shell_s **shell);
 
 int				sh_ex_exit(t_shell_s *shell, t_commands *command, int flag);
 

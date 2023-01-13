@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonas <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 09:56:20 by yonas             #+#    #+#             */
-/*   Updated: 2021/10/12 10:04:31 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/13 23:18:52 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlcpy(char *dst, const char *src, unsigned int n)
 {
 	unsigned int	i;
 
+	if (dst == NULL || src == NULL)
+		return (0);
 	i = 0;
 	if (n == 0)
 	{

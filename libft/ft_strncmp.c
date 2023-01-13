@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonas <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 13:21:52 by yonas             #+#    #+#             */
-/*   Updated: 2021/10/12 14:49:48 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/13 23:25:01 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
 {
 	unsigned int	i;
 
+	if (s1 == NULL || s2 == NULL)
+		return (-1);
 	if (n == 0)
 		return (0);
 	i = 0;

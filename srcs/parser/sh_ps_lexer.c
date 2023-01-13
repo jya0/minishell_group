@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 22:27:13 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/13 23:48:15 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void	prune_null_words(t_words **head_word)
 			word = word->next;
 	}
 }
-/* 
-void	sh_ps_lexer_word_print_list(t_words *head_word)
+
+/* void	sh_ps_lexer_word_print_list(t_words *head_word)
 {
 	t_words	*last;
 
