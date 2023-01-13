@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 17:13:18 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 18:00:56 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,6 @@ int				sh_ex_is_valid_key(char *key);
 char			*sh_ex_searchenvvar(t_shell_s *shell, char *key);
 
 int				sh_ex_export(t_shell_s *shell, char **vars);
-
-//******** sh_ex_init_term.c *************
-
-void			sh_ex_set_term_mode(void);
 
 //******* sh_ex_pwd.c *****************
 

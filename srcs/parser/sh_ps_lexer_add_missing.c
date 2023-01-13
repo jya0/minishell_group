@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_add_missing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:12:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 16:14:44 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 22:25:43 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 ** Adds the word at target's location
 ** i.e if the target is the head/tail, the word becomes the new head/tail.
 ** else the target is 
-*/
-
-/*
-static int	expand_variable(t_shell_s *shell, t_words *word)
-{
-	char	*value;
-
-	if (word == NULL)
-		return (0);
-	if (word->str_len <= 1)
-		return (0);
-	if (ft_strcmp(word->str, "$?") != 0)
-		value = ft_strdup(sh_ex_searchenvvar(shell, &((word->str)[1])));
-	else
-		value = ft_itoa(shell->exit_info.exit_code);
-	if (value == NULL)
-		return (-1);
-	free(word->str);
-	word->str = value;
-	word->str_len = ft_strlen(word->str);
-	word->term_type = TT_JUST_WORD;
-	return (0);
-}
 */
 
 // /*
@@ -88,8 +65,7 @@ t_words *word, enum e_quote_state quote_state)
 }
 
 static t_words	*word_term_type_change(\
-t_shell_s *shell, t_words **head_word, \
-t_words *word, enum e_quote_state quote_state)
+t_shell_s *shell, t_words *word, enum e_quote_state quote_state)
 {
 	if (word == NULL \
 	|| (word->term_type == TT_QUOTE_D || word->term_type == TT_QUOTE_S))
@@ -98,10 +74,7 @@ t_words *word, enum e_quote_state quote_state)
 	{
 		word->term_type = TT_JUST_WORD;
 		if (quote_state != IN_QUOTE_S)
-		{
-			if (sh_ps_lexer_expand_variable(shell, word, quote_state) != NULL)
-				return (sh_ps_lexer_word_del_word(head_word, word, FREE_ALL));
-		}
+			sh_ps_lexer_expand_variable(shell, word, quote_state);
 	}
 	else if (quote_state != IN_NULL)
 		word->term_type = TT_JUST_WORD;
@@ -131,7 +104,7 @@ int	sh_ps_lexer_add_missing(t_shell_s *shell, t_words **head_word)
 			word->str_start + word->str_len * sizeof(char), \
 			word->next));
 		}
-		word = word_term_type_change(shell, head_word, word, quote_state);
+		word = word_term_type_change(shell, word, quote_state);
 	}
 	if (quote_state != IN_NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 16:41:01 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 18:25:21 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ enum e_exit_codes {
 typedef struct s_words {
 	char				*str;
 	const char			*str_start;
+	const char			*str_end;
 	size_t				str_len;
 	enum e_term_type	term_type;
 	struct s_words		*next;
@@ -182,12 +183,6 @@ t_commands		*sh_ps_parser_commands(t_words	*head_word);
 
 int				sh_ps_parser_get_redirs(\
 t_commands *command, t_words **head_word);
-
-int				sh_ps_parser_get_cmd_name(\
-t_commands *command, t_words **head_word, t_words	**word);
-
-int				sh_ps_parser_get_cmd_args(\
-t_commands *command, t_words **head_word, t_words **word);
 
 int				sh_ps_parser_get_cmd_argv(\
 t_commands *command, t_words **head_word);

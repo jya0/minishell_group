@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/13 17:56:32 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/13 22:25:53 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	main(int argc, char **argv, char **envp)
 				sh_ex_exec(&g_shell);
 		}
 		sh_ex_free_loop(&g_shell);
+		unlink(HEREDOC_FILE);
 	}
 	return (0);
 }

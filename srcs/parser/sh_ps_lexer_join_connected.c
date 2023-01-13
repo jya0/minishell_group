@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_join_connected.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 19:51:23 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 21:50:25 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 22:27:57 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_words	*join_str_two_words(t_words *first_word, t_words *second_word)
 	if (new_str == NULL)
 		return (NULL);
 	free(first_word->str);
+	first_word->str_end = second_word->str_end;
 	first_word->str = new_str;
 	first_word->str_len = ft_strlen(new_str);
 	return (second_word);
@@ -50,12 +51,9 @@ int	sh_ps_lexer_join_connected(t_words	**head_word)
 	word = *head_word;
 	while (word != NULL)
 	{
-		if (word->next != NULL && word->next->term_type == TT_JUST_WORD \
-		&& ft_strchr(S_D_QUOTES, \
-		*(word->next->str_start - sizeof(char))) != NULL \
-		&& ft_strchr(DELIM_SPACES, \
-		*(word->next->str_start - sizeof(char) * 2)) == NULL \
-		&& word->term_type == TT_JUST_WORD)
+		if (word->term_type == TT_JUST_WORD \
+		&& word->next != NULL && word->next->term_type == TT_JUST_WORD \
+		&& (word->next->str_start - sizeof(char) == word->str_end))
 		{
 			join_str_two_words(word, word->next);
 			word->next = \

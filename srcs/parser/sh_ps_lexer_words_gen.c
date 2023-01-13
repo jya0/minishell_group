@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_words_gen.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:30:33 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 16:40:29 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 22:29:07 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,13 @@ static t_words	*get_next_word(const char *buf_src)
 		buf_stored = buf_src;
 	start = forward_while_char_set(buf_stored, DELIM_SPACES, 0);
 	if (buf_stored[start] == '\0')
-	{
-		buf_stored = NULL;
 		return (NULL);
-	}
 	end = start + forward_while_char_set(\
 	&buf_stored[start], DELIM_SPACES DELIM_TERMS_ALL, -1);
 	word = make_word(buf_stored, start, &end);
 	word->term_type = get_term_type(word);
 	word->str_start = &(buf_stored[start]);
+	word->str_end = word->str_start + word->str_len - 1;
 	if (buf_stored[end] == '\0')
 		buf_stored = NULL;
 	else

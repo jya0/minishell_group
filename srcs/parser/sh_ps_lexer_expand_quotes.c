@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer_expand_quotes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:14:04 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/11 21:25:03 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 22:27:27 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	copy_words_to_new_string(t_words *new_word, t_words *start)
 		i += start->str_len;
 		start = start->next;
 	}
+	new_word->str_end = start->str_start;
 }
 
 static t_words	*get_word_from_quote(t_words *start)
@@ -65,7 +66,7 @@ static t_words	*get_word_from_quote(t_words *start)
 		return (NULL);
 	}
 	copy_words_to_new_string(word, start);
-	word->str_start = start->str_start;
+	word->str_start = start->prev->str_start;
 	word->term_type = TT_JUST_WORD;
 	return (word);
 }

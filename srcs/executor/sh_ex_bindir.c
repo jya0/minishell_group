@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_bindir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 23:03:55 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/13 18:02:52 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,19 @@ char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 	{
 		realpath = relative_path(sh_ex_cwd(), cmd);
 		if (realpath != NULL)
-			return (printf("RELATIVE PATH\n"), realpath);
+			return (realpath);
 	}
 	else if (*cmd == '/')
 	{
 		realpath = absolute_path(cmd);
 		if (realpath != NULL)
-			return (printf("ABSOLUTE PATH\n"), realpath);
+			return (realpath);
 	}
 	else
 	{
 		realpath = path_var_path(shell, cmd);
 		if (realpath != NULL)
-			return (printf("BIN PATH\n"), realpath);
+			return (realpath);
 	}
 	return (NULL);
 }
