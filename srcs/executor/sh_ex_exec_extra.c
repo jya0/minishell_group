@@ -28,6 +28,10 @@ void	sh_ex_stdstatus(int status)
 	{
 		dup2(fdin, STDIN_FILENO);
 		dup2(fdout, STDOUT_FILENO);
+		// dup2(STDIN_FILENO, fdin);
+		// dup2(STDOUT_FILENO, fdout);
+		close(fdin);
+		close(fdout);
 	}
 }
 

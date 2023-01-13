@@ -71,6 +71,7 @@ void	free_fd_pid(t_shell_s **shell)
 		(*shell)->fd = NULL;
 		(*shell)->pid = NULL;
 	}
+	sh_ex_stdstatus(0);
 }
 
 int	sh_ex_dup_pipe(t_shell_s *shell, t_commands *command, int *index_fd)
