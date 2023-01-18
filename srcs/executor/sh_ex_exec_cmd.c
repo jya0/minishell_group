@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:56:28 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/12 17:56:00 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/18 15:44:08 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	sh_ex_get_exit_code(int status)
 {
+	int	val;
+
+	val = 0;
 	if (WIFSIGNALED(status) != 0)
 	{
-		if (WTERMSIG(status) == SIGINT)
-			return (130);
-		else if (WTERMSIG(status) == SIGQUIT)
-		{
+		val = WTERMSIG(status);
+		if (val == SIGQUIT)
 			ft_putstr_fd("CHILD QUITED!\n", STDERR_FILENO);
-			return (131);
-		}
+		return (128 + val);
 	}
 	else if (WIFEXITED(status) != 0)
 	{

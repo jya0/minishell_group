@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:29:22 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 15:31:07 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:45:39 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 /*==================DEFINING CONSTANTS======================*/
 
 # define DELIM_SPACES				" \n\t\v\f\r"
-# define DELIM_TERMS_COMBINEABLE	"<>|&$"
-# define DELIM_TERMS_ALL			"<>|&$()'\""
+# define DELIM_COMB	"<>|&$"
+# define DELIM_ALL			"<>|&$()'\""
 # define UNDERSCORE					"_"
 # define D_DIGITS					"0123456789"
 # define A_LOWER					"abcdefghijklmnopqrstuvwxyz"

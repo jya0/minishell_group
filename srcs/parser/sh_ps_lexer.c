@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:37:03 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 23:48:15 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:23:23 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	prune_null_words(t_words **head_word)
 	}
 }
 
-/* void	sh_ps_lexer_word_print_list(t_words *head_word)
+/* // void	sh_ps_lexer_word_print_list(t_words *head_word)
 {
 	t_words	*last;
 
@@ -117,13 +117,19 @@ t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 	t_words				*head_word;
 
 	head_word = sh_ps_lexer_words_gen(buf_src);
+	// sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_heredoc_mark_variable(head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	*lexer_error_code = sh_ps_lexer_add_missing(shell, &head_word);
 	if (*lexer_error_code != 0)
 		return (sh_ps_lexer_word_free_list(head_word), NULL);
+	// sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_expand_quotes(&head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	sh_ps_lexer_join_connected(&head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	prune_null_words(&head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	*lexer_error_code = sh_ps_lexer_check_error(head_word);
 	if (*lexer_error_code != 0)
 	{
@@ -131,5 +137,6 @@ t_shell_s *shell, const char *buf_src, int *lexer_error_code)
 		return (sh_ps_lexer_word_free_list(head_word), NULL);
 	}
 	split_head_word(&head_word);
+	// sh_ps_lexer_word_print_list(head_word);
 	return (head_word);
 }

@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 00:10:17 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 14:52:41 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/18 19:33:01 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	sh_ex_is_valid_key(char *key)
 	if (key == NULL)
 		return (-1);
 	i = 0;
-	if (key[i] == '\0')
+	if (key[i] == '\0' || ft_isdigit(key[i]) == 1)
 		return (-1);
 	while (key[i] != '\0')
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 18:14:02 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 17:11:01 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:34:53 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	sh_ps_lexer_heredoc_mark_variable(t_words *head_word)
 	t_words	*word;
 	int		marker;
 
+	signal(SIGINT, SIG_DFL);
 	if (head_word == NULL)
 		return (0);
 	marker = 0;

@@ -28,8 +28,8 @@ void	sh_ex_stdstatus(int status)
 	{
 		dup2(fdin, STDIN_FILENO);
 		dup2(fdout, STDOUT_FILENO);
-		close(fdin);
-		close(fdout);
+		// close(fdin);
+		// close(fdout);
 	}
 }
 
@@ -38,6 +38,8 @@ int	sh_ex_valid_exec(t_shell_s *shell, t_commands *command)
 	char	*file_name;
 
 	file_name = NULL;
+	if (command->cmd_name == NULL)
+		return (0);
 	if (command->cmd_name != NULL && *(command->cmd_name) != '\0')
 		file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
 	if (file_name == NULL)
@@ -59,6 +61,8 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 {
 	char	*file_name;
 
+	if (command->cmd_name == NULL)
+		return (0);
 	file_name = sh_ex_bindir(shell, command->cmd_name);
 	if (execve(file_name, command->cmd_argv, \
 	(char **)shell->envp.envp_chain) == -1)
