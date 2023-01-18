@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/18 21:17:58 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/18 22:54:37 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,22 @@ static char	*relative_path(char *cwd, char *path)
 ** for consistency with the previous realpath if conditions
 ** it's necessary to malloc here.
 */
-static char	*absolute_path(char *absolute_path)
+/* static char	*absolute_path(char *absolute_path)
 {
 	if (absolute_path == NULL)
 		return (NULL);
 	if (access(absolute_path, F_OK) == 0)
+		return (ft_strdup(absolute_path));
+	return (NULL);
+} */
+
+static char	*absolute_path(char *absolute_path)
+{
+	struct stat	file_stat;
+
+	if (absolute_path == NULL)
+		return (NULL);
+	if (stat(absolute_path, &file_stat) == 0)
 		return (ft_strdup(absolute_path));
 	return (NULL);
 }
@@ -122,7 +133,7 @@ char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 		realpath = path_var_path(shell, cmd);
 		if (realpath != NULL)
 			return (realpath);
-		printf("hey!\n");
 	}
+	perror(NULL);
 	return (NULL);
 }

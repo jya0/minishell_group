@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/12 13:17:14 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/18 22:47:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <errno.h>
 # include <limits.h>
+# include <sys/stat.h>
 
 # include "../libft/libft.h"
 # include "./sh_parser.h"

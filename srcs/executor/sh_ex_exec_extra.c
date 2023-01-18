@@ -79,9 +79,10 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 	(char **)shell->envp.envp_chain) == -1)
 	{
 		shell->exit_info.exit_code = 126;
-		ft_putstr_fd("CAN'T EXECUTE ERROR!\n", STDERR_FILENO);
+		// ft_putstr_fd("CAN'T EXECUTE ERROR!\n", STDERR_FILENO);
+		perror(NULL);
 		free(file_name);
-		exit(shell->exit_info.exit_code);
+		sh_ex_exit_all(shell, 0);
 	}
 	free(file_name);
 	return (shell->exit_info.exit_code);
