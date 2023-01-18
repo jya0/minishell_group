@@ -28,8 +28,8 @@ void	sh_ex_stdstatus(int status)
 	{
 		dup2(fdin, STDIN_FILENO);
 		dup2(fdout, STDOUT_FILENO);
-		// close(fdin);
-		// close(fdout);
+		close(fdin);
+		close(fdout);
 	}
 }
 
@@ -64,6 +64,17 @@ int	sh_ex_exec_cmd(t_shell_s *shell, t_commands *command)
 	if (command->cmd_name == NULL)
 		return (0);
 	file_name = sh_ex_bindir(shell, command->cmd_name);
+	if (file_name == NULL)
+	{
+		shell->exit_info.exit_code = 1;
+		if (errno == ENOTDIR)
+			shell->exit_info.exit_code = EXT_NOT_DIRECTORY;
+		else if (errno == ENOENT || *(command->cmd_name) == '\0')
+			shell->exit_info.exit_code = EXT_CMD_NOT_FOUND_ERR;
+		ft_putstr_fd(sh_get_error_msg(\
+		shell->exit_info.exit_code), STDERR_FILENO);
+		return (shell->exit_info.exit_code);
+	}
 	if (execve(file_name, command->cmd_argv, \
 	(char **)shell->envp.envp_chain) == -1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_bindir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:53:55 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/13 23:35:16 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/18 21:17:58 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,12 @@ char	*sh_ex_bindir(t_shell_s *shell, char *cmd)
 		if (realpath != NULL)
 			return (realpath);
 	}
-	else
+	else if (*cmd != '\0')
 	{
 		realpath = path_var_path(shell, cmd);
 		if (realpath != NULL)
 			return (realpath);
+		printf("hey!\n");
 	}
 	return (NULL);
 }

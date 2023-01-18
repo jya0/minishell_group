@@ -6,7 +6,7 @@
 /*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/11 22:39:49 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/18 20:54:02 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static void	calling_system_cd(t_shell_s *shell, char *dir_path)
 	else
 	{
 		shell->exit_info.exit_code = EXT_CD_ERR;
-		ft_putstr_fd(\
-		sh_get_error_msg(shell->exit_info.exit_code), STDERR_FILENO);
+		perror(NULL);
 	}
 }
 
