@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/23 07:32:20 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/23 22:50:29 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,6 @@ void			sh_ex_free_all(t_shell_s *shell);
 char			*path_var_path(t_shell_s *shell, char *cmd);
 
 int				file_stat_checks(char *path);
-
-char			**dir_path(t_shell_s *shell);
 
 void			display_all(t_shell_s *shell);
 

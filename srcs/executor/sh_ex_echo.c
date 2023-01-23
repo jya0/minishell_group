@@ -66,12 +66,3 @@ int	sh_ex_echo(t_shell_s *shell, t_commands *command)
 		ft_putstr_fd("\n", 1);
 	return (0);
 }
-
-void	display_all(t_shell_s *shell)
-{
-	while (shell->head_command)
-	{
-		printf("%s\n", shell->head_command->cmd_name);
-		shell->head_command = shell->head_command->next;
-	}
-}

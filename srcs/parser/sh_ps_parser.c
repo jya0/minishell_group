@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 15:10:46 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/19 03:07:33 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/24 01:04:03 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 {
 	while (head_command != NULL)
 	{
-		printf("command = %s\n", head_command->cmd_name);
+		printf("command = |%s|\n", head_command->cmd_name);
 		head_command = head_command->next;
 	}
 } */

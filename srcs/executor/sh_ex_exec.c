@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:37:34 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/23 07:40:30 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/24 00:01:56 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	sh_ex_valid_exec(t_shell_s *shell, t_commands *command)
 		return (0);
 	if (sh_ex_isbuiltin(command))
 		file_name = ft_strdup(command->cmd_argv[0]);
-	else if (command->cmd_name != NULL && *(command->cmd_name) != '\0')
+	else if (command->cmd_name != NULL)
 			file_name = sh_ex_bindir(shell, command->cmd_argv[0]);
 	if (file_name == NULL)
 	{

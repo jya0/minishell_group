@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 00:10:17 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/23 21:18:25 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 04:33:07 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	sh_ex_is_valid_key(char *key)
 	{
 		if (ft_strchr(\
 		UNDERSCORE D_DIGITS A_LOWER A_UPPER, key[i]) == NULL)
-			return (i - i == 0);
+			return (i);
 		i++;
 	}
 	return (0);

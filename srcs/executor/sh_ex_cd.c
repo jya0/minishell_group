@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/23 20:49:23 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 21:45:01 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-** Cd needs to overwrite the
-**
-*/
 
 static void	change_env_var(t_shell_s *shell, char *key, char *value)
 {
@@ -62,7 +57,6 @@ static void	change_old_pwd(t_shell_s *shell)
 
 static void	calling_system_cd(t_shell_s *shell, char *dir_path)
 {
-	shell->exit_info.exit_code = 0;
 	if (*dir_path == '\0')
 		return ;
 	if (chdir(dir_path) == 0)
@@ -78,6 +72,7 @@ int	sh_ex_cd(t_shell_s *shell, t_commands *command)
 {
 	char	*home_dir;
 
+	shell->exit_info.exit_code = 0;
 	change_old_pwd(shell);
 	if (*(command->cmd_args) != NULL)
 		calling_system_cd(shell, command->cmd_args[0]);

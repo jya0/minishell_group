@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/23 08:24:27 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/23 22:36:45 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct t_shell_s
 	char			error_file;
 	char			*file_name;
 	int				echoflag;
-	int				check;
 	int				num_commands;
 	int				num_pipes;
 	int				fdin;
