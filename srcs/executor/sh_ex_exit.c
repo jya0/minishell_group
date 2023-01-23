@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/20 02:15:28 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:52:55 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	sh_ex_exit_all(t_shell_s *shell, int flag)
 	free_fd_pid(&shell);
 	sh_ex_free_all(shell);
 	if (flag == 1)
-		write(1, "exit\n", 5);
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 	exit(shell->exit_info.exit_code);
 }
 
@@ -121,7 +121,7 @@ int	sh_ex_exit(t_shell_s *shell, t_commands *command, int flag)
 	}
 	else if (len > 1)
 	{
-		write(1, "exit\n", 5);
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
 		shell->exit_info.exit_code = 1;
 	}
