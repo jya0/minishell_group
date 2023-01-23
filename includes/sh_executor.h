@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:31:30 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/14 00:08:24 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/23 07:32:20 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ void			sh_ex_envp_init(t_shell_s *shell, char **envp);
 
 char			**sh_ex_get_envp_chain(t_shell_s *shell);
 
-//******** sh_ex_exec_cmd.c *************
+//******** sh_ex_exec_command.c *************
 
 int				sh_ex_get_exit_code(int status);
 
-int				sh_ex_simplecmd(t_shell_s *shell, t_commands *command);
+int				sh_ex_run_simple_cmd(t_shell_s *shell, t_commands *command);
 
-int				sh_ex_simplecmd_exec(t_shell_s *shell, t_commands *command);
-
-int				sh_ex_exec(t_shell_s *shell);
+int				sh_ex_begin_exec(t_shell_s *shell);
 
 //********** sh_ex_exec_extra.c ***********
 
@@ -77,11 +75,9 @@ void			sh_ex_stdstatus(int status);
 
 int				sh_ex_valid_exec(t_shell_s *shell, t_commands *command);
 
-int				sh_ex_exec_cmd(t_shell_s *shell, t_commands *command);
+int				sh_ex_exec_command(t_shell_s *shell, t_commands *command);
 
 //***********sh_ex_exec_utils.c**********
-
-int				sh_ex_init_pipe_fork(t_shell_s *shell);
 
 int				sh_ex_init_fork(t_shell_s *shell);
 
@@ -146,5 +142,15 @@ void			sh_ex_free_loop(t_shell_s *shell);
 void			sh_ex_free_vars(t_var_s *vars);
 
 void			sh_ex_free_all(t_shell_s *shell);
+
+//********* sh_ex_check_path.c **************
+
+char			*path_var_path(t_shell_s *shell, char *cmd);
+
+int				file_stat_checks(char *path);
+
+char			**dir_path(t_shell_s *shell);
+
+void			display_all(t_shell_s *shell);
 
 #endif

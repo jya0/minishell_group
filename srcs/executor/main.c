@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 04:23:36 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/18 18:04:30 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 02:23:48 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(g_shell.cmd_line);
 			g_shell.head_command = sh_ps_parser(&g_shell, g_shell.cmd_line);
 			if (g_shell.head_command != NULL)
-				sh_ex_exec(&g_shell);
+				sh_ex_begin_exec(&g_shell);
 		}
 		sh_ex_free_loop(&g_shell);
 		unlink(HEREDOC_FILE);

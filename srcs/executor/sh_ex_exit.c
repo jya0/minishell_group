@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 02:51:59 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/14 00:08:11 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/20 02:15:28 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	sh_ex_exit(t_shell_s *shell, t_commands *command, int flag)
 	else if (is_atoi_proper_format(command->cmd_args[0]) != 0)
 	{
 		shell->exit_info.exit_code = 255;
-		ft_putstr_fd("NUMERIC ARGUMENT EXIT ERROR\n", STDERR_FILENO);
+		ft_putstr_fd(" numeric argument required\n", STDERR_FILENO);
 		sh_ex_exit_all(shell, 0);
 	}
 	else if (len == 1)
@@ -122,7 +122,7 @@ int	sh_ex_exit(t_shell_s *shell, t_commands *command, int flag)
 	else if (len > 1)
 	{
 		write(1, "exit\n", 5);
-		ft_putstr_fd("TOO MANY ARGUMENT EXIT ERROR\n", STDERR_FILENO);
+		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
 		shell->exit_info.exit_code = 1;
 	}
 	return (shell->exit_info.exit_code);

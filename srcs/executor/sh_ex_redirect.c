@@ -42,6 +42,8 @@ static	int	redir_stdin(t_redirections *redir, int *fd)
 
 int	sh_ex_check_redirect(t_shell_s *shell, t_redirections *redir)
 {
+	if (redir->redir_file == NULL)
+		return (1);
 	while (redir != NULL)
 	{
 		if (redir->redir_term_type == TT_REDIR_OUT \

@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 05:10:41 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/13 23:09:11 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/20 08:05:34 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*get_error_exec(enum e_exit_codes exit_code)
 	else if (exit_code == EXT_HEREDOC_ERR)
 		return ("CAN'T CREATE " HEREDOC_FILE " FILE FOR HEREDOC ERROR!\n");
 	else if (exit_code == EXT_CMD_NOT_FOUND_ERR)
-		return ("COMMAND NOT FOUND ERROR!\n");
+		return (" command not found\n");
 	else if (exit_code == EXT_CANT_FORK_ERR)
 		return ("CAN'T FORK ERROR!\n");
 	else if (exit_code == EXT_IN_FILE_ERR)
@@ -41,6 +41,8 @@ static char	*get_error_exec(enum e_exit_codes exit_code)
 		return ("OUT FILE ERROR!\n");
 	else if (exit_code == EXT_NOT_DIRECTORY)
 		return ("NOT DIRECTORY ERROR!\n");
+	else if (exit_code == EXT_EISDIR)
+		return ("is DIRECTORY ERROR!\n");
 	return (NULL);
 }
 

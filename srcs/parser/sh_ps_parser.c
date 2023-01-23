@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ps_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 15:10:46 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/18 22:43:57 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/19 03:07:33 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ t_commands	*sh_ps_parser(t_shell_s *shell, char *buf_src)
 	head_command = sh_ps_parser_commands(head_word);
 	if (head_command == NULL)
 		sh_ps_lexer_word_free_list(head_word);
-	// print_cmd_list(head_command);
 	return (head_command);
 }

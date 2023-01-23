@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 08:26:01 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/18 20:54:02 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 00:19:45 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	calling_system_cd(t_shell_s *shell, char *dir_path)
 	else
 	{
 		shell->exit_info.exit_code = EXT_CD_ERR;
-		perror(NULL);
+		perror(" ");
 	}
 }
 

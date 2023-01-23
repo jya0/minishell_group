@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:33:05 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/18 22:47:55 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 08:24:27 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,6 @@ typedef struct s_exit_info {
 	int				exit_code;
 }	t_exit_info;
 
-//******* struct for terminal
-typedef struct s_terminal {
-	pid_t				shell_pgid;
-	struct termios		shell_tmodes;
-	struct termios		old_term;
-	struct termios		new_term;
-	int					shell_terminal;
-	int					shell_is_interactive;
-}	t_terminal;
-
 typedef struct t_shell_s
 {
 	int				*fd;
@@ -79,6 +69,7 @@ typedef struct t_shell_s
 	char			error_file;
 	char			*file_name;
 	int				echoflag;
+	int				check;
 	int				num_commands;
 	int				num_pipes;
 	int				fdin;
@@ -86,7 +77,6 @@ typedef struct t_shell_s
 	char			*cmd_line;
 	t_commands		*head_command;
 	t_exit_info		exit_info;
-	t_terminal		mini_terminal;
 	struct t_env_s	envp;
 }	t_shell_s;
 

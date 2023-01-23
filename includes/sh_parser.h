@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:08:26 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/18 19:08:01 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/20 06:59:17 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ enum e_exit_codes {
 	EXT_INVALID_KEY_ERR = 1,
 	EXT_IN_FILE_ERR,
 	EXT_OUT_FILE_ERR,
+	EXT_EACCESS = 13,
+	EXT_EISDIR = 21,
 };
 
 /*==================SECTION FOR TOKENIZING===============*/

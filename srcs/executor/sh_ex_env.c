@@ -6,7 +6,7 @@
 /*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 22:47:27 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/07 21:18:17 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:32:52 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	sh_ex_view_env(t_shell_s *shell)
 	{
 		if (shell->envp.vars[i].val != NULL)
 		{
-			printf(WHITE"%s=%s\n", \
-			shell->envp.vars[i].key, shell->envp.vars[i].val);
+			ft_putstr_fd(shell->envp.vars[i].key, STDOUT_FILENO);
+			ft_putstr_fd("=", STDOUT_FILENO);
+			ft_putstr_fd(shell->envp.vars[i].val, STDOUT_FILENO);
+			ft_putstr_fd("\n", STDOUT_FILENO);
 		}
 		i++;
 	}

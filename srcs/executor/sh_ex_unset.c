@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 03:14:14 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/18 20:25:30 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/20 02:18:47 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	sh_ex_del_one_var(t_shell_s *shell, char *key)
 	if (sh_ex_is_valid_key(key) != 0)
 	{
 		shell->exit_info.exit_code = EXT_INVALID_KEY_ERR;
-		return (ft_putstr_fd("INVALID KEY ERROR\n", STDERR_FILENO));
+		return (ft_putstr_fd(" not a valid identifier\n", STDERR_FILENO));
 	}
 	index = sh_ex_find_key_index(shell->envp.vars, key);
 	if (index >= 0)

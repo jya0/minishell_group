@@ -6,7 +6,7 @@
 #    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/14 00:10:23 by yoyohann         ###   ########.fr        #
+#    Updated: 2023/01/23 04:32:18 by yoyohann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,12 @@ SRCSDIR := ./srcs/
 EXECDIR_NAME := executor/
 PARSDIR_NAME := parser/
 FILES =	$(EXECDIR_NAME)main \
-	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_bindir	\
+	$(EXECDIR_NAME)sh_ex_builtin		$(EXECDIR_NAME)sh_ex_check_path	 	$(EXECDIR_NAME)sh_ex_join_path\
 	$(EXECDIR_NAME)sh_ex_signal			$(EXECDIR_NAME)sh_ex_utils	\
 	$(EXECDIR_NAME)sh_ex_envp_init		$(EXECDIR_NAME)sh_ex_export_add		$(EXECDIR_NAME)sh_ex_export_var	\
-	$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset			$(EXECDIR_NAME)sh_ex_exec_cmd	\
-	$(EXECDIR_NAME)sh_ex_env			$(EXECDIR_NAME)sh_ex_exec_extra		$(EXECDIR_NAME)sh_ex_exec_utils	\
+	$(EXECDIR_NAME)sh_ex_echo			$(EXECDIR_NAME)sh_ex_unset			$(EXECDIR_NAME)sh_ex_exec	\
+	$(EXECDIR_NAME)sh_ex_exec_fd		$(EXECDIR_NAME)sh_ex_exec_close	\
+	$(EXECDIR_NAME)sh_ex_env			$(EXECDIR_NAME)sh_ex_exec_one		$(EXECDIR_NAME)sh_ex_exec_many	\
 	$(EXECDIR_NAME)sh_ex_cd				$(EXECDIR_NAME)sh_ex_export			$(EXECDIR_NAME)sh_ex_pwd	\
 	$(EXECDIR_NAME)sh_ex_exit			$(EXECDIR_NAME)sh_ex_redirect	\
 	$(PARSDIR_NAME)sh_ps_parser_cmds	$(PARSDIR_NAME)sh_ps_parser_cmds_getters	\
@@ -93,6 +94,7 @@ leakgensup:
 	touch readline_leak.supp
 
 leakwsup:
-	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=./readline_leak.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --error-limit=no --suppressions=./readline_leak.supp ./minishell
+#	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=./readline_leak.supp ./minishell
 	
 .PHONY: all clean fclean re leak

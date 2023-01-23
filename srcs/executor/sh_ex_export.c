@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:30:00 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/10 03:07:47 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 04:31:22 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,12 @@ static t_var_s	*sort_vars(t_shell_s *shell, t_var_s *vars)
 	return (vars);
 }
 
-char	*sh_ex_searchenvvar(t_shell_s *shell, char *key)
+static	void	display_value(char *value)
 {
-	size_t	i;
-
-	i = 0;
-	while (shell->envp.vars[i].key != NULL)
-	{
-		if (ft_strcmp(shell->envp.vars[i].key, key) == 0)
-			return (shell->envp.vars[i].val);
-		i++;
-	}
-	return (NULL);
+	ft_putstr_fd("=", STDOUT_FILENO);
+	ft_putchar_fd('"', STDOUT_FILENO);
+	ft_putstr_fd(value, STDOUT_FILENO);
+	ft_putchar_fd('"', STDOUT_FILENO);
 }
 
 static int	export_display(t_shell_s *shell)
@@ -74,11 +68,12 @@ static int	export_display(t_shell_s *shell)
 	i = 0;
 	while (tmp_vars[i].key != NULL)
 	{
-		printf("declare -x %s", tmp_vars[i].key);
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(tmp_vars[i].key, STDOUT_FILENO);
 		val = sh_ex_searchenvvar(shell, tmp_vars[i].key);
 		if (val != NULL)
-			printf("=\"%s\"", val);
-		printf("\n");
+			display_value(val);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 	free(tmp_vars);

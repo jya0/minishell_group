@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 00:10:17 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/18 19:33:01 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 04:33:07 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,18 @@ int	sh_ex_is_valid_key(char *key)
 		i++;
 	}
 	return (0);
+}
+
+char	*sh_ex_searchenvvar(t_shell_s *shell, char *key)
+{
+	size_t	i;
+
+	i = 0;
+	while (shell->envp.vars[i].key != NULL)
+	{
+		if (ft_strcmp(shell->envp.vars[i].key, key) == 0)
+			return (shell->envp.vars[i].val);
+		i++;
+	}
+	return (NULL);
 }

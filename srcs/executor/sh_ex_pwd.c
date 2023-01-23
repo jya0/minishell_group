@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_pwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:20:24 by yoyohann          #+#    #+#             */
-/*   Updated: 2023/01/18 20:17:33 by jyao             ###   ########.fr       */
+/*   Updated: 2023/01/23 00:45:10 by yoyohann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	sh_ex_showpwd(void)
 	else
 	{
 		g_shell.exit_info.exit_code = 0;
-		tmp = ft_strjoin(WHITE, dir);
+		tmp = ft_strjoin(NULL, dir);
 		free(dir);
-		ft_putstr_fd(tmp, STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putstr_fd(tmp, 1);
+		ft_putchar_fd('\n', 1);
 		free(tmp);
 	}
 	return (g_shell.exit_info.exit_code);
