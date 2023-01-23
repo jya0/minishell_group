@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_ex_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 19:30:00 by jyao              #+#    #+#             */
-/*   Updated: 2023/01/23 04:31:22 by yoyohann         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:45:03 by jyao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,17 @@ static t_var_s	*sort_vars(t_shell_s *shell, t_var_s *vars)
 
 static	void	display_value(char *value)
 {
+	size_t	i;
+
 	ft_putstr_fd("=", STDOUT_FILENO);
 	ft_putchar_fd('"', STDOUT_FILENO);
-	ft_putstr_fd(value, STDOUT_FILENO);
+	i = 0;
+	while (value[i] != '\0')
+	{
+		if (ft_strchr("\"$", value[i]) != NULL)
+			ft_putchar_fd('\\', STDOUT_FILENO);
+		ft_putchar_fd(value[i++], STDOUT_FILENO);
+	}
 	ft_putchar_fd('"', STDOUT_FILENO);
 }
 
