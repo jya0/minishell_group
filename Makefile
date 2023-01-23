@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jyao <jyao@student.42.fr>                  +#+  +:+       +#+         #
+#    By: yoyohann <yoyohann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 13:52:30 by jyao              #+#    #+#              #
-#    Updated: 2023/01/23 17:58:40 by jyao             ###   ########.fr        #
+#    Updated: 2023/01/24 01:09:47 by yoyohann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,8 @@ leakgensup:
 	touch readline_leak.supp
 
 leakwsup:
-	# valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --error-limit=no --suppressions=./readline_leak.supp ./minishell
-# valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=./readline_leak.supp ./minishell
-	
+#	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --error-limit=no --suppressions=./readline_leak.supp ./minishell
+#	valgrind --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=./readline_leak.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --error-limit=no --suppressions=./readline_leak.supp ./minishell
+
 .PHONY: all clean fclean re leak
